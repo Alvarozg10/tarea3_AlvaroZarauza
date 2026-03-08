@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.AdminController">
+
+    <Label text="Panel de Administración"
+           style="-fx-font-size:20px; -fx-font-weight:bold;"/>
+
+    <Button text="Registrar Persona"
+            onAction="#registrarPersona"/>
+
+    <Button text="Gestionar Personas"/>
+
+    <Button text="Cerrar sesión"/>
+
+</VBox>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.LoginController">
+
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+    <Label text="Sistema de Gestión del Circo"
+           style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+
+        <Label text="Usuario:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="usernameField"
+                   promptText="Introduce tu usuario"
+                   GridPane.rowIndex="0"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Contraseña:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <StackPane GridPane.rowIndex="1" GridPane.columnIndex="1">
+
+    <PasswordField fx:id="passwordField"
+                   promptText="Introduce tu contraseña"/>
+
+    <TextField fx:id="passwordVisible"
+               promptText="Introduce tu contraseña"
+               visible="false"/>
+
+</StackPane>
+
+    </GridPane>
+
+    <CheckBox fx:id="mostrarPassword" text="Mostrar contraseña" onAction="#mostrarPassword"/>
+
+    <HBox spacing="10" alignment="CENTER">
+
+        <Button text="Iniciar sesión"
+                onAction="#login"
+                mnemonicParsing="true"/>
+
+        <Button text="Recuperar contraseña"
+                onAction="#recuperarPassword"
+                mnemonicParsing="true"/>
+
+    </HBox>
+
+</VBox>

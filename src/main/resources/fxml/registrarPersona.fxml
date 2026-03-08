@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.RegistrarPersonaController">
+
+    <Label text="Registrar Persona"
+           style="-fx-font-size:20px; -fx-font-weight:bold;" />
+
+    <TextField fx:id="nombreField" promptText="Nombre real"/>
+
+    <TextField fx:id="emailField" promptText="Email"/>
+
+    <TextField fx:id="nacionalidadField" promptText="Nacionalidad"/>
+
+    <ComboBox fx:id="tipoPersonaCombo"
+              promptText="Tipo de persona">
+    </ComboBox>
+
+    <TextField fx:id="apodoField" promptText="Apodo (solo artista)"/>
+
+    <CheckBox fx:id="seniorCheck" text="Senior (solo coordinador)"/>
+
+    <TextField fx:id="usernameField" promptText="Username"/>
+
+    <PasswordField fx:id="passwordField" promptText="Password"/>
+
+    <Button text="Registrar"
+            onAction="#registrarPersona"/>
+
+</VBox>
