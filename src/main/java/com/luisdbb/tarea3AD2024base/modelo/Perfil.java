@@ -7,3 +7,4 @@ public enum Perfil {
     ARTISTA,
     INVITADO
 }
+

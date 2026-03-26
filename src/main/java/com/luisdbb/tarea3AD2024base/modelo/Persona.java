@@ -3,7 +3,8 @@ package com.luisdbb.tarea3AD2024base.modelo;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "persona")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE")
 public class Persona {
 
     @Id

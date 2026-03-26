@@ -1,35 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane stylesheets="@../styles/Styles.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" 
-fx:controller="com.luisdbb.tarea3AD2024base.controller.LoginController">
-   <children>
-      <Rectangle fill="DODGERBLUE" height="250.0" stroke="#ffffff8b" strokeType="INSIDE" width="400.0" />
-      <Label fx:id="lblLogin" layoutX="97.0" layoutY="46.0" text="Login" textFill="WHITE">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <TextField fx:id="username" layoutX="98.0" layoutY="92.0" prefHeight="36.0" prefWidth="204.0" promptText="Username" />
-      <PasswordField fx:id="password" layoutX="98.0" layoutY="141.0" onAction="#login" prefHeight="36.0" prefWidth="204.0" promptText="Password" />
-      <Button fx:id="btnLogin" layoutX="215.0" layoutY="193.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="86.0" styleClass="btnGreen" text="Sign In" textFill="WHITE">
-         <font>
-            <Font size="15.0" />
-         </font>
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" />
-         </effect></Button>
-   </children>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-</AnchorPane>
+<VBox spacing="15" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.LoginController">
+
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+    <Label text="Sistema de Gestión del Circo"
+           style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+
+        <Label text="Usuario:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="usernameField"
+                   promptText="Introduce tu usuario"
+                   GridPane.rowIndex="0"
+                   GridPane.columnIndex="1"/>
+
+        <Label text="Contraseña:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <StackPane GridPane.rowIndex="1" GridPane.columnIndex="1">
+
+    <PasswordField fx:id="passwordField"
+                   promptText="Introduce tu contraseña"/>
+
+    <TextField fx:id="passwordVisible"
+               promptText="Introduce tu contraseña"
+               visible="false"/>
+
+</StackPane>
+
+    </GridPane>
+
+    <CheckBox fx:id="mostrarPassword" text="Mostrar contraseña" onAction="#mostrarPassword"/>
+
+    <HBox spacing="10" alignment="CENTER">
+
+        <Button text="Iniciar sesión"
+                onAction="#login"
+                mnemonicParsing="true"/>
+
+        <Button text="Recuperar contraseña"
+                onAction="#recuperarPassword"
+                mnemonicParsing="true"/>
+
+    </HBox>
+
+</VBox>

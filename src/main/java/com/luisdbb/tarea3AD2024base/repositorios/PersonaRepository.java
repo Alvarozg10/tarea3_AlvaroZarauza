@@ -4,5 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.luisdbb.tarea3AD2024base.modelo.Persona;
 
 public interface PersonaRepository extends JpaRepository<Persona, Long> {
+	Persona findByEmail(String email);
 
 }

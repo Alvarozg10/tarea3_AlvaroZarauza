@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarPersonaController">
+
+    <TextField fx:id="idField" promptText="ID Persona"/>
+    <Button text="Cargar" onAction="#cargarPersona"/>
+
+    <TextField fx:id="nombreField"/>
+    <TextField fx:id="emailField"/>
+    <TextField fx:id="nacionalidadField"/>
+
+    <TextField fx:id="apodoField"/>
+    
+    <CheckBox fx:id="seniorCheck" text="Senior"/>
+    
+    <Button text="Guardar cambios" onAction="#guardarCambios"/>
+
+</VBox>

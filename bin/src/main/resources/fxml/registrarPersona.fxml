@@ -21,21 +21,8 @@
     </ComboBox>
 
     <TextField fx:id="apodoField" promptText="Apodo (solo artista)"/>
-    
-    <Label text="Especialidades:"/>
 
-	<VBox fx:id="especialidadesBox" spacing="5">
-    <CheckBox text="ACROBACIA"/>
-    <CheckBox text="HUMOR"/>
-    <CheckBox text="MAGIA"/>
-    <CheckBox text="EQUILIBRISMO"/>
-    <CheckBox text="MALABARISMO"/>
-	</VBox>
-    
-    <HBox spacing="10">
     <CheckBox fx:id="seniorCheck" text="Senior (solo coordinador)"/>
-    <DatePicker fx:id="fechaSeniorPicker"/>
-	</HBox>
 
     <TextField fx:id="usernameField" promptText="Username"/>
 

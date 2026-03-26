@@ -2,8 +2,10 @@ package com.luisdbb.tarea3AD2024base.modelo;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
+@DiscriminatorValue("ARTISTA")
 public class Artista extends Persona {
 
     private String apodo;
@@ -17,7 +19,9 @@ public class Artista extends Persona {
     @Enumerated(EnumType.STRING)
     private List<Especialidad> especialidades;
 
-    public Artista() {}
+    public Artista() {
+        this.especialidades = new ArrayList<>();
+    }
 
     public String getApodo() {
         return apodo;

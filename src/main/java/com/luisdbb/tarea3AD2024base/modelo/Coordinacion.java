@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("COORDINACION")
 public class Coordinacion extends Persona {
 
     private boolean senior;

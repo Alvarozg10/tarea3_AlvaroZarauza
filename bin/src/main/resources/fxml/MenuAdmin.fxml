@@ -14,8 +14,7 @@
     <Button text="Registrar Persona"
             onAction="#registrarPersona"/>
 
-    <Button text="Modificar Personas"
-        onAction="#modificarPersona"/>
+    <Button text="Gestionar Personas"/>
 
     <Button text="Cerrar sesión"/>
 

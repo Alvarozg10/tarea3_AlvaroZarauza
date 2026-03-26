@@ -7,6 +7,7 @@ import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 
 @Component
 public class AdminController {
@@ -16,5 +17,10 @@ public class AdminController {
 
     public void registrarPersona(ActionEvent event) {
         stageManager.switchScene(FxmlView.REGISTRAR_PERSONA);
+    }
+    
+    @FXML
+    public void modificarPersona() {
+        stageManager.switchScene(FxmlView.MODIFICAR_PERSONA);
     }
 }

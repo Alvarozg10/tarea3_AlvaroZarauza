@@ -5,6 +5,7 @@ public enum FxmlView {
     LOGIN("/fxml/login.fxml"),
     ADMIN("/fxml/menuAdmin.fxml"),
     REGISTRAR_PERSONA("/fxml/registrarPersona.fxml"),
+    MODIFICAR_PERSONA("/fxml/modificarPersona.fxml"),
     COORDINADOR("/fxml/menuCoordinador.fxml"),
     ARTISTA("/fxml/menuArtista.fxml"),
     INVITADO("/fxml/menuInvitado.fxml");
