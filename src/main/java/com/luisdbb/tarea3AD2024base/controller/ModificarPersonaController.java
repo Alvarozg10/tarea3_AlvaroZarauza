@@ -119,7 +119,7 @@ public class ModificarPersonaController {
                     apodoField.getText(),
                     seniorCheck.isSelected(),
                     fechaSeniorPicker.getValue(),
-                    especialidades // 🔥 nuevo
+                    especialidades 
             );
 
             mostrarInfo("Persona modificada correctamente");

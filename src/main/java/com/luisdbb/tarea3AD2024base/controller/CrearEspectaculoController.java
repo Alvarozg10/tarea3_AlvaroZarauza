@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.luisdbb.tarea3AD2024base.modelo.*;
 import com.luisdbb.tarea3AD2024base.services.*;
+import com.luisdbb.tarea3AD2024base.config.StageManager;
+import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -36,6 +38,9 @@ public class CrearEspectaculoController {
 
     @Autowired
     private Sesion sesion;
+
+    @Autowired
+    private StageManager stageManager;
 
     @FXML
     public void initialize() {
@@ -116,14 +121,18 @@ public class CrearEspectaculoController {
                 coordinador = (Coordinacion) seleccionado;
             }
 
-            espectaculoService.crearEspectaculo(
+            Espectaculo esp = espectaculoService.crearEspectaculo(
                     nombre,
                     inicio,
                     fin,
                     coordinador.getId()
             );
 
+            sesion.setEspectaculoId(esp.getId());
+
             mostrarInfo("Espectáculo creado correctamente");
+
+            stageManager.switchScene(FxmlView.CREAR_NUMERO);
 
         } catch (Exception e) {
             mostrarError(e.getMessage());

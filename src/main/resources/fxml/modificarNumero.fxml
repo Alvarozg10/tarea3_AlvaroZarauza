@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarNumeroController">
+
+    <Label text="Modificar Número" style="-fx-font-size: 20px;" />
+
+    <TextField fx:id="idField" promptText="ID del número"/>
+
+    <Button text="Cargar" onAction="#cargarNumero"/>
+
+    <TextField fx:id="nombreField" promptText="Nombre"/>
+
+    <TextField fx:id="duracionField" promptText="Duración (1.0 / 1.5)"/>
+
+    <TextField fx:id="ordenField" promptText="Orden"/>
+
+    <Label text="Seleccionar artistas"/>
+
+    <ListView fx:id="artistasList" prefHeight="150" prefWidth="200"/>
+
+    <Button text="Guardar cambios" onAction="#guardarCambios"/>
+
+</VBox>

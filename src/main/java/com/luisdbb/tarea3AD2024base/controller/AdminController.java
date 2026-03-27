@@ -33,4 +33,19 @@ public class AdminController {
     public void modificarEspectaculo() {
         stageManager.switchScene(FxmlView.MODIFICAR_ESPECTACULO);
     }
+    
+    @FXML
+    public void modificarNumero() {
+        stageManager.switchScene(FxmlView.MODIFICAR_NUMERO);
+    }
+    
+    @FXML
+    public void verEspectaculos() {
+        stageManager.switchScene(FxmlView.VER_ESPECTACULO);
+    }
+    
+    @FXML
+    public void cerrarSesion() {
+        stageManager.switchScene(FxmlView.LOGIN);
+    }
 }

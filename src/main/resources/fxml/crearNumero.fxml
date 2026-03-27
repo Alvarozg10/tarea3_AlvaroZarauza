@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.CrearNumeroController">
+
+    <Label text="Crear Número" style="-fx-font-size: 20px;" />
+
+    <TextField fx:id="nombreField" promptText="Nombre del número"/>
+
+    <TextField fx:id="duracionField" promptText="Duración (ej: 1.0 o 1.5)"/>
+
+    <TextField fx:id="ordenField" promptText="Orden en el espectáculo"/>
+
+    <Label text="Seleccionar artistas"/>
+
+    <ListView fx:id="artistasList" prefHeight="150" prefWidth="200"/>
+
+    <Button text="Crear número" onAction="#crearNumero"/>
+
+</VBox>

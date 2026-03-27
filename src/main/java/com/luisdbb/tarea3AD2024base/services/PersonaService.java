@@ -2,6 +2,7 @@ package com.luisdbb.tarea3AD2024base.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.luisdbb.tarea3AD2024base.modelo.*;
 import com.luisdbb.tarea3AD2024base.repositorios.*;
@@ -17,11 +18,11 @@ public class PersonaService {
 
     @Autowired
     private CredencialesRepository credencialesRepository;
-
+    
     public Persona buscarPorId(Long id) {
         return personaRepository.findById(id).orElse(null);
     }
-    
+
     public List<Persona> obtenerTodas() {
         return personaRepository.findAll();
     }
@@ -55,7 +56,7 @@ public class PersonaService {
         }
 
         if (!username.matches("^[a-zA-Z]+$")) {
-            throw new RuntimeException("El username solo puede contener letras sin espacios");
+            throw new RuntimeException("El username solo puede contener letras");
         }
 
         if (username.length() <= 2) {
@@ -63,7 +64,7 @@ public class PersonaService {
         }
 
         if (password.contains(" ") || password.length() <= 2) {
-            throw new RuntimeException("La contraseña no puede tener espacios y debe tener más de 2 caracteres");
+            throw new RuntimeException("Contraseña inválida");
         }
 
         username = username.toLowerCase();
@@ -91,13 +92,11 @@ public class PersonaService {
                     throw new RuntimeException("Debe indicar la fecha de senior");
                 }
                 coord.setFechaSenior(fechaSenior);
-            } else {
-                coord.setFechaSenior(null);
             }
 
             persona = personaRepository.save(coord);
 
-        } else if (tipo.equals("ARTISTA")) {
+        } else {
 
             Artista artista = new Artista();
             artista.setNombre(nombre);
@@ -106,15 +105,12 @@ public class PersonaService {
             artista.setApodo(apodo);
 
             if (especialidades == null || especialidades.isEmpty()) {
-                throw new RuntimeException("Debe seleccionar al menos una especialidad");
+                throw new RuntimeException("Debe tener al menos una especialidad");
             }
 
             artista.setEspecialidades(especialidades);
 
             persona = personaRepository.save(artista);
-
-        } else {
-            throw new RuntimeException("Tipo de persona no válido");
         }
 
         Credenciales cred = new Credenciales();
@@ -143,9 +139,7 @@ public class PersonaService {
 
         Persona persona = personaRepository.findById(id).orElse(null);
 
-        if (persona == null) {
-            throw new RuntimeException("Persona no encontrada");
-        }
+        if (persona == null) return;
 
         persona.setNombre(nombre);
         persona.setEmail(email);
@@ -170,5 +164,23 @@ public class PersonaService {
         }
 
         personaRepository.save(persona);
+    }
+
+    @Transactional
+    public Artista obtenerFichaArtista(Long id) {
+
+        Artista artista = (Artista) personaRepository.findById(id).orElse(null);
+
+        if (artista != null) {
+
+            artista.getEspecialidades().size();
+            artista.getNumeros().size();
+
+            for (Numero n : artista.getNumeros()) {
+                n.getEspectaculo().getNombre();
+            }
+        }
+
+        return artista;
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.ArtistaController">
+
+    <Label text="Menú Artista" style="-fx-font-size: 20px;" />
+
+    <Button text="Ver ficha" 	
+    	onAction="#verFicha"/>
+    	
+   	<Button text="Ver Espectáculos" 	
+   		onAction="#verEspectaculos"/>
+
+    <Button text="Cerrar sesión" 	
+    	onAction="#cerrarSesion"/>
+
+</VBox>

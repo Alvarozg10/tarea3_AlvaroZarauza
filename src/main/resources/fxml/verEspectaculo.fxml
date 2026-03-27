@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="15" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.VerEspectaculoController">
+
+    <Label text="Ver Espectáculo Completo" style="-fx-font-size: 20px;" />
+
+    <ComboBox fx:id="espectaculoCombo" prefWidth="300"/>
+
+    <Button text="Ver detalle" onAction="#verDetalle"/>
+
+    <TextArea fx:id="resultadoArea"
+              prefWidth="500"
+              prefHeight="400"
+              editable="false"
+              wrapText="true"/>
+
+</VBox>

@@ -8,8 +8,12 @@ public enum FxmlView {
     MODIFICAR_PERSONA("/fxml/modificarPersona.fxml"),
     CREAR_ESPECTACULO("/fxml/crearEspectaculo.fxml"),
     MODIFICAR_ESPECTACULO("/fxml/modificarEspectaculo.fxml"),
+    CREAR_NUMERO("/fxml/crearNumero.fxml"),
+    MODIFICAR_NUMERO("/fxml/modificarNumero.fxml"),
+    FICHA_ARTISTA("/fxml/fichaArtista.fxml"),
+    VER_ESPECTACULO("/fxml/verEspectaculo.fxml"),
     COORDINADOR("/fxml/MenuCoordinador.fxml"),
-    ARTISTA("/fxml/menuArtista.fxml"),
+    ARTISTA("/fxml/MenuArtista.fxml"),
     INVITADO("/fxml/menuInvitado.fxml");
 
     private final String fxml;

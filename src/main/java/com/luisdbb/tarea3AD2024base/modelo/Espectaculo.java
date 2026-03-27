@@ -2,6 +2,7 @@ package com.luisdbb.tarea3AD2024base.modelo;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Espectaculo {
@@ -19,6 +20,9 @@ public class Espectaculo {
     @ManyToOne
     @JoinColumn(name = "coordinador_id")
     private Coordinacion coordinador;
+    
+    @OneToMany(mappedBy = "espectaculo")
+    private List<Numero> numeros;
 
     public Espectaculo() {}
 
@@ -55,4 +59,12 @@ public class Espectaculo {
     public void setCoordinador(Coordinacion coordinador){
     	this.coordinador = coordinador; 
     	}
+    
+    public List<Numero> getNumeros() {
+        return numeros;
+    }
+
+    public void setNumeros(List<Numero> numeros) {
+        this.numeros = numeros;
+    }
 }

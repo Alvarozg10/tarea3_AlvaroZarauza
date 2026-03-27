@@ -14,5 +14,14 @@
     
     <Button text="Modificar Espectáculo" 
     	onAction="#modificarEspectaculo"/>
+    	
+    <Button text="Modificar Número" 
+    	onAction="#modificarNumero"/>
+    	
+    <Button text="Ver Espectáculos" 
+    	onAction="#verEspectaculos"/>
+    	
+    <Button text="Cerrar sesión" 	
+    	onAction="#cerrarSesion"/>
 
 </VBox>

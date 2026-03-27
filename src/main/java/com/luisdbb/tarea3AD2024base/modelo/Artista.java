@@ -18,6 +18,9 @@ public class Artista extends Persona {
     @Column(name = "especialidad")
     @Enumerated(EnumType.STRING)
     private List<Especialidad> especialidades;
+    
+    @ManyToMany(mappedBy = "artistas")
+    private List<Numero> numeros;
 
     public Artista() {
         this.especialidades = new ArrayList<>();
@@ -37,5 +40,13 @@ public class Artista extends Persona {
 
     public void setEspecialidades(List<Especialidad> especialidades) {
         this.especialidades = especialidades;
+    }
+    
+    public List<Numero> getNumeros() {
+        return numeros;
+    }
+
+    public void setNumeros(List<Numero> numeros) {
+        this.numeros = numeros;
     }
 }
