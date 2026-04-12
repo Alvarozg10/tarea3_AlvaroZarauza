@@ -1,7 +1,9 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,16 +11,31 @@ import org.springframework.stereotype.Component;
 import com.luisdbb.tarea3AD2024base.modelo.*;
 import com.luisdbb.tarea3AD2024base.services.EspectaculoService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
 public class VerEspectaculoController {
+	
+    @FXML private TableView<Espectaculo> tablaEspectaculos;
+    @FXML private TableColumn<Espectaculo, Long> colEspId;
+    @FXML private TableColumn<Espectaculo, String> colEspNombre;
+    @FXML private TableColumn<Espectaculo, LocalDate> colEspInicio;
+    @FXML private TableColumn<Espectaculo, LocalDate> colEspFin;
 
-    @FXML
-    private ComboBox<Espectaculo> espectaculoCombo;
+    @FXML private Label nombreLabel;
+    @FXML private Label fechasLabel;
+    @FXML private Label coordLabel;
 
-    @FXML
-    private TextArea resultadoArea;
+    @FXML private TableView<Numero> tablaNumeros;
+    @FXML private TableColumn<Numero, Long> colNumId;
+    @FXML private TableColumn<Numero, String> colNumNombre;
+    @FXML private TableColumn<Numero, Double> colNumDuracion;
+
+    @FXML private TableView<Artista> tablaArtistas;
+    @FXML private TableColumn<Artista, String> colArtNombre;
+    @FXML private TableColumn<Artista, String> colArtNac;
+    @FXML private TableColumn<Artista, String> colArtApodo;
 
     @Autowired
     private EspectaculoService espectaculoService;
@@ -26,90 +43,43 @@ public class VerEspectaculoController {
     @FXML
     public void initialize() {
 
+        colEspId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colEspNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colEspInicio.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
+        colEspFin.setCellValueFactory(new PropertyValueFactory<>("fechaFin"));
+
+        colNumId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNumNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colNumDuracion.setCellValueFactory(new PropertyValueFactory<>("duracion"));
+
+        colArtNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colArtNac.setCellValueFactory(new PropertyValueFactory<>("nacionalidad"));
+        colArtApodo.setCellValueFactory(new PropertyValueFactory<>("apodo"));
+
+        tablaEspectaculos.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tablaNumeros.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tablaArtistas.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
         List<Espectaculo> lista = espectaculoService.obtenerTodos();
+        tablaEspectaculos.setItems(FXCollections.observableArrayList(lista));
 
-        espectaculoCombo.getItems().addAll(lista);
+        tablaEspectaculos.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, espSel) -> {
 
-        espectaculoCombo.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(Espectaculo item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getNombre());
+            if (espSel != null) {
+
+                Espectaculo esp = espectaculoService.obtenerEspectaculoCompleto(espSel.getId());
+
+                tablaNumeros.setItems(FXCollections.observableArrayList(esp.getNumeros()));
+
+                tablaArtistas.getItems().clear();
             }
         });
 
-        espectaculoCombo.setButtonCell(new ListCell<>() {
-            @Override
-            protected void updateItem(Espectaculo item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getNombre());
+        tablaNumeros.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, numSel) -> {
+
+            if (numSel != null) {
+                tablaArtistas.setItems(FXCollections.observableArrayList(numSel.getArtistas()));
             }
         });
-    }
-
-    @FXML
-    public void verDetalle() {
-
-        Espectaculo seleccionado = espectaculoCombo.getValue();
-
-        if (seleccionado == null) {
-            mostrarError("Selecciona un espectáculo");
-            return;
-        }
-
-        Espectaculo esp = espectaculoService.obtenerEspectaculoCompleto(seleccionado.getId());
-
-        StringBuilder texto = new StringBuilder();
-
-        texto.append("=== ESPECTÁCULO ===\n");
-        texto.append("ID: ").append(esp.getId()).append("\n");
-        texto.append("Nombre: ").append(esp.getNombre()).append("\n");
-        texto.append("Fechas: ")
-                .append(esp.getFechaInicio())
-                .append(" - ")
-                .append(esp.getFechaFin())
-                .append("\n\n");
-
-        Coordinacion c = esp.getCoordinador();
-
-        texto.append("=== COORDINADOR ===\n");
-        texto.append("Nombre: ").append(c.getNombre()).append("\n");
-        texto.append("Email: ").append(c.getEmail()).append("\n");
-        texto.append("Senior: ").append(c.isSenior() ? "Sí" : "No").append("\n\n");
-
-        texto.append("=== NÚMEROS ===\n");
-
-        for (Numero n : esp.getNumeros()) {
-
-            texto.append("\n--- Número ---\n");
-            texto.append("ID: ").append(n.getId()).append("\n");
-            texto.append("Nombre: ").append(n.getNombre()).append("\n");
-            texto.append("Duración: ").append(n.getDuracion()).append("\n");
-
-            texto.append("Artistas:\n");
-
-            for (Artista a : n.getArtistas()) {
-
-                texto.append(" - ").append(a.getNombre())
-                        .append(" (").append(a.getNacionalidad()).append(")")
-                        .append(" | Apodo: ").append(a.getApodo())
-                        .append(" | Especialidades: ");
-
-                String espStr = a.getEspecialidades()
-                        .stream()
-                        .map(Enum::name)
-                        .reduce("", (x, y) -> x + " " + y);
-
-                texto.append(espStr).append("\n");
-            }
-        }
-
-        resultadoArea.setText(texto.toString());
-    }
-
-    private void mostrarError(String msg) {
-        Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setContentText(msg);
-        a.showAndWait();
     }
 }

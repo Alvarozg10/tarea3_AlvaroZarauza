@@ -3,20 +3,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="15" alignment="CENTER"
+<VBox spacing="10" alignment="CENTER"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.luisdbb.tarea3AD2024base.controller.VerEspectaculoController">
 
-    <Label text="Ver Espectáculo Completo" style="-fx-font-size: 20px;" />
+    <Label text="Espectáculos" style="-fx-font-size: 20px;" />
 
-    <ComboBox fx:id="espectaculoCombo" prefWidth="300"/>
+    <TableView fx:id="tablaEspectaculos" prefWidth="600" prefHeight="150">
+        <columns>
+            <TableColumn fx:id="colEspId" text="ID"/>
+            <TableColumn fx:id="colEspNombre" text="Nombre"/>
+            <TableColumn fx:id="colEspInicio" text="Inicio"/>
+            <TableColumn fx:id="colEspFin" text="Fin"/>
+        </columns>
+    </TableView>
 
-    <Button text="Ver detalle" onAction="#verDetalle"/>
+    <TableView fx:id="tablaNumeros" prefWidth="600" prefHeight="150">
+        <columns>
+            <TableColumn fx:id="colNumId" text="ID"/>
+            <TableColumn fx:id="colNumNombre" text="Nombre"/>
+            <TableColumn fx:id="colNumDuracion" text="Duración"/>
+        </columns>
+    </TableView>
 
-    <TextArea fx:id="resultadoArea"
-              prefWidth="500"
-              prefHeight="400"
-              editable="false"
-              wrapText="true"/>
+    <TableView fx:id="tablaArtistas" prefWidth="600" prefHeight="150">
+        <columns>
+            <TableColumn fx:id="colArtNombre" text="Nombre"/>
+            <TableColumn fx:id="colArtNac" text="Nacionalidad"/>
+            <TableColumn fx:id="colArtApodo" text="Apodo"/>
+        </columns>
+    </TableView>
 
 </VBox>
