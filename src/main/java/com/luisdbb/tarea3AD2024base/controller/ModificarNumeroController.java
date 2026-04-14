@@ -28,7 +28,7 @@ public class ModificarNumeroController {
     private TextField ordenField;
 
     @FXML
-    private ListView<Persona> artistasList;
+    private ListView<Artista> artistasList;
 
     @Autowired
     private NumeroService numeroService;
@@ -46,14 +46,14 @@ public class ModificarNumeroController {
         List<Persona> personas = personaService.obtenerTodas();
 
         for (Persona p : personas) {
-            if (p instanceof Artista) {
-                artistasList.getItems().add(p);
+            if (p instanceof Artista artista) {
+                artistasList.getItems().add(artista);
             }
         }
 
         artistasList.setCellFactory(param -> new ListCell<>() {
             @Override
-            protected void updateItem(Persona item, boolean empty) {
+            protected void updateItem(Artista item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? null : item.getNombre());
             }
@@ -79,9 +79,9 @@ public class ModificarNumeroController {
 
             artistasList.getSelectionModel().clearSelection();
 
-            for (Persona p : artistasList.getItems()) {
-                if (numeroActual.getArtistas().contains(p)) {
-                    artistasList.getSelectionModel().select(p);
+            for (Artista a : artistasList.getItems()) {
+                if (numeroActual.getArtistas().contains(a)) {
+                    artistasList.getSelectionModel().select(a);
                 }
             }
 
@@ -103,12 +103,12 @@ public class ModificarNumeroController {
             double duracion = Double.parseDouble(duracionField.getText());
             int orden = Integer.parseInt(ordenField.getText());
 
-            List<Persona> seleccionados = artistasList.getSelectionModel().getSelectedItems();
+            List<Artista> seleccionados = artistasList.getSelectionModel().getSelectedItems();
 
             List<Long> artistasIds = new ArrayList<>();
 
-            for (Persona p : seleccionados) {
-                artistasIds.add(p.getId());
+            for (Artista a : seleccionados) {
+                artistasIds.add(a.getId());
             }
 
             numeroService.modificarNumero(

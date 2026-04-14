@@ -16,8 +16,12 @@
     <Label fx:id="apodoLabel" text="Apodo: "/>
     <Label fx:id="especialidadesLabel" text="Especialidades: "/>
 
-    <Label text="Trayectoria:" style="-fx-font-weight: bold;" />
-    <TextArea fx:id="trayectoriaArea" prefWidth="300" prefHeight="200" editable="false"/>
+    <TableView fx:id="trayectoriaTable" prefHeight="200" prefWidth="500" VBox.vgrow="ALWAYS">
+    <columns>
+        <TableColumn fx:id="colEspectaculo" text="Espectáculo" prefWidth="250"/>
+        <TableColumn fx:id="colNumero" text="Número" prefWidth="250"/>
+    </columns>
+	</TableView>
 
     <Button text="Volver" onAction="#volver"/>
 

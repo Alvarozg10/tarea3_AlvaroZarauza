@@ -21,6 +21,9 @@ public class ModificarPersonaController {
     @FXML private TextField nacionalidadField;
     @FXML private TextField apodoField;
 
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+
     @FXML private CheckBox seniorCheck;
     @FXML private DatePicker fechaSeniorPicker;
 
@@ -51,6 +54,12 @@ public class ModificarPersonaController {
             emailField.setText(personaActual.getEmail());
             nacionalidadField.setText(personaActual.getNacionalidad());
 
+            if (personaActual.getCredenciales() != null) {
+                usernameField.setText(personaActual.getCredenciales().getUsername());
+            }
+            passwordField.clear(); 
+
+            // reset
             apodoField.clear();
             seniorCheck.setSelected(false);
             fechaSeniorPicker.setValue(null);
@@ -111,6 +120,10 @@ public class ModificarPersonaController {
             if (equilibrioCheck.isSelected()) especialidades.add(Especialidad.EQUILIBRISMO);
             if (malabaresCheck.isSelected()) especialidades.add(Especialidad.MALABARISMO);
 
+            // 🔥 CREDENCIALES
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+
             personaService.modificarPersona(
                     personaActual.getId(),
                     nombreField.getText(),
@@ -119,7 +132,9 @@ public class ModificarPersonaController {
                     apodoField.getText(),
                     seniorCheck.isSelected(),
                     fechaSeniorPicker.getValue(),
-                    especialidades 
+                    especialidades,
+                    username,
+                    password
             );
 
             mostrarInfo("Persona modificada correctamente");

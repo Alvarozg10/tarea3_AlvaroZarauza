@@ -127,6 +127,7 @@ public class PersonaService {
         credencialesRepository.save(cred);
     }
 
+    @Transactional
     public void modificarPersona(
             Long id,
             String nombre,
@@ -135,52 +136,86 @@ public class PersonaService {
             String apodo,
             boolean senior,
             LocalDate fechaSenior,
-            List<Especialidad> especialidades) {
+            List<Especialidad> especialidades,
+            String username,
+            String password) {
 
         Persona persona = personaRepository.findById(id).orElse(null);
 
-        if (persona == null) return;
+        if (persona == null) {
+            throw new RuntimeException("Persona no encontrada");
+        }
+
+        if (nombre == null || nombre.isBlank()) {
+            throw new RuntimeException("El nombre es obligatorio");
+        }
+
+        if (email == null || email.isBlank()) {
+            throw new RuntimeException("El email es obligatorio");
+        }
+
+        Persona existente = personaRepository.findByEmail(email);
+        if (existente != null && !existente.getId().equals(id)) {
+            throw new RuntimeException("El email ya existe");
+        }
 
         persona.setNombre(nombre);
         persona.setEmail(email);
         persona.setNacionalidad(nacionalidad);
 
         if (persona instanceof Artista artista) {
+
             artista.setApodo(apodo);
 
-            if (especialidades != null && !especialidades.isEmpty()) {
-                artista.setEspecialidades(especialidades);
+            if (especialidades == null || especialidades.isEmpty()) {
+                throw new RuntimeException("Debe tener al menos una especialidad");
             }
+
+            artista.setEspecialidades(especialidades);
         }
 
         if (persona instanceof Coordinacion coord) {
+
             coord.setSenior(senior);
 
             if (senior) {
+                if (fechaSenior == null) {
+                    throw new RuntimeException("Debe indicar la fecha de senior");
+                }
                 coord.setFechaSenior(fechaSenior);
             } else {
                 coord.setFechaSenior(null);
             }
         }
 
-        personaRepository.save(persona);
-    }
+        Credenciales cred = persona.getCredenciales();
 
-    @Transactional
-    public Artista obtenerFichaArtista(Long id) {
+        if (cred != null) {
 
-        Artista artista = (Artista) personaRepository.findById(id).orElse(null);
+            if (username == null || username.isBlank()) {
+                throw new RuntimeException("El username es obligatorio");
+            }
 
-        if (artista != null) {
+            username = username.toLowerCase();
 
-            artista.getEspecialidades().size();
-            artista.getNumeros().size();
+            Credenciales existenteUser = credencialesRepository.findByUsername(username);
 
-            for (Numero n : artista.getNumeros()) {
-                n.getEspectaculo().getNombre();
+            if (existenteUser != null && !existenteUser.getPersona().getId().equals(id)) {
+                throw new RuntimeException("El username ya existe");
+            }
+
+            cred.setUsername(username);
+
+            if (password != null && !password.isBlank()) {
+
+                if (password.contains(" ") || password.length() <= 2) {
+                    throw new RuntimeException("Contraseña inválida");
+                }
+
+                cred.setPassword(password);
             }
         }
 
-        return artista;
+        personaRepository.save(persona);
     }
 }

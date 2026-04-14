@@ -2,31 +2,60 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarPersonaController">
+<ScrollPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarPersonaController"
+            fitToWidth="true">
 
-    <TextField fx:id="idField" promptText="ID Persona"/>
-    <Button text="Cargar" onAction="#cargarPersona"/>
+    <content>
 
-    <TextField fx:id="nombreField"/>
-    <TextField fx:id="emailField"/>
-    <TextField fx:id="nacionalidadField"/>
+        <VBox alignment="CENTER">
 
-    <TextField fx:id="apodoField"/>
-    
-    <Label text="Especialidades (solo artista)"/>
+            <VBox spacing="10" alignment="TOP_LEFT" prefWidth="400">
 
-	<CheckBox fx:id="acroCheck" text="ACROBACIA"/>
-	<CheckBox fx:id="humorCheck" text="HUMOR"/>
-	<CheckBox fx:id="magiaCheck" text="MAGIA"/>
-	<CheckBox fx:id="equilibrioCheck" text="EQUILIBRISMO"/>
-	<CheckBox fx:id="malabaresCheck" text="MALABARISMO"/>
-    
-    <CheckBox fx:id="seniorCheck" text="Senior"/>
-    <Label text="Fecha senior (solo coordinador)"/>
-	<DatePicker fx:id="fechaSeniorPicker"/>
-    
-    <Button text="Guardar cambios" onAction="#guardarCambios"/>
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
 
-</VBox>
+                <Label text="Modificar Persona"
+                       style="-fx-font-size:20px; -fx-font-weight:bold;"
+                       maxWidth="Infinity"
+                       alignment="CENTER"/>
+
+                <TextField fx:id="idField" promptText="ID Persona" prefWidth="300"/>
+                <Button text="Cargar" onAction="#cargarPersona"/>
+
+                <TextField fx:id="nombreField" promptText="Nombre" prefWidth="300"/>
+                <TextField fx:id="emailField" promptText="Email" prefWidth="300"/>
+                <TextField fx:id="nacionalidadField" promptText="Nacionalidad" prefWidth="300"/>
+
+                <TextField fx:id="apodoField" promptText="Apodo"/>
+
+                <Label text="Especialidades (solo artista)"/>
+
+                <CheckBox fx:id="acroCheck" text="ACROBACIA"/>
+                <CheckBox fx:id="humorCheck" text="HUMOR"/>
+                <CheckBox fx:id="magiaCheck" text="MAGIA"/>
+                <CheckBox fx:id="equilibrioCheck" text="EQUILIBRISMO"/>
+                <CheckBox fx:id="malabaresCheck" text="MALABARISMO"/>
+
+                <CheckBox fx:id="seniorCheck" text="Senior"/>
+                <Label text="Fecha senior (solo coordinador)"/>
+                <DatePicker fx:id="fechaSeniorPicker"/>
+                
+                <Label text="Credenciales"/>
+
+				<TextField fx:id="usernameField" promptText="Username" prefWidth="300"/>
+
+				<PasswordField fx:id="passwordField" promptText="Nueva contraseña" prefWidth="300"/>
+
+                <Button text="Guardar cambios" onAction="#guardarCambios"/>
+
+            </VBox>
+
+        </VBox>
+
+    </content>
+
+</ScrollPane>
