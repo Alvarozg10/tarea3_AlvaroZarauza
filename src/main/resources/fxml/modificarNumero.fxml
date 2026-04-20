@@ -1,32 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarNumeroController">
+<ScrollPane fitToWidth="true"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarNumeroController"
+            stylesheets="@/styles/Styles.css">
 
-    <Label text="Modificar Número" style="-fx-font-size: 20px;" />
+    <content>
 
-    <TextField fx:id="idField" promptText="ID del número"/>
+        <VBox alignment="CENTER">
 
-    <Button text="Cargar" onAction="#cargarNumero"/>
+            <VBox spacing="15" alignment="CENTER"
+                  styleClass="card"
+                  maxWidth="400">
 
-    <TextField fx:id="nombreField" promptText="Nombre"/>
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
 
-    <TextField fx:id="duracionField" promptText="Duración (1.0 / 1.5)"/>
+                <Label text="Modificar Número"
+                       styleClass="title"/>
 
-    <TextField fx:id="ordenField" promptText="Orden"/>
+                <TextField fx:id="idField"
+                           promptText="ID del número"
+                           prefWidth="250"/>
 
-    <Label text="Seleccionar artistas"/>
+                <Button text="Cargar"
+                        onAction="#cargarNumero"
+                        styleClass="button btn-coord"
+                        prefWidth="120"/>
 
-    <ListView fx:id="artistasList" prefHeight="150" prefWidth="200"/>
+                <TextField fx:id="nombreField"
+                           promptText="Nombre"
+                           prefWidth="250"/>
 
-    <HBox spacing="10" alignment="CENTER">
-    <Button text="Guardar cambios" onAction="#guardarCambios"/>
-    <Button text="Volver" onAction="#volver"/>
-	</HBox>
+                <TextField fx:id="duracionField"
+                           promptText="Duración (1.0 / 1.5)"
+                           prefWidth="250"/>
 
-</VBox>
+                <TextField fx:id="ordenField"
+                           promptText="Orden"
+                           prefWidth="250"/>
+
+                <Label text="Seleccionar artistas"/>
+
+                <ListView fx:id="artistasList"
+                          prefHeight="200"
+                          prefWidth="250"
+                          VBox.vgrow="ALWAYS"/>
+
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="Guardar cambios"
+                            onAction="#guardarCambios"
+                            styleClass="button btn-coord"
+                            prefWidth="150"/>
+
+                    <Button text="Volver"
+                            onAction="#volver"
+                            styleClass="button btn-invitado"
+                            prefWidth="120"/>
+                </HBox>
+
+            </VBox>
+
+        </VBox>
+
+    </content>
+
+</ScrollPane>

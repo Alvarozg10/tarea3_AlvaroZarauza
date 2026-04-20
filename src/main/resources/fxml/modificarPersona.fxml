@@ -1,59 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
 <ScrollPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarPersonaController"
-            fitToWidth="true">
+            fitToWidth="true"
+            stylesheets="@/styles/Styles.css">
 
     <content>
 
         <VBox alignment="CENTER">
 
-            <VBox spacing="10" alignment="TOP_LEFT" prefWidth="400">
+            <VBox spacing="15" alignment="CENTER"
+                  styleClass="card"
+                  maxWidth="450">
 
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
 
                 <Label text="Modificar Persona"
-                       style="-fx-font-size:20px; -fx-font-weight:bold;"
-                       maxWidth="Infinity"
-                       alignment="CENTER"/>
+                       styleClass="title"/>
 
-                <TextField fx:id="idField" promptText="ID Persona" prefWidth="300"/>
-                <Button text="Cargar" onAction="#cargarPersona"/>
+                <TextField fx:id="idField"
+                           promptText="ID Persona"
+                           prefWidth="250"/>
 
-                <TextField fx:id="nombreField" promptText="Nombre" prefWidth="300"/>
-                <TextField fx:id="emailField" promptText="Email" prefWidth="300"/>
-                <TextField fx:id="nacionalidadField" promptText="Nacionalidad" prefWidth="300"/>
+                <Button text="Cargar"
+                        onAction="#cargarPersona"
+                        styleClass="button btn-coord"
+                        prefWidth="120"/>
 
-                <TextField fx:id="apodoField" promptText="Apodo"/>
+                <TextField fx:id="nombreField"
+                           promptText="Nombre"
+                           prefWidth="250"/>
+
+                <TextField fx:id="emailField"
+                           promptText="Email"
+                           prefWidth="250"/>
+
+                <TextField fx:id="nacionalidadField"
+                           promptText="Nacionalidad"
+                           prefWidth="250"/>
+
+                <TextField fx:id="apodoField"
+                           promptText="Apodo (solo artista)"
+                           prefWidth="250"/>
 
                 <Label text="Especialidades (solo artista)"/>
 
-                <CheckBox fx:id="acroCheck" text="ACROBACIA"/>
-                <CheckBox fx:id="humorCheck" text="HUMOR"/>
-                <CheckBox fx:id="magiaCheck" text="MAGIA"/>
-                <CheckBox fx:id="equilibrioCheck" text="EQUILIBRISMO"/>
-                <CheckBox fx:id="malabaresCheck" text="MALABARISMO"/>
+                <VBox spacing="5" alignment="CENTER_LEFT">
+                    <CheckBox fx:id="acroCheck" text="ACROBACIA"/>
+                    <CheckBox fx:id="humorCheck" text="HUMOR"/>
+                    <CheckBox fx:id="magiaCheck" text="MAGIA"/>
+                    <CheckBox fx:id="equilibrioCheck" text="EQUILIBRISMO"/>
+                    <CheckBox fx:id="malabaresCheck" text="MALABARISMO"/>
+                </VBox>
 
-                <CheckBox fx:id="seniorCheck" text="Senior"/>
-                <Label text="Fecha senior (solo coordinador)"/>
-                <DatePicker fx:id="fechaSeniorPicker"/>
-                
-                <Label text="Credenciales"/>
-
-				<TextField fx:id="usernameField" promptText="Username" prefWidth="300"/>
-
-				<PasswordField fx:id="passwordField" promptText="Nueva contraseña" prefWidth="300"/>
+                <Label text="Coordinación"/>
 
                 <HBox spacing="10" alignment="CENTER">
-    			<Button text="Guardar cambios" onAction="#guardarCambios"/>
-    			<Button text="Volver" onAction="#volver"/>
-				</HBox>
+                    <CheckBox fx:id="seniorCheck" text="Senior"/>
+                    <DatePicker fx:id="fechaSeniorPicker"/>
+                </HBox>
+
+                <Label text="Credenciales"/>
+
+                <TextField fx:id="usernameField"
+                           promptText="Username"
+                           prefWidth="250"/>
+
+                <PasswordField fx:id="passwordField"
+                               promptText="Nueva contraseña"
+                               prefWidth="250"/>
+
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="Guardar cambios"
+                            onAction="#guardarCambios"
+                            styleClass="button btn-coord"
+                            prefWidth="150"/>
+
+                    <Button text="Volver"
+                            onAction="#volver"
+                            styleClass="button btn-invitado"
+                            prefWidth="120"/>
+                </HBox>
 
             </VBox>
 

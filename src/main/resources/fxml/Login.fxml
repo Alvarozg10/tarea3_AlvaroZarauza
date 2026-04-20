@@ -8,58 +8,64 @@
       prefWidth="600.0" prefHeight="400.0"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.luisdbb.tarea3AD2024base.controller.LoginController"
-      style="-fx-background-color: #f4f4f4;">
+      stylesheets="@/styles/Styles.css">
 
     <padding>
         <Insets top="40" right="40" bottom="40" left="40"/>
     </padding>
 
-    <Label text="Sistema de Gestión del Circo"
-           style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <VBox styleClass="card" spacing="20" alignment="CENTER" maxWidth="400">
 
-    <GridPane hgap="15" vgap="15" alignment="CENTER">
+        <Label text="Sistema de Gestión del Circo"
+               styleClass="title"/>
 
-        <Label text="Usuario:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <GridPane hgap="15" vgap="15" alignment="CENTER">
 
-        <TextField fx:id="usernameField"
-                   promptText="Introduce tu usuario"
-                   prefWidth="250"
-                   GridPane.rowIndex="0"
-                   GridPane.columnIndex="1"/>
+            <Label text="Usuario:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
 
-        <Label text="Contraseña:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-
-        <StackPane GridPane.rowIndex="1" GridPane.columnIndex="1">
-
-            <PasswordField fx:id="passwordField"
-                           promptText="Introduce tu contraseña"
-                           prefWidth="250"/>
-
-            <TextField fx:id="passwordVisible"
-                       promptText="Introduce tu contraseña"
+            <TextField fx:id="usernameField"
+                       promptText="Introduce tu usuario"
                        prefWidth="250"
-                       visible="false"/>
+                       GridPane.rowIndex="0"
+                       GridPane.columnIndex="1"/>
 
-        </StackPane>
+            <Label text="Contraseña:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
 
-    </GridPane>
+            <StackPane GridPane.rowIndex="1" GridPane.columnIndex="1">
 
-    <CheckBox fx:id="mostrarPassword"
-              text="Mostrar contraseña"
-              onAction="#mostrarPassword"/>
+                <PasswordField fx:id="passwordField"
+                               promptText="Introduce tu contraseña"
+                               prefWidth="250"/>
 
-    <HBox spacing="15" alignment="CENTER">
+                <TextField fx:id="passwordVisible"
+                           promptText="Introduce tu contraseña"
+                           prefWidth="250"
+                           visible="false"/>
 
-        <Button text="Iniciar sesión"
-                onAction="#login"
-                style="-fx-background-radius: 8; -fx-padding: 8 15;"/>
+            </StackPane>
 
-        <Button text="Recuperar contraseña"
-                onAction="#recuperarPassword"
-                style="-fx-background-radius: 8; -fx-padding: 8 15;"/>
+        </GridPane>
 
-    </HBox>
-    
-    <Button text="Ver espectáculos como invitado" onAction="#entrarInvitado"/>
+        <CheckBox fx:id="mostrarPassword"
+                  text="Mostrar contraseña"
+                  onAction="#mostrarPassword"/>
+
+        <HBox spacing="15" alignment="CENTER">
+
+            <Button text="Iniciar sesión"
+                    onAction="#login"
+                    styleClass="button btn-artista"/>
+
+            <Button text="Recuperar contraseña"
+                    onAction="#recuperarPassword"
+                    styleClass="button btn-coord"/>
+
+        </HBox>
+
+        <Button text="Ver espectáculos como invitado"
+                onAction="#entrarInvitado"
+                styleClass="button btn-invitado"/>
+
+    </VBox>
 
 </VBox>

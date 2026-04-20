@@ -1,39 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 
 <VBox spacing="10" alignment="CENTER"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.luisdbb.tarea3AD2024base.controller.VerEspectaculoController">
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.VerEspectaculoController"
+      stylesheets="@/styles/Styles.css">
 
-    <Label text="Espectáculos" style="-fx-font-size: 20px;" />
+        <Label text="Espectáculos"
+               styleClass="title"/>
 
-    <TableView fx:id="tablaEspectaculos" prefWidth="600" prefHeight="150">
-        <columns>
-            <TableColumn fx:id="colEspId" text="ID"/>
-            <TableColumn fx:id="colEspNombre" text="Nombre"/>
-            <TableColumn fx:id="colEspInicio" text="Inicio"/>
-            <TableColumn fx:id="colEspFin" text="Fin"/>
-        </columns>
-    </TableView>
+        <TableView fx:id="tablaEspectaculos"
+                   prefHeight="150"
+                   VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colEspId" text="ID"/>
+                <TableColumn fx:id="colEspNombre" text="Nombre"/>
+                <TableColumn fx:id="colEspInicio" text="Inicio"/>
+                <TableColumn fx:id="colEspFin" text="Fin"/>
+            </columns>
+        </TableView>
 
-    <TableView fx:id="tablaNumeros" prefWidth="600" prefHeight="150">
-        <columns>
-            <TableColumn fx:id="colNumId" text="ID"/>
-            <TableColumn fx:id="colNumNombre" text="Nombre"/>
-            <TableColumn fx:id="colNumDuracion" text="Duración"/>
-        </columns>
-    </TableView>
+        <TableView fx:id="tablaNumeros"
+                   prefHeight="150"
+                   VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colNumId" text="ID"/>
+                <TableColumn fx:id="colNumNombre" text="Nombre"/>
+                <TableColumn fx:id="colNumDuracion" text="Duración"/>
+            </columns>
+        </TableView>
 
-    <TableView fx:id="tablaArtistas" prefWidth="600" prefHeight="150">
-        <columns>
-            <TableColumn fx:id="colArtNombre" text="Nombre"/>
-            <TableColumn fx:id="colArtNac" text="Nacionalidad"/>
-            <TableColumn fx:id="colArtApodo" text="Apodo"/>
-        </columns>
-    </TableView>
-    
-    <Button text="Volver" onAction="#volver"/>
+        <TableView fx:id="tablaArtistas"
+                   prefHeight="150"
+                   VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colArtNombre" text="Nombre"/>
+                <TableColumn fx:id="colArtNac" text="Nacionalidad"/>
+                <TableColumn fx:id="colArtApodo" text="Apodo"/>
+            </columns>
+        </TableView>
 
-</VBox>
+        <Button text="Volver"
+                onAction="#volver"
+                styleClass="button btn-invitado"
+                prefWidth="200"/>
+
+	</VBox>

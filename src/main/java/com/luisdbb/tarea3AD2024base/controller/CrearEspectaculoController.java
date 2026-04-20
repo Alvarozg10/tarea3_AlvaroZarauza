@@ -150,4 +150,9 @@ public class CrearEspectaculoController {
         a.setContentText(msg);
         a.showAndWait();
     }
+    
+    @FXML
+    public void volver() {
+        stageManager.switchScene(FxmlView.ADMIN);
+    }
 }

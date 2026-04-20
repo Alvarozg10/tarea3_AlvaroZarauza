@@ -1,28 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 
-<VBox spacing="15" alignment="CENTER"
+<VBox spacing="5" alignment="CENTER"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.luisdbb.tarea3AD2024base.controller.FichaArtistaController">
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.FichaArtistaController"
+      stylesheets="@/styles/Styles.css">
 
-    <Label text="Ficha del Artista" style="-fx-font-size: 20px;" />
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
 
-    <Label fx:id="nombreLabel" text="Nombre: "/>
-    <Label fx:id="emailLabel" text="Email: "/>
-    <Label fx:id="nacionalidadLabel" text="Nacionalidad: "/>
+    <VBox styleClass="card" spacing="15" alignment="CENTER" maxWidth="600">
 
-    <Label fx:id="apodoLabel" text="Apodo: "/>
-    <Label fx:id="especialidadesLabel" text="Especialidades: "/>
+        <TableView fx:id="datosTable"
+                   prefHeight="150"
+                   prefWidth="500">
 
-    <TableView fx:id="trayectoriaTable" prefHeight="200" prefWidth="500" VBox.vgrow="ALWAYS">
-    <columns>
-        <TableColumn fx:id="colEspectaculo" text="Espectáculo" prefWidth="250"/>
-        <TableColumn fx:id="colNumero" text="Número" prefWidth="250"/>
-    </columns>
-	</TableView>
+            <columns>
+                <TableColumn fx:id="colCampo" text="Dato" prefWidth="200"/>
+                <TableColumn fx:id="colValor" text="Información personal" prefWidth="300"/>
+            </columns>
 
-    <Button text="Volver" onAction="#volver"/>
+        </TableView>
+
+        <TableView fx:id="trayectoriaTable"
+                   prefHeight="200"
+                   VBox.vgrow="ALWAYS">
+
+            <columns>
+                <TableColumn fx:id="colEspectaculo" text="Espectáculo"/>
+                <TableColumn fx:id="colNumero" text="Número"/>
+            </columns>
+
+        </TableView>
+
+        <Button text="Volver"
+                onAction="#volver"
+                styleClass="button btn-artista"
+                prefWidth="200"/>
+
+    </VBox>
 
 </VBox>

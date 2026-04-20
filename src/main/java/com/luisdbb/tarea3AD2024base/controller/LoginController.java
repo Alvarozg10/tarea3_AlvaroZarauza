@@ -105,25 +105,10 @@ public class LoginController {
     }
 
     @FXML
-    private void recuperarPassword() {
-
-        String username = usernameField.getText();
-
-        Credenciales cred = authService.buscarPorUsername(username);
-
-        if (cred == null) {
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Usuario no encontrado");
-            alert.show();
-
-        } else {
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Tu contraseña es: " + cred.getPassword());
-            alert.show();
-        }
+    public void recuperarPassword() {
+        stageManager.switchScene(FxmlView.RECUPERAR_PASSWORD);
     }
+    
     
     @FXML
     public void entrarInvitado() {

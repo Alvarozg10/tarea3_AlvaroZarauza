@@ -1,22 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER"
+<VBox spacing="20" alignment="CENTER"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.luisdbb.tarea3AD2024base.controller.CrearEspectaculoController">
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.CrearEspectaculoController"
+      stylesheets="@/styles/Styles.css">
 
-    <Label text="Crear Espectáculo" style="-fx-font-size: 18px;" />
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
 
-    <TextField fx:id="nombreField" promptText="Nombre del espectáculo"/>
+    <VBox styleClass="card" spacing="15" alignment="CENTER" maxWidth="400">
 
-    <DatePicker fx:id="fechaInicioPicker" promptText="Fecha inicio"/>
-    <DatePicker fx:id="fechaFinPicker" promptText="Fecha fin"/>
+        <Label text="Crear Espectáculo"
+               styleClass="title"/>
 
-    <Label text="Seleccionar Coordinador"/>
-    <ComboBox fx:id="coordinadorCombo" prefWidth="200"/>
+        <TextField fx:id="nombreField"
+                   promptText="Nombre del espectáculo"
+                   prefWidth="250"/>
 
-    <Button text="Crear Espectáculo" onAction="#crearEspectaculo"/>
+        <DatePicker fx:id="fechaInicioPicker"
+                    promptText="Fecha inicio"
+                    prefWidth="250"/>
+
+        <DatePicker fx:id="fechaFinPicker"
+                    promptText="Fecha fin"
+                    prefWidth="250"/>
+
+        <Label text="Seleccionar Coordinador"/>
+
+        <ComboBox fx:id="coordinadorCombo"
+                  prefWidth="250"/>
+
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Crear"
+                    onAction="#crearEspectaculo"
+                    styleClass="button btn-admin"
+                    prefWidth="120"/>
+
+            <Button text="Volver"
+                    onAction="#volver"
+                    styleClass="button btn-invitado"
+                    prefWidth="120"/>
+        </HBox>
+
+    </VBox>
 
 </VBox>

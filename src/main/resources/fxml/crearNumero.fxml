@@ -1,28 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER"
+<VBox spacing="5" alignment="CENTER"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.luisdbb.tarea3AD2024base.controller.CrearNumeroController">
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.CrearNumeroController"
+      stylesheets="@/styles/Styles.css">
 
-    <Label text="Crear Número" style="-fx-font-size: 20px;" />
+    <padding>
+        <Insets top="5" right="15" bottom="5" left="15"/>
+    </padding>
 
-    <TextField fx:id="nombreField" promptText="Nombre del número"/>
+    <VBox styleClass="card" spacing="15" alignment="CENTER" maxWidth="400">
 
-    <TextField fx:id="duracionField" promptText="Duración (ej: 1.0 o 1.5)"/>
+        <Label text="Crear Número"
+               styleClass="title"/>
 
-    <TextField fx:id="ordenField" promptText="Orden en el espectáculo"/>
+        <TextField fx:id="nombreField"
+                   promptText="Nombre del número"
+                   prefWidth="250"/>
 
-    <Label text="Seleccionar artistas"/>
+        <TextField fx:id="duracionField"
+                   promptText="Duración (ej: 1.0 o 1.5)"
+                   prefWidth="250"/>
 
-    <ListView fx:id="artistasList" prefHeight="150" prefWidth="200"/>
+        <TextField fx:id="ordenField"
+                   promptText="Orden en el espectáculo"
+                   prefWidth="250"/>
 
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="Crear número" onAction="#crearNumero"/>
-        <Button text="Volver" onAction="#volver"/>
-    </HBox>
+        <Label text="Seleccionar artistas"/>
+
+        <ListView fx:id="artistasList"
+                  prefHeight="150"
+                  prefWidth="250"/>
+
+        <Label text="⚠ Debes crear al menos 3 números antes de salir"
+               style="-fx-text-fill: #e53935; -fx-font-size: 12px;"/>
+
+        <HBox spacing="5" alignment="CENTER">
+            <Button text="Crear"
+                    onAction="#crearNumero"
+                    styleClass="button btn-admin"
+                    prefWidth="120"/>
+
+            <Button text="Volver"
+                    onAction="#volver"
+                    styleClass="button btn-invitado"
+                    prefWidth="120"/>
+        </HBox>
+
+    </VBox>
 
 </VBox>

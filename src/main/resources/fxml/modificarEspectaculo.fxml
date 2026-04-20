@@ -1,29 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.*?>
 
-<VBox spacing="10" alignment="CENTER"
+<VBox spacing="20" alignment="CENTER"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarEspectaculoController">
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarEspectaculoController"
+      stylesheets="@/styles/Styles.css">
 
-    <Label text="Modificar Espectáculo" style="-fx-font-size: 20px;" />
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
 
-    <TextField fx:id="idField" promptText="ID Espectáculo" />
-    <Button text="Cargar" onAction="#cargarEspectaculo"/>
+    <VBox spacing="15" alignment="CENTER"
+          styleClass="card"
+          maxWidth="400">
 
-    <TextField fx:id="nombreField" promptText="Nombre del espectáculo" />
+        <Label text="Modificar Espectáculo"
+               styleClass="title"/>
 
-    <DatePicker fx:id="fechaInicioPicker" promptText="Fecha inicio"/>
-    <DatePicker fx:id="fechaFinPicker" promptText="Fecha fin"/>
+        <TextField fx:id="idField"
+                   promptText="ID Espectáculo"
+                   prefWidth="250"/>
 
-    <Label text="Seleccionar Coordinador"/>
-    <ComboBox fx:id="coordinadorCombo" prefWidth="200"/>
+        <Button text="Cargar"
+                onAction="#cargarEspectaculo"
+                styleClass="button btn-coord"
+                prefWidth="120"/>
 
-    <HBox spacing="10" alignment="CENTER">
-    <Button text="Guardar cambios" onAction="#guardarCambios"/>
-    <Button text="Volver" onAction="#volver"/>
-	</HBox>
+        <TextField fx:id="nombreField"
+                   promptText="Nombre del espectáculo"
+                   prefWidth="250"/>
+
+        <DatePicker fx:id="fechaInicioPicker"
+                    promptText="Fecha inicio"
+                    prefWidth="250"/>
+
+        <DatePicker fx:id="fechaFinPicker"
+                    promptText="Fecha fin"
+                    prefWidth="250"/>
+
+        <Label text="Seleccionar Coordinador"/>
+
+        <ComboBox fx:id="coordinadorCombo"
+                  prefWidth="250"/>
+
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Guardar cambios"
+                    onAction="#guardarCambios"
+                    styleClass="button btn-coord"
+                    prefWidth="150"/>
+
+            <Button text="Volver"
+                    onAction="#volver"
+                    styleClass="button btn-invitado"
+                    prefWidth="120"/>
+        </HBox>
+
+    </VBox>
 
 </VBox>

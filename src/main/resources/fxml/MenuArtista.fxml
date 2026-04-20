@@ -1,21 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 
 <VBox spacing="20" alignment="CENTER"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.luisdbb.tarea3AD2024base.controller.ArtistaController">
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.ArtistaController"
+      stylesheets="@/styles/Styles.css">
 
-    <Label text="Menú Artista" style="-fx-font-size: 20px;" />
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
 
-    <Button text="Ver ficha" 	
-    	onAction="#verFicha"/>
-    	
-   	<Button text="Ver Espectáculos" 	
-   		onAction="#verEspectaculos"/>
+    <VBox styleClass="card" spacing="20" alignment="CENTER" maxWidth="450">
 
-    <Button text="Cerrar sesión" 	
-    	onAction="#cerrarSesion"/>
+        <Label text="Panel de Artista"
+               styleClass="title"/>
+
+        <VBox spacing="15" alignment="CENTER">
+
+            <Button text="Ver ficha"
+                    onAction="#verFicha"
+                    styleClass="button btn-artista"
+                    prefWidth="220"/>
+
+            <Button text="Ver Espectáculos"
+                    onAction="#verEspectaculos"
+                    styleClass="button btn-invitado"
+                    prefWidth="220"/>
+
+        </VBox>
+
+        <Button text="Cerrar sesión"
+                onAction="#cerrarSesion"
+                styleClass="button btn-invitado"
+                prefWidth="220"/>
+
+    </VBox>
 
 </VBox>

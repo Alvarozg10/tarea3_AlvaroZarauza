@@ -6,30 +6,69 @@
 
 <VBox spacing="20" alignment="CENTER"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.luisdbb.tarea3AD2024base.controller.AdminController">
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.AdminController"
+      stylesheets="@/styles/Styles.css">
 
-    <Label text="Panel de Administración"
-           style="-fx-font-size:20px; -fx-font-weight:bold;"/>
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
 
-    <Button text="Registrar Persona"
-        onAction="#registrarPersona"/>
+    <VBox styleClass="card" spacing="20" alignment="CENTER" maxWidth="500">
 
-    <Button text="Modificar Personas"
-        onAction="#modificarPersona"/>
-        
-    <Button text="Crear Espectáculo y numeros" 
-    	onAction="#crearEspectaculo"/>
-    	
-   	<Button text="Modificar Espectáculo"
-   		onAction="#modificarEspectaculo"/>
-   		
-   	<Button text="Modificar Número" 
-   		onAction="#modificarNumero"/>
-   		
-   	<Button text="Ver Espectáculos" 
-   		onAction="#verEspectaculos"/>
+        <Label text="Panel de Administración"
+               styleClass="title"/>
 
-    <Button text="Cerrar sesión" 	
-    	onAction="#cerrarSesion"/>
+        <GridPane hgap="15" vgap="15" alignment="CENTER">
+
+            <Button text="Registrar Persona"
+                    onAction="#registrarPersona"
+                    styleClass="button btn-admin"
+                    prefWidth="200"
+                    GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+
+            <Button text="Modificar Personas"
+                    onAction="#modificarPersona"
+                    styleClass="button btn-admin"
+                    prefWidth="200"
+                    GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Button text="Crear Espectáculo"
+                    onAction="#crearEspectaculo"
+                    styleClass="button btn-admin"
+                    prefWidth="200"
+                    GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+
+            <Button text="Modificar Espectáculo"
+                    onAction="#modificarEspectaculo"
+                    styleClass="button btn-admin"
+                    prefWidth="200"
+                    GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Button text="Modificar Número"
+                    onAction="#modificarNumero"
+                    styleClass="button btn-admin"
+                    prefWidth="200"
+                    GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+
+            <Button text="Ver Espectáculos"
+                    onAction="#verEspectaculos"
+                    styleClass="button btn-invitado"
+                    prefWidth="200"
+                    GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    
+            <Button text="Exportar Espectáculos"
+                    onAction="#exportarEspectaculos"
+                    styleClass="button btn-invitado"
+                    prefWidth="200"
+                    GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        </GridPane>
+
+        <Button text="Cerrar sesión"
+                onAction="#cerrarSesion"
+                styleClass="button btn-invitado"
+                prefWidth="200"/>
+
+    </VBox>
 
 </VBox>
