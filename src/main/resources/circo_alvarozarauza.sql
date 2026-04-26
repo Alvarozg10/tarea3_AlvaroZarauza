@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-03-2026 a las 01:02:20
+-- Tiempo de generación: 26-04-2026 a las 16:39:32
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -37,6 +37,7 @@ CREATE TABLE `artista_especialidad` (
 --
 
 INSERT INTO `artista_especialidad` (`artista_id`, `especialidad`) VALUES
+(12, 'HUMOR'),
 (9, 'HUMOR'),
 (9, 'MALABARISMO');
 
@@ -62,7 +63,8 @@ INSERT INTO `credenciales` (`id`, `password`, `perfil`, `username`, `persona_id`
 (3, 'admin', 'ADMIN', 'admin', 7),
 (5, '1234', 'ARTISTA', 'juan', 9),
 (6, '1234', 'COORDINACION', 'marta', 10),
-(7, 'prueba', 'COORDINACION', 'prueba', 11);
+(7, 'prueba', 'COORDINACION', 'prueba', 11),
+(8, '1234', 'ARTISTA', 'roberto', 12);
 
 -- --------------------------------------------------------
 
@@ -101,7 +103,10 @@ INSERT INTO `espectaculo` (`id`, `fecha_fin`, `fecha_inicio`, `nombre`, `coordin
 (5, '2026-04-26', '2026-03-26', 'Circo Test2', 10),
 (6, '2026-04-20', '2026-03-26', 'Circo Test3', 10),
 (7, '2026-04-20', '2026-03-28', 'Circo Test4', 11),
-(8, '2026-04-08', '2026-03-29', 'Circo Test5', 10);
+(8, '2026-04-08', '2026-03-29', 'Circo Test5', 10),
+(9, '2026-04-30', '2026-04-21', 'Prueba de numeros', 11),
+(10, '2026-05-20', '2026-04-23', 'Prueba de numeros 2', 10),
+(11, '2026-04-28', '2026-04-21', 'Prueba de estética', 10);
 
 -- --------------------------------------------------------
 
@@ -130,7 +135,13 @@ INSERT INTO `numero` (`id`, `duracion`, `nombre`, `espectaculo_id`, `orden`) VAL
 (6, 4.5, 'Numero prueba3', 7, 3),
 (7, 1, 'Numero Test1', 8, 1),
 (8, 1.5, 'Numero Test2', 8, 2),
-(9, 5.5, 'Numero Test3', 8, 3);
+(9, 5.5, 'Numero Test3', 8, 3),
+(10, 1, 'N1', 10, 1),
+(11, 2, 'N2', 10, 2),
+(12, 3, 'N3', 10, 3),
+(13, 1, 'num1', 11, 1),
+(14, 2, 'num2', 11, 2),
+(15, 3, 'num3', 11, 3);
 
 -- --------------------------------------------------------
 
@@ -156,7 +167,14 @@ INSERT INTO `numero_artista` (`numero_id`, `artista_id`) VALUES
 (7, 9),
 (8, 9),
 (9, 9),
-(1, 9);
+(1, 9),
+(10, 9),
+(11, 9),
+(12, 9),
+(12, 12),
+(13, 9),
+(14, 9),
+(15, 9);
 
 -- --------------------------------------------------------
 
@@ -183,7 +201,8 @@ INSERT INTO `persona` (`dtype`, `id`, `email`, `nacionalidad`, `nombre`, `apodo`
 ('COORDINACION', 7, 'admin@circo.com', 'España', 'Administrador', NULL, NULL, b'0'),
 ('ARTISTA', 9, 'juan@test.com', 'España', 'Juan Martínez', 'El Cuerdo', NULL, NULL),
 ('COORDINACION', 10, 'marta@test.com', 'España', 'Marta López', NULL, '2026-01-14', b'1'),
-('COORDINACION', 11, 'prueba@educastur.es', 'España', 'prueba', NULL, '2026-03-09', b'1');
+('COORDINACION', 11, 'prueba@educastur.es', 'España', 'prueba', NULL, '2026-03-09', b'1'),
+('ARTISTA', 12, 'roberto@test.com', 'España', 'Roberto', 'El Inteligente', NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -246,7 +265,7 @@ ALTER TABLE `persona`
 -- AUTO_INCREMENT de la tabla `credenciales`
 --
 ALTER TABLE `credenciales`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `especialidad`
@@ -258,19 +277,19 @@ ALTER TABLE `especialidad`
 -- AUTO_INCREMENT de la tabla `espectaculo`
 --
 ALTER TABLE `espectaculo`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `numero`
 --
 ALTER TABLE `numero`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
