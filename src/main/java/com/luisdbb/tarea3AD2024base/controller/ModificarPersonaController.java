@@ -63,7 +63,6 @@ public class ModificarPersonaController {
             }
             passwordField.clear(); 
 
-            // reset
             apodoField.clear();
             seniorCheck.setSelected(false);
             fechaSeniorPicker.setValue(null);
@@ -124,7 +123,6 @@ public class ModificarPersonaController {
             if (equilibrioCheck.isSelected()) especialidades.add(Especialidad.EQUILIBRISMO);
             if (malabaresCheck.isSelected()) especialidades.add(Especialidad.MALABARISMO);
 
-            // 🔥 CREDENCIALES
             String username = usernameField.getText();
             String password = passwordField.getText();
 

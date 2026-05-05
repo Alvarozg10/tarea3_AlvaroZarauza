@@ -53,7 +53,6 @@ public class CrearNumeroController {
 
         espectaculoId = sesion.getEspectaculoId();
 
-        // 🔥 CARGAR ESPECTÁCULO (CLAVE)
         espectaculoActual = espectaculoService.obtenerEspectaculoCompleto(espectaculoId);
 
         artistasList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

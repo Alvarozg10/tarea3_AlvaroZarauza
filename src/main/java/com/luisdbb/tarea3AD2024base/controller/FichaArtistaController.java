@@ -78,7 +78,6 @@ public class FichaArtistaController {
 
         if (artista == null) return;
 
-        // 🔥 TABLA DATOS
         ObservableList<String[]> datos = FXCollections.observableArrayList();
 
         datos.add(new String[]{"Nombre", artista.getNombre()});
@@ -96,7 +95,6 @@ public class FichaArtistaController {
         datosTable.setItems(datos);
         datosTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        // 🔥 TRAYECTORIA
         trayectoriaTable.getItems().setAll(artista.getNumeros());
         trayectoriaTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         trayectoriaTable.setPlaceholder(new Label("Sin trayectoria"));
