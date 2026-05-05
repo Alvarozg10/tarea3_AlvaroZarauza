@@ -30,6 +30,10 @@
                    promptText="Orden en el espectáculo"
                    prefWidth="250"/>
 
+        <TextField fx:id="espectaculoField"
+                   promptText="ID del espectáculo"
+                   prefWidth="250"/>
+
         <Label text="Seleccionar artistas"/>
 
         <ListView fx:id="artistasList"

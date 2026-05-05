@@ -1,17 +1,17 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.*;
 import com.luisdbb.tarea3AD2024base.services.*;
+import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -27,6 +27,9 @@ public class CrearNumeroController {
     private TextField ordenField;
 
     @FXML
+    private TextField espectaculoField;
+
+    @FXML
     private ListView<Persona> artistasList;
 
     @Autowired
@@ -37,25 +40,12 @@ public class CrearNumeroController {
 
     @Autowired
     private Sesion sesion;
-    
+
     @Autowired
     private StageManager stageManager;
 
-    private Long espectaculoId;
-    
-    @Autowired
-    private EspectaculoService espectaculoService;
-    
-    private Espectaculo espectaculoActual;
-
     @FXML
     public void initialize() {
-
-        espectaculoId = sesion.getEspectaculoId();
-
-        espectaculoActual = espectaculoService.obtenerEspectaculoCompleto(espectaculoId);
-
-        artistasList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         List<Persona> personas = personaService.obtenerTodas();
 
@@ -65,6 +55,8 @@ public class CrearNumeroController {
             }
         }
 
+        artistasList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         artistasList.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Persona item, boolean empty) {
@@ -72,6 +64,15 @@ public class CrearNumeroController {
                 setText(empty || item == null ? null : item.getNombre());
             }
         });
+
+        Long id = sesion.getEspectaculoId();
+
+        if (id != null) {
+            espectaculoField.setVisible(false);
+            espectaculoField.setManaged(false);
+        } else {
+            espectaculoField.setVisible(true);
+        }
     }
 
     @FXML
@@ -82,17 +83,22 @@ public class CrearNumeroController {
             double duracion = Double.parseDouble(duracionField.getText());
             int orden = Integer.parseInt(ordenField.getText());
 
-            List<Persona> seleccionados = artistasList.getSelectionModel().getSelectedItems();
-
-            List<Long> artistasIds = new ArrayList<>();
-
-            for (Persona p : seleccionados) {
-                artistasIds.add(p.getId());
-            }
+            Long espectaculoId = sesion.getEspectaculoId();
 
             if (espectaculoId == null) {
-                throw new RuntimeException("No hay espectáculo seleccionado");
+
+                if (espectaculoField.getText().isBlank()) {
+                    throw new RuntimeException("Debes introducir ID de espectáculo");
+                }
+
+                espectaculoId = Long.parseLong(espectaculoField.getText());
             }
+
+            List<Long> artistasIds = artistasList.getSelectionModel()
+                    .getSelectedItems()
+                    .stream()
+                    .map(Persona::getId)
+                    .toList();
 
             numeroService.crearNumero(
                     nombre,
@@ -104,43 +110,31 @@ public class CrearNumeroController {
 
             mostrarInfo("Número creado correctamente");
 
-        } catch (NumberFormatException e) {
-            mostrarError("Duración y orden deben ser números válidos");
+            sesion.setEspectaculoId(null);
+
         } catch (Exception e) {
             mostrarError(e.getMessage());
         }
     }
 
     private void mostrarError(String msg) {
-        Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setContentText(msg);
-        a.showAndWait();
+        new Alert(Alert.AlertType.ERROR, msg).showAndWait();
     }
 
     private void mostrarInfo(String msg) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        a.setContentText(msg);
-        a.showAndWait();
+        new Alert(Alert.AlertType.INFORMATION, msg).showAndWait();
     }
-    
+
     @FXML
     public void volver() {
 
-        espectaculoActual = espectaculoService.obtenerEspectaculoCompleto(espectaculoId);
+        switch (sesion.getUsuario().getCredenciales().getPerfil()) {
 
-        int totalNumeros = espectaculoActual.getNumeros().size();
+            case ADMIN ->
+                stageManager.switchScene(FxmlView.ADMIN);
 
-        if (totalNumeros < 3) {
-
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Mínimo de números");
-            alert.setHeaderText(null);
-            alert.setContentText("Debes crear al menos 3 números antes de salir");
-
-            alert.showAndWait();
-            return;
+            case COORDINACION ->
+                stageManager.switchScene(FxmlView.COORDINADOR);
         }
-
-        stageManager.switchScene(FxmlView.ADMIN);
     }
 }
