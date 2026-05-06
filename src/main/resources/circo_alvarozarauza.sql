@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-04-2026 a las 16:39:32
+-- Tiempo de generación: 06-05-2026 a las 16:34:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -37,7 +37,9 @@ CREATE TABLE `artista_especialidad` (
 --
 
 INSERT INTO `artista_especialidad` (`artista_id`, `especialidad`) VALUES
-(12, 'HUMOR'),
+(12, 'ACROBACIA'),
+(13, 'HUMOR'),
+(13, 'EQUILIBRISMO'),
 (9, 'HUMOR'),
 (9, 'MALABARISMO');
 
@@ -60,11 +62,12 @@ CREATE TABLE `credenciales` (
 --
 
 INSERT INTO `credenciales` (`id`, `password`, `perfil`, `username`, `persona_id`) VALUES
-(3, 'admin', 'ADMIN', 'admin', 7),
 (5, '1234', 'ARTISTA', 'juan', 9),
 (6, '1234', 'COORDINACION', 'marta', 10),
 (7, 'prueba', 'COORDINACION', 'prueba', 11),
-(8, '1234', 'ARTISTA', 'roberto', 12);
+(8, '1234', 'ARTISTA', 'manuel', 12),
+(9, '1234', 'ARTISTA', 'lucas', 13),
+(10, '1234', 'COORDINACION', 'mario', 14);
 
 -- --------------------------------------------------------
 
@@ -104,9 +107,7 @@ INSERT INTO `espectaculo` (`id`, `fecha_fin`, `fecha_inicio`, `nombre`, `coordin
 (6, '2026-04-20', '2026-03-26', 'Circo Test3', 10),
 (7, '2026-04-20', '2026-03-28', 'Circo Test4', 11),
 (8, '2026-04-08', '2026-03-29', 'Circo Test5', 10),
-(9, '2026-04-30', '2026-04-21', 'Prueba de numeros', 11),
-(10, '2026-05-20', '2026-04-23', 'Prueba de numeros 2', 10),
-(11, '2026-04-28', '2026-04-21', 'Prueba de estética', 10);
+(9, '2026-04-19', '2026-04-14', 'Espectaculo Mario', 14);
 
 -- --------------------------------------------------------
 
@@ -136,12 +137,9 @@ INSERT INTO `numero` (`id`, `duracion`, `nombre`, `espectaculo_id`, `orden`) VAL
 (7, 1, 'Numero Test1', 8, 1),
 (8, 1.5, 'Numero Test2', 8, 2),
 (9, 5.5, 'Numero Test3', 8, 3),
-(10, 1, 'N1', 10, 1),
-(11, 2, 'N2', 10, 2),
-(12, 3, 'N3', 10, 3),
-(13, 1, 'num1', 11, 1),
-(14, 2, 'num2', 11, 2),
-(15, 3, 'num3', 11, 3);
+(10, 2.5, 'Numero Mario 1', 9, 1),
+(11, 1.5, 'Numero Mario 2', 9, 2),
+(12, 3, 'Numero Mario 3', 9, 3);
 
 -- --------------------------------------------------------
 
@@ -168,13 +166,10 @@ INSERT INTO `numero_artista` (`numero_id`, `artista_id`) VALUES
 (8, 9),
 (9, 9),
 (1, 9),
-(10, 9),
-(11, 9),
-(12, 9),
+(10, 13),
+(11, 12),
 (12, 12),
-(13, 9),
-(14, 9),
-(15, 9);
+(12, 13);
 
 -- --------------------------------------------------------
 
@@ -198,11 +193,12 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`dtype`, `id`, `email`, `nacionalidad`, `nombre`, `apodo`, `fecha_senior`, `senior`) VALUES
-('COORDINACION', 7, 'admin@circo.com', 'España', 'Administrador', NULL, NULL, b'0'),
 ('ARTISTA', 9, 'juan@test.com', 'España', 'Juan Martínez', 'El Cuerdo', NULL, NULL),
 ('COORDINACION', 10, 'marta@test.com', 'España', 'Marta López', NULL, '2026-01-14', b'1'),
 ('COORDINACION', 11, 'prueba@educastur.es', 'España', 'prueba', NULL, '2026-03-09', b'1'),
-('ARTISTA', 12, 'roberto@test.com', 'España', 'Roberto', 'El Inteligente', NULL, NULL);
+('ARTISTA', 12, 'manuel@test.com', 'España', 'Manuel', '', NULL, NULL),
+('ARTISTA', 13, 'lucas@test.com', 'España', 'Lucas', 'Luigi', NULL, NULL),
+('COORDINACION', 14, 'mario@test.com', 'España', 'Mario', NULL, '2025-08-12', b'1');
 
 --
 -- Índices para tablas volcadas
@@ -265,7 +261,7 @@ ALTER TABLE `persona`
 -- AUTO_INCREMENT de la tabla `credenciales`
 --
 ALTER TABLE `credenciales`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `especialidad`
@@ -277,19 +273,19 @@ ALTER TABLE `especialidad`
 -- AUTO_INCREMENT de la tabla `espectaculo`
 --
 ALTER TABLE `espectaculo`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `numero`
 --
 ALTER TABLE `numero`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas

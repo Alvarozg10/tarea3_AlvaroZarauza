@@ -69,7 +69,11 @@ public class LoginController {
 
         } else {
 
-            sesion.setUsuario(cred.getPersona());
+        	if (cred.getPersona() != null) {
+                sesion.setUsuario(cred.getPersona());
+            }
+
+            sesion.setPerfil(cred.getPerfil());
 
             switch (cred.getPerfil()) {
 
@@ -87,7 +91,6 @@ public class LoginController {
             }
         }
     }
-        
     
     @FXML
     private void mostrarPassword() {

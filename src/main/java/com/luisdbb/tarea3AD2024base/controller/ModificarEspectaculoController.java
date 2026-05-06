@@ -42,27 +42,29 @@ public class ModificarEspectaculoController {
     @Autowired
     private Sesion sesion;
 
-    private Espectaculo espectaculoActual;
-    
     @Autowired
     private StageManager stageManager;
+
+    private Espectaculo espectaculoActual;
 
     @FXML
     public void initialize() {
 
         Platform.runLater(() -> {
 
-            Persona usuario = sesion.getUsuario();
-            Credenciales cred = usuario.getCredenciales();
+            Perfil perfil = sesion.getPerfil();
 
-            if (cred.getPerfil() == Perfil.COORDINACION) {
+            if (perfil == Perfil.COORDINACION) {
+
                 coordinadorCombo.setVisible(false);
                 coordinadorCombo.setManaged(false);
+
             } else {
 
                 List<Persona> personas = personaService.obtenerTodas();
 
                 for (Persona p : personas) {
+
                     Credenciales c = p.getCredenciales();
 
                     if (c != null && c.getPerfil() == Perfil.COORDINACION) {
@@ -93,6 +95,7 @@ public class ModificarEspectaculoController {
     public void cargarEspectaculo() {
 
         try {
+
             Long id = Long.parseLong(idField.getText());
 
             espectaculoActual = espectaculoService.buscarPorId(id);
@@ -107,7 +110,8 @@ public class ModificarEspectaculoController {
             fechaFinPicker.setValue(espectaculoActual.getFechaFin());
 
             if (coordinadorCombo.isVisible()) {
-            	coordinadorCombo.getSelectionModel().select(espectaculoActual.getCoordinador());
+                coordinadorCombo.getSelectionModel()
+                        .select(espectaculoActual.getCoordinador());
             }
 
         } catch (Exception e) {
@@ -124,21 +128,23 @@ public class ModificarEspectaculoController {
         }
 
         try {
+
             String nombre = nombreField.getText();
             LocalDate inicio = fechaInicioPicker.getValue();
             LocalDate fin = fechaFinPicker.getValue();
 
-            Persona usuario = sesion.getUsuario();
-            Credenciales cred = usuario.getCredenciales();
+            Perfil perfil = sesion.getPerfil();
 
-            Long coordinadorId = espectaculoActual.getCoordinador().getId();
+            Long coordinadorId =
+                    espectaculoActual.getCoordinador().getId();
 
-            if (cred.getPerfil() == Perfil.ADMIN) {
+            if (perfil == Perfil.ADMIN) {
 
                 Persona seleccionado = coordinadorCombo.getValue();
 
                 if (seleccionado == null) {
-                    throw new RuntimeException("Debes seleccionar coordinador");
+                    throw new RuntimeException(
+                            "Debes seleccionar coordinador");
                 }
 
                 coordinadorId = seleccionado.getId();
@@ -160,25 +166,29 @@ public class ModificarEspectaculoController {
     }
 
     private void mostrarError(String msg) {
+
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setContentText(msg);
         a.showAndWait();
     }
 
     private void mostrarInfo(String msg) {
+
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setContentText(msg);
         a.showAndWait();
     }
-    
+
     @FXML
     public void volver() {
 
-        switch (sesion.getUsuario().getCredenciales().getPerfil()) {
+        switch (sesion.getPerfil()) {
 
-            case ADMIN -> stageManager.switchScene(FxmlView.ADMIN);
+            case ADMIN ->
+                    stageManager.switchScene(FxmlView.ADMIN);
 
-            case COORDINACION -> stageManager.switchScene(FxmlView.COORDINADOR);
+            case COORDINACION ->
+                    stageManager.switchScene(FxmlView.COORDINADOR);
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.luisdbb.tarea3AD2024base.controller;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -50,28 +49,39 @@ public class CrearNumeroController {
         List<Persona> personas = personaService.obtenerTodas();
 
         for (Persona p : personas) {
+
             if (p instanceof Artista) {
                 artistasList.getItems().add(p);
             }
         }
 
-        artistasList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        artistasList.getSelectionModel()
+                .setSelectionMode(SelectionMode.MULTIPLE);
 
         artistasList.setCellFactory(param -> new ListCell<>() {
+
             @Override
             protected void updateItem(Persona item, boolean empty) {
+
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getNombre());
+
+                setText(empty || item == null
+                        ? null
+                        : item.getNombre());
             }
         });
 
         Long id = sesion.getEspectaculoId();
 
         if (id != null) {
+
             espectaculoField.setVisible(false);
             espectaculoField.setManaged(false);
+
         } else {
+
             espectaculoField.setVisible(true);
+            espectaculoField.setManaged(true);
         }
     }
 
@@ -79,22 +89,31 @@ public class CrearNumeroController {
     public void crearNumero() {
 
         try {
+
             String nombre = nombreField.getText();
-            double duracion = Double.parseDouble(duracionField.getText());
-            int orden = Integer.parseInt(ordenField.getText());
+
+            double duracion =
+                    Double.parseDouble(duracionField.getText());
+
+            int orden =
+                    Integer.parseInt(ordenField.getText());
 
             Long espectaculoId = sesion.getEspectaculoId();
 
             if (espectaculoId == null) {
 
                 if (espectaculoField.getText().isBlank()) {
-                    throw new RuntimeException("Debes introducir ID de espectáculo");
+
+                    throw new RuntimeException(
+                            "Debes introducir ID de espectáculo");
                 }
 
-                espectaculoId = Long.parseLong(espectaculoField.getText());
+                espectaculoId =
+                        Long.parseLong(espectaculoField.getText());
             }
 
-            List<Long> artistasIds = artistasList.getSelectionModel()
+            List<Long> artistasIds = artistasList
+                    .getSelectionModel()
                     .getSelectedItems()
                     .stream()
                     .map(Persona::getId)
@@ -113,28 +132,33 @@ public class CrearNumeroController {
             sesion.setEspectaculoId(null);
 
         } catch (Exception e) {
+
             mostrarError(e.getMessage());
         }
     }
 
     private void mostrarError(String msg) {
-        new Alert(Alert.AlertType.ERROR, msg).showAndWait();
+
+        new Alert(Alert.AlertType.ERROR, msg)
+                .showAndWait();
     }
 
     private void mostrarInfo(String msg) {
-        new Alert(Alert.AlertType.INFORMATION, msg).showAndWait();
+
+        new Alert(Alert.AlertType.INFORMATION, msg)
+                .showAndWait();
     }
 
     @FXML
     public void volver() {
 
-        switch (sesion.getUsuario().getCredenciales().getPerfil()) {
+        switch (sesion.getPerfil()) {
 
             case ADMIN ->
-                stageManager.switchScene(FxmlView.ADMIN);
+                    stageManager.switchScene(FxmlView.ADMIN);
 
             case COORDINACION ->
-                stageManager.switchScene(FxmlView.COORDINADOR);
+                    stageManager.switchScene(FxmlView.COORDINADOR);
         }
     }
 }

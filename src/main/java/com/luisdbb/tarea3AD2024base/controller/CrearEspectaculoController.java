@@ -47,18 +47,15 @@ public class CrearEspectaculoController {
 
         Platform.runLater(() -> {
 
-            Persona usuario = sesion.getUsuario();
+            Perfil perfil = sesion.getPerfil();
 
-            if (usuario == null) return;
-
-            Credenciales credUsuario = usuario.getCredenciales();
-
-            if (credUsuario != null && credUsuario.getPerfil() == Perfil.COORDINACION) {
+            if (perfil == Perfil.COORDINACION) {
 
                 coordinadorCombo.setVisible(false);
                 coordinadorCombo.setManaged(false);
 
             } else {
+
                 coordinadorCombo.setVisible(true);
                 coordinadorCombo.setManaged(true);
 
@@ -70,7 +67,9 @@ public class CrearEspectaculoController {
 
                     Credenciales cred = p.getCredenciales();
 
-                    if (cred != null && cred.getPerfil() == Perfil.COORDINACION) {
+                    if (cred != null
+                            && cred.getPerfil() == Perfil.COORDINACION) {
+
                         coordinadorCombo.getItems().add(p);
                     }
                 }
@@ -79,7 +78,10 @@ public class CrearEspectaculoController {
                     @Override
                     protected void updateItem(Persona item, boolean empty) {
                         super.updateItem(item, empty);
-                        setText(empty || item == null ? null : item.getNombre());
+
+                        setText(empty || item == null
+                                ? null
+                                : item.getNombre());
                     }
                 });
 
@@ -87,7 +89,10 @@ public class CrearEspectaculoController {
                     @Override
                     protected void updateItem(Persona item, boolean empty) {
                         super.updateItem(item, empty);
-                        setText(empty || item == null ? null : item.getNombre());
+
+                        setText(empty || item == null
+                                ? null
+                                : item.getNombre());
                     }
                 });
             }
@@ -98,24 +103,27 @@ public class CrearEspectaculoController {
     public void crearEspectaculo() {
 
         try {
+
             String nombre = nombreField.getText();
             LocalDate inicio = fechaInicioPicker.getValue();
             LocalDate fin = fechaFinPicker.getValue();
 
-            Persona usuario = sesion.getUsuario();
-            Credenciales credUsuario = usuario.getCredenciales();
+            Perfil perfil = sesion.getPerfil();
 
             Coordinacion coordinador;
 
-            if (credUsuario != null && credUsuario.getPerfil() == Perfil.COORDINACION) {
+            if (perfil == Perfil.COORDINACION) {
 
-                coordinador = (Coordinacion) usuario;
+                coordinador =
+                        (Coordinacion) sesion.getUsuario();
 
             } else {
+
                 Persona seleccionado = coordinadorCombo.getValue();
 
                 if (seleccionado == null) {
-                    throw new RuntimeException("Debes seleccionar un coordinador");
+                    throw new RuntimeException(
+                            "Debes seleccionar un coordinador");
                 }
 
                 coordinador = (Coordinacion) seleccionado;
@@ -140,19 +148,29 @@ public class CrearEspectaculoController {
     }
 
     private void mostrarError(String msg) {
+
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setContentText(msg);
         a.showAndWait();
     }
 
     private void mostrarInfo(String msg) {
+
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setContentText(msg);
         a.showAndWait();
     }
-    
+
     @FXML
     public void volver() {
-        stageManager.switchScene(FxmlView.ADMIN);
+
+        switch (sesion.getPerfil()) {
+
+            case ADMIN ->
+                    stageManager.switchScene(FxmlView.ADMIN);
+
+            case COORDINACION ->
+                    stageManager.switchScene(FxmlView.COORDINADOR);
+        }
     }
 }
