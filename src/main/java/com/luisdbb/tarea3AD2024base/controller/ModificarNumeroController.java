@@ -100,6 +100,19 @@ public class ModificarNumeroController {
 
             artistasList.getSelectionModel().clearSelection();
 
+            for (Artista artistaLista : artistasList.getItems()) {
+
+                for (Artista artistaNumero : numeroActual.getArtistas()) {
+
+                    if (artistaLista.getId()
+                            .equals(artistaNumero.getId())) {
+
+                        artistasList.getSelectionModel()
+                                .select(artistaLista);
+                    }
+                }
+            }
+
             for (Artista a : artistasList.getItems()) {
 
                 if (numeroActual.getArtistas().contains(a)) {

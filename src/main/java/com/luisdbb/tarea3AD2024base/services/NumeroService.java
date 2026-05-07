@@ -144,4 +144,19 @@ public class NumeroService {
 
         return esp;
     }
+    
+    @Transactional
+    public boolean puedeCerrarEspectaculo(Long espectaculoId) {
+
+        Espectaculo esp =
+                espectaculoRepository
+                .findById(espectaculoId)
+                .orElse(null);
+
+        if (esp == null) {
+            return false;
+        }
+
+        return esp.getNumeros().size() >= 3;
+    }
 }

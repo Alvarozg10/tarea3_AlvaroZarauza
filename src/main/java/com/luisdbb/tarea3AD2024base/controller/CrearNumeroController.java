@@ -129,7 +129,7 @@ public class CrearNumeroController {
 
             mostrarInfo("Número creado correctamente");
 
-            sesion.setEspectaculoId(null);
+            limpiarFormulario();
 
         } catch (Exception e) {
 
@@ -152,13 +152,48 @@ public class CrearNumeroController {
     @FXML
     public void volver() {
 
-        switch (sesion.getPerfil()) {
+        Long espectaculoId =
+                sesion.getEspectaculoId();
 
-            case ADMIN ->
-                    stageManager.switchScene(FxmlView.ADMIN);
+        if (espectaculoId != null) {
 
-            case COORDINACION ->
-                    stageManager.switchScene(FxmlView.COORDINADOR);
+            boolean valido =
+                    numeroService
+                    .puedeCerrarEspectaculo(
+                            espectaculoId);
+
+            if (!valido) {
+
+                mostrarError(
+                    "Debes crear al menos 3 números"
+                );
+
+                return;
+            }
+
+            sesion.setEspectaculoId(null);
         }
+
+        if (sesion.getPerfil() == Perfil.ADMIN) {
+
+            stageManager.switchScene(FxmlView.ADMIN);
+
+        } else {
+
+            stageManager.switchScene(FxmlView.COORDINADOR);
+        }
+    }
+    
+    private void limpiarFormulario() {
+
+        nombreField.clear();
+
+        duracionField.clear();
+
+        ordenField.clear();
+
+        artistasList
+                .getSelectionModel()
+                .clearSelection();
     }
 }

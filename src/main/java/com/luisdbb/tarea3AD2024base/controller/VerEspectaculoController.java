@@ -89,18 +89,28 @@ public class VerEspectaculoController {
         tablaNumeros.setPlaceholder(new Label("No hay números"));
         tablaArtistas.setPlaceholder(new Label("No hay artistas"));
     }
+    
+    	@FXML
+    	public void volver() {
 
-    @FXML
-    public void volver() {
+    	    Perfil perfil = sesion.getPerfil();
 
-        if (sesion.getUsuario() == null) {
-            stageManager.switchScene(FxmlView.LOGIN);
-        } else {
-            switch (sesion.getUsuario().getCredenciales().getPerfil()) {
-                case ADMIN -> stageManager.switchScene(FxmlView.ADMIN);
-                case COORDINACION -> stageManager.switchScene(FxmlView.COORDINADOR);
-                case ARTISTA -> stageManager.switchScene(FxmlView.ARTISTA);
-            }
-        }
-    }
+    	    if (perfil == null) {
+
+    	        stageManager.switchScene(FxmlView.LOGIN);
+    	        return;
+    	    }
+
+    	    switch (perfil) {
+
+    	        case ADMIN ->
+    	                stageManager.switchScene(FxmlView.ADMIN);
+
+    	        case COORDINACION ->
+    	                stageManager.switchScene(FxmlView.COORDINADOR);
+
+    	        case ARTISTA ->
+    	                stageManager.switchScene(FxmlView.ARTISTA);
+    	    }
+    	}
 }

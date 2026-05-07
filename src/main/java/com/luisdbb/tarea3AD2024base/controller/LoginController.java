@@ -117,6 +117,7 @@ public class LoginController {
     public void entrarInvitado() {
 
         sesion.setUsuario(null);
+        sesion.setPerfil(null);
 
         stageManager.switchScene(FxmlView.VER_ESPECTACULO);
     }

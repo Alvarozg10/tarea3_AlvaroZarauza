@@ -13,12 +13,16 @@
 
         <VBox alignment="CENTER">
 
-            <VBox spacing="15" alignment="CENTER"
+            <VBox spacing="15"
+                  alignment="CENTER"
                   styleClass="card"
                   maxWidth="450">
 
                 <padding>
-                    <Insets top="20" right="20" bottom="20" left="20"/>
+                    <Insets top="20"
+                            right="20"
+                            bottom="20"
+                            left="20"/>
                 </padding>
 
                 <Label text="Modificar Persona"
@@ -41,30 +45,57 @@
                            promptText="Email"
                            prefWidth="250"/>
 
-                <TextField fx:id="nacionalidadField"
-                           promptText="Nacionalidad"
-                           prefWidth="250"/>
+                <ComboBox fx:id="nacionalidadCombo"
+                          promptText="Nacionalidad"
+                          prefWidth="250"/>
 
-                <TextField fx:id="apodoField"
-                           promptText="Apodo (solo artista)"
-                           prefWidth="250"/>
+                <VBox fx:id="artistaBox"
+                      spacing="10"
+                      alignment="CENTER">
 
-                <Label text="Especialidades (solo artista)"/>
+                    <TextField fx:id="apodoField"
+                               promptText="Apodo"
+                               prefWidth="250"/>
 
-                <VBox spacing="5" alignment="CENTER_LEFT">
-                    <CheckBox fx:id="acroCheck" text="ACROBACIA"/>
-                    <CheckBox fx:id="humorCheck" text="HUMOR"/>
-                    <CheckBox fx:id="magiaCheck" text="MAGIA"/>
-                    <CheckBox fx:id="equilibrioCheck" text="EQUILIBRISMO"/>
-                    <CheckBox fx:id="malabaresCheck" text="MALABARISMO"/>
+                    <Label text="Especialidades"/>
+
+                    <VBox spacing="5"
+                          alignment="CENTER_LEFT">
+
+                        <CheckBox fx:id="acroCheck"
+                                  text="ACROBACIA"/>
+
+                        <CheckBox fx:id="humorCheck"
+                                  text="HUMOR"/>
+
+                        <CheckBox fx:id="magiaCheck"
+                                  text="MAGIA"/>
+
+                        <CheckBox fx:id="equilibrioCheck"
+                                  text="EQUILIBRISMO"/>
+
+                        <CheckBox fx:id="malabaresCheck"
+                                  text="MALABARISMO"/>
+                    </VBox>
+
                 </VBox>
 
-                <Label text="Coordinación"/>
+                <VBox fx:id="coordBox"
+                      spacing="10"
+                      alignment="CENTER">
 
-                <HBox spacing="10" alignment="CENTER">
-                    <CheckBox fx:id="seniorCheck" text="Senior"/>
-                    <DatePicker fx:id="fechaSeniorPicker"/>
-                </HBox>
+                    <Label text="Coordinación"/>
+
+                    <HBox spacing="10"
+                           alignment="CENTER">
+
+                        <CheckBox fx:id="seniorCheck"
+                                  text="Senior"/>
+
+                        <DatePicker fx:id="fechaSeniorPicker"/>
+                    </HBox>
+
+                </VBox>
 
                 <Label text="Credenciales"/>
 
@@ -76,7 +107,9 @@
                                promptText="Nueva contraseña"
                                prefWidth="250"/>
 
-                <HBox spacing="10" alignment="CENTER">
+                <HBox spacing="10"
+                       alignment="CENTER">
+
                     <Button text="Guardar cambios"
                             onAction="#guardarCambios"
                             styleClass="button btn-coord"

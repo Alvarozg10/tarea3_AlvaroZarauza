@@ -2,6 +2,7 @@ package com.luisdbb.tarea3AD2024base.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,58 +14,144 @@ import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Component
 public class ModificarPersonaController {
 
-    @FXML private TextField idField;
-    @FXML private TextField nombreField;
-    @FXML private TextField emailField;
-    @FXML private TextField nacionalidadField;
-    @FXML private TextField apodoField;
+    @FXML
+    private TextField idField;
 
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
+    @FXML
+    private TextField nombreField;
 
-    @FXML private CheckBox seniorCheck;
-    @FXML private DatePicker fechaSeniorPicker;
+    @FXML
+    private TextField emailField;
 
-    @FXML private CheckBox acroCheck;
-    @FXML private CheckBox humorCheck;
-    @FXML private CheckBox magiaCheck;
-    @FXML private CheckBox equilibrioCheck;
-    @FXML private CheckBox malabaresCheck;
+    @FXML
+    private ComboBox<String> nacionalidadCombo;
+
+    @FXML
+    private TextField apodoField;
+
+    @FXML
+    private TextField usernameField;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private CheckBox seniorCheck;
+
+    @FXML
+    private DatePicker fechaSeniorPicker;
+
+    @FXML
+    private CheckBox acroCheck;
+
+    @FXML
+    private CheckBox humorCheck;
+
+    @FXML
+    private CheckBox magiaCheck;
+
+    @FXML
+    private CheckBox equilibrioCheck;
+
+    @FXML
+    private CheckBox malabaresCheck;
+
+    @FXML
+    private VBox artistaBox;
+
+    @FXML
+    private VBox coordBox;
 
     @Autowired
     private PersonaService personaService;
 
+    @Autowired
+    private StageManager stageManager;
+
     private Persona personaActual;
-    
-    @Autowired private StageManager stageManager;
+
+    @FXML
+    public void initialize() {
+
+        artistaBox.setVisible(false);
+        artistaBox.setManaged(false);
+
+        coordBox.setVisible(false);
+        coordBox.setManaged(false);
+
+        fechaSeniorPicker.setDisable(true);
+
+        seniorCheck.selectedProperty().addListener(
+                (obs, oldVal, selected) -> {
+
+            fechaSeniorPicker.setDisable(!selected);
+
+            if (!selected) {
+                fechaSeniorPicker.setValue(null);
+            }
+        });
+
+        String[] codigos = Locale.getISOCountries();
+
+        for (String codigo : codigos) {
+
+            Locale locale = new Locale("", codigo);
+
+            nacionalidadCombo.getItems()
+                    .add(locale.getDisplayCountry());
+        }
+
+        nacionalidadCombo.getItems()
+                .sort(String::compareTo);
+    }
 
     @FXML
     public void cargarPersona() {
-        try {
-            Long id = Long.parseLong(idField.getText());
 
-            personaActual = personaService.buscarPorId(id);
+        try {
+
+            Long id =
+                    Long.parseLong(idField.getText());
+
+            personaActual =
+                    personaService.buscarPorId(id);
 
             if (personaActual == null) {
-                mostrarError("No existe ninguna persona con ese ID");
+
+                mostrarError(
+                        "No existe ninguna persona con ese ID");
+
                 return;
             }
 
-            nombreField.setText(personaActual.getNombre());
-            emailField.setText(personaActual.getEmail());
-            nacionalidadField.setText(personaActual.getNacionalidad());
+            nombreField.setText(
+                    personaActual.getNombre());
+
+            emailField.setText(
+                    personaActual.getEmail());
+
+            nacionalidadCombo.setValue(
+                    personaActual.getNacionalidad());
 
             if (personaActual.getCredenciales() != null) {
-                usernameField.setText(personaActual.getCredenciales().getUsername());
+
+                usernameField.setText(
+                        personaActual
+                                .getCredenciales()
+                                .getUsername());
             }
-            passwordField.clear(); 
+
+            passwordField.clear();
 
             apodoField.clear();
+
             seniorCheck.setSelected(false);
+
             fechaSeniorPicker.setValue(null);
 
             acroCheck.setSelected(false);
@@ -75,17 +162,36 @@ public class ModificarPersonaController {
 
             if (personaActual instanceof Artista artista) {
 
-                apodoField.setText(artista.getApodo());
+                artistaBox.setVisible(true);
+                artistaBox.setManaged(true);
+
+                coordBox.setVisible(false);
+                coordBox.setManaged(false);
+
+                apodoField.setText(
+                        artista.getApodo());
 
                 if (artista.getEspecialidades() != null) {
-                    for (Especialidad esp : artista.getEspecialidades()) {
+
+                    for (Especialidad esp :
+                            artista.getEspecialidades()) {
 
                         switch (esp) {
-                            case ACROBACIA -> acroCheck.setSelected(true);
-                            case HUMOR -> humorCheck.setSelected(true);
-                            case MAGIA -> magiaCheck.setSelected(true);
-                            case EQUILIBRISMO -> equilibrioCheck.setSelected(true);
-                            case MALABARISMO -> malabaresCheck.setSelected(true);
+
+                            case ACROBACIA ->
+                                    acroCheck.setSelected(true);
+
+                            case HUMOR ->
+                                    humorCheck.setSelected(true);
+
+                            case MAGIA ->
+                                    magiaCheck.setSelected(true);
+
+                            case EQUILIBRISMO ->
+                                    equilibrioCheck.setSelected(true);
+
+                            case MALABARISMO ->
+                                    malabaresCheck.setSelected(true);
                         }
                     }
                 }
@@ -93,14 +199,24 @@ public class ModificarPersonaController {
 
             if (personaActual instanceof Coordinacion coord) {
 
-                seniorCheck.setSelected(coord.isSenior());
+                coordBox.setVisible(true);
+                coordBox.setManaged(true);
+
+                artistaBox.setVisible(false);
+                artistaBox.setManaged(false);
+
+                seniorCheck.setSelected(
+                        coord.isSenior());
 
                 if (coord.getFechaSenior() != null) {
-                    fechaSeniorPicker.setValue(coord.getFechaSenior());
+
+                    fechaSeniorPicker.setValue(
+                            coord.getFechaSenior());
                 }
             }
 
         } catch (NumberFormatException e) {
+
             mostrarError("ID inválido");
         }
     }
@@ -109,28 +225,54 @@ public class ModificarPersonaController {
     public void guardarCambios() {
 
         if (personaActual == null) {
-            mostrarError("Primero debes cargar una persona");
+
+            mostrarError(
+                    "Primero debes cargar una persona");
+
             return;
         }
 
         try {
 
-            List<Especialidad> especialidades = new ArrayList<>();
+            List<Especialidad> especialidades =
+                    new ArrayList<>();
 
-            if (acroCheck.isSelected()) especialidades.add(Especialidad.ACROBACIA);
-            if (humorCheck.isSelected()) especialidades.add(Especialidad.HUMOR);
-            if (magiaCheck.isSelected()) especialidades.add(Especialidad.MAGIA);
-            if (equilibrioCheck.isSelected()) especialidades.add(Especialidad.EQUILIBRISMO);
-            if (malabaresCheck.isSelected()) especialidades.add(Especialidad.MALABARISMO);
+            if (acroCheck.isSelected()) {
+                especialidades.add(
+                        Especialidad.ACROBACIA);
+            }
 
-            String username = usernameField.getText();
-            String password = passwordField.getText();
+            if (humorCheck.isSelected()) {
+                especialidades.add(
+                        Especialidad.HUMOR);
+            }
+
+            if (magiaCheck.isSelected()) {
+                especialidades.add(
+                        Especialidad.MAGIA);
+            }
+
+            if (equilibrioCheck.isSelected()) {
+                especialidades.add(
+                        Especialidad.EQUILIBRISMO);
+            }
+
+            if (malabaresCheck.isSelected()) {
+                especialidades.add(
+                        Especialidad.MALABARISMO);
+            }
+
+            String username =
+                    usernameField.getText();
+
+            String password =
+                    passwordField.getText();
 
             personaService.modificarPersona(
                     personaActual.getId(),
                     nombreField.getText(),
                     emailField.getText(),
-                    nacionalidadField.getText(),
+                    nacionalidadCombo.getValue(),
                     apodoField.getText(),
                     seniorCheck.isSelected(),
                     fechaSeniorPicker.getValue(),
@@ -139,31 +281,48 @@ public class ModificarPersonaController {
                     password
             );
 
-            mostrarInfo("Persona modificada correctamente");
+            mostrarInfo(
+                    "Persona modificada correctamente");
 
         } catch (Exception e) {
-            mostrarError("Error al modificar: " + e.getMessage());
+
+            mostrarError(
+                    "Error al modificar: "
+                            + e.getMessage());
         }
     }
 
     private void mostrarError(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        Alert alert =
+                new Alert(Alert.AlertType.ERROR);
+
         alert.setTitle("Error");
+
         alert.setHeaderText(null);
+
         alert.setContentText(mensaje);
+
         alert.showAndWait();
     }
 
     private void mostrarInfo(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        Alert alert =
+                new Alert(Alert.AlertType.INFORMATION);
+
         alert.setTitle("OK");
+
         alert.setHeaderText(null);
+
         alert.setContentText(mensaje);
+
         alert.showAndWait();
     }
-    
+
     @FXML
     public void volver() {
+
         stageManager.switchScene(FxmlView.ADMIN);
     }
 }

@@ -22,6 +22,7 @@ public class Espectaculo {
     private Coordinacion coordinador;
     
     @OneToMany(mappedBy = "espectaculo")
+    @OrderBy("orden ASC")
     private List<Numero> numeros;
 
     public Espectaculo() {}
