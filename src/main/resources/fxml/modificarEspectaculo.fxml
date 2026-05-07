@@ -41,7 +41,8 @@
                     promptText="Fecha fin"
                     prefWidth="250"/>
 
-        <Label text="Seleccionar Coordinador"/>
+        <Label fx:id="coordinadorLabel"
+        text="Seleccionar Coordinador"/>
 
         <ComboBox fx:id="coordinadorCombo"
                   prefWidth="250"/>

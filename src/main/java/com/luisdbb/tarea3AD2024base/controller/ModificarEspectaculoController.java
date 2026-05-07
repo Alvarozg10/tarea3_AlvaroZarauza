@@ -29,6 +29,9 @@ public class ModificarEspectaculoController {
 
     @FXML
     private DatePicker fechaFinPicker;
+    
+    @FXML
+    private Label coordinadorLabel;
 
     @FXML
     private ComboBox<Persona> coordinadorCombo;
@@ -58,6 +61,8 @@ public class ModificarEspectaculoController {
 
                 coordinadorCombo.setVisible(false);
                 coordinadorCombo.setManaged(false);
+                coordinadorLabel.setVisible(false);
+                coordinadorLabel.setManaged(false);
 
             } else {
 
