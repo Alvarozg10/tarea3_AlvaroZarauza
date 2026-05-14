@@ -14,6 +14,7 @@ public enum FxmlView {
     MODIFICAR_NUMERO("/fxml/modificarNumero.fxml"),
     FICHA_ARTISTA("/fxml/fichaArtista.fxml"),
     VER_ESPECTACULO("/fxml/verEspectaculo.fxml"),
+    VER_ESPECTACULOS_INVITADO("/fxml/verEspectaculosInvitado.fxml"),
     COORDINADOR("/fxml/MenuCoordinador.fxml"),
     ARTISTA("/fxml/MenuArtista.fxml"),
     INVITADO("/fxml/menuInvitado.fxml");

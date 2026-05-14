@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.VerEspectaculosInvitadoController"
+      stylesheets="@/styles/Styles.css">
+
+        <Label text="Espectáculos"
+               styleClass="title"/>
+
+        <TableView fx:id="tablaEspectaculos"
+                   prefHeight="150"
+                   VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colEspId" text="ID"/>
+                <TableColumn fx:id="colEspNombre" text="Nombre"/>
+                <TableColumn fx:id="colEspInicio" text="Inicio"/>
+                <TableColumn fx:id="colEspFin" text="Fin"/>
+            </columns>
+        </TableView>
+
+        <Button text="Volver"
+                onAction="#volver"
+                styleClass="button btn-invitado"
+                prefWidth="200"/>
+
+	</VBox>
