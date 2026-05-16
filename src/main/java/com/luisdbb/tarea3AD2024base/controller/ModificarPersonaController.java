@@ -2,6 +2,7 @@ package com.luisdbb.tarea3AD2024base.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,53 +20,29 @@ import java.util.Locale;
 @Component
 public class ModificarPersonaController {
 
-    @FXML
-    private TextField idField;
+    @FXML private TableView<Persona> personasTable;
+    @FXML private TableColumn<Persona, String> nombreColumn;
+    @FXML private TableColumn<Persona, String> tipoColumn;
 
-    @FXML
-    private TextField nombreField;
+    @FXML private TextField nombreField;
+    @FXML private TextField emailField;
+    @FXML private ComboBox<String> nacionalidadCombo;
+    @FXML private TextField apodoField;
 
-    @FXML
-    private TextField emailField;
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
 
-    @FXML
-    private ComboBox<String> nacionalidadCombo;
+    @FXML private CheckBox seniorCheck;
+    @FXML private DatePicker fechaSeniorPicker;
 
-    @FXML
-    private TextField apodoField;
+    @FXML private CheckBox acroCheck;
+    @FXML private CheckBox humorCheck;
+    @FXML private CheckBox magiaCheck;
+    @FXML private CheckBox equilibrioCheck;
+    @FXML private CheckBox malabaresCheck;
 
-    @FXML
-    private TextField usernameField;
-
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private CheckBox seniorCheck;
-
-    @FXML
-    private DatePicker fechaSeniorPicker;
-
-    @FXML
-    private CheckBox acroCheck;
-
-    @FXML
-    private CheckBox humorCheck;
-
-    @FXML
-    private CheckBox magiaCheck;
-
-    @FXML
-    private CheckBox equilibrioCheck;
-
-    @FXML
-    private CheckBox malabaresCheck;
-
-    @FXML
-    private VBox artistaBox;
-
-    @FXML
-    private VBox coordBox;
+    @FXML private VBox artistaBox;
+    @FXML private VBox coordBox;
 
     @Autowired
     private PersonaService personaService;
@@ -77,6 +54,9 @@ public class ModificarPersonaController {
 
     @FXML
     public void initialize() {
+
+        personasTable.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY);
 
         artistaBox.setVisible(false);
         artistaBox.setManaged(false);
@@ -108,116 +88,126 @@ public class ModificarPersonaController {
 
         nacionalidadCombo.getItems()
                 .sort(String::compareTo);
+
+        nombreColumn.setCellValueFactory(
+                new PropertyValueFactory<>("nombre"));
+
+        tipoColumn.setCellValueFactory(cellData -> {
+
+            Persona p = cellData.getValue();
+
+            String tipo =
+                    p instanceof Artista
+                            ? "ARTISTA"
+                            : "COORDINACION";
+
+            return new javafx.beans.property
+                    .SimpleStringProperty(tipo);
+        });
+
+        personasTable.getItems().addAll(
+                personaService.obtenerTodas());
     }
 
     @FXML
     public void cargarPersona() {
 
-        try {
+        personaActual = personasTable
+                .getSelectionModel()
+                .getSelectedItem();
 
-            Long id =
-                    Long.parseLong(idField.getText());
+        if (personaActual == null) {
 
-            personaActual =
-                    personaService.buscarPorId(id);
+            mostrarError(
+                    "Debes seleccionar una persona");
 
-            if (personaActual == null) {
+            return;
+        }
 
-                mostrarError(
-                        "No existe ninguna persona con ese ID");
+        nombreField.setText(
+                personaActual.getNombre());
 
-                return;
-            }
+        emailField.setText(
+                personaActual.getEmail());
 
-            nombreField.setText(
-                    personaActual.getNombre());
+        nacionalidadCombo.setValue(
+                personaActual.getNacionalidad());
 
-            emailField.setText(
-                    personaActual.getEmail());
+        if (personaActual.getCredenciales() != null) {
 
-            nacionalidadCombo.setValue(
-                    personaActual.getNacionalidad());
+            usernameField.setText(
+                    personaActual
+                            .getCredenciales()
+                            .getUsername());
+        }
 
-            if (personaActual.getCredenciales() != null) {
+        passwordField.clear();
 
-                usernameField.setText(
-                        personaActual
-                                .getCredenciales()
-                                .getUsername());
-            }
+        apodoField.clear();
 
-            passwordField.clear();
+        seniorCheck.setSelected(false);
 
-            apodoField.clear();
+        fechaSeniorPicker.setValue(null);
 
-            seniorCheck.setSelected(false);
+        acroCheck.setSelected(false);
+        humorCheck.setSelected(false);
+        magiaCheck.setSelected(false);
+        equilibrioCheck.setSelected(false);
+        malabaresCheck.setSelected(false);
 
-            fechaSeniorPicker.setValue(null);
+        if (personaActual instanceof Artista artista) {
 
-            acroCheck.setSelected(false);
-            humorCheck.setSelected(false);
-            magiaCheck.setSelected(false);
-            equilibrioCheck.setSelected(false);
-            malabaresCheck.setSelected(false);
+            artistaBox.setVisible(true);
+            artistaBox.setManaged(true);
 
-            if (personaActual instanceof Artista artista) {
+            coordBox.setVisible(false);
+            coordBox.setManaged(false);
 
-                artistaBox.setVisible(true);
-                artistaBox.setManaged(true);
+            apodoField.setText(
+                    artista.getApodo());
 
-                coordBox.setVisible(false);
-                coordBox.setManaged(false);
+            if (artista.getEspecialidades() != null) {
 
-                apodoField.setText(
-                        artista.getApodo());
+                for (Especialidad esp :
+                        artista.getEspecialidades()) {
 
-                if (artista.getEspecialidades() != null) {
+                    switch (esp) {
 
-                    for (Especialidad esp :
-                            artista.getEspecialidades()) {
+                        case ACROBACIA ->
+                                acroCheck.setSelected(true);
 
-                        switch (esp) {
+                        case HUMOR ->
+                                humorCheck.setSelected(true);
 
-                            case ACROBACIA ->
-                                    acroCheck.setSelected(true);
+                        case MAGIA ->
+                                magiaCheck.setSelected(true);
 
-                            case HUMOR ->
-                                    humorCheck.setSelected(true);
+                        case EQUILIBRISMO ->
+                                equilibrioCheck.setSelected(true);
 
-                            case MAGIA ->
-                                    magiaCheck.setSelected(true);
-
-                            case EQUILIBRISMO ->
-                                    equilibrioCheck.setSelected(true);
-
-                            case MALABARISMO ->
-                                    malabaresCheck.setSelected(true);
-                        }
+                        case MALABARISMO ->
+                                malabaresCheck.setSelected(true);
                     }
                 }
             }
+        }
 
-            if (personaActual instanceof Coordinacion coord) {
+        if (personaActual instanceof Coordinacion coord) {
 
-                coordBox.setVisible(true);
-                coordBox.setManaged(true);
+            coordBox.setVisible(true);
+            coordBox.setManaged(true);
 
-                artistaBox.setVisible(false);
-                artistaBox.setManaged(false);
+            artistaBox.setVisible(false);
+            artistaBox.setManaged(false);
 
-                seniorCheck.setSelected(
-                        coord.isSenior());
+            seniorCheck.setSelected(
+                    coord.isSenior());
 
-                if (coord.getFechaSenior() != null) {
+            if (coord.getFechaSenior() != null) {
 
-                    fechaSeniorPicker.setValue(
-                            coord.getFechaSenior());
-                }
+                fechaSeniorPicker.setValue(
+                        coord.getFechaSenior());
             }
-
-        } catch (NumberFormatException e) {
-
-            mostrarError("ID inválido");
         }
     }
 
@@ -262,11 +252,8 @@ public class ModificarPersonaController {
                         Especialidad.MALABARISMO);
             }
 
-            String username =
-                    usernameField.getText();
-
-            String password =
-                    passwordField.getText();
+            String username = usernameField.getText();
+            String password = passwordField.getText();
 
             personaService.modificarPersona(
                     personaActual.getId(),

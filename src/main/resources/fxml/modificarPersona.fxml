@@ -28,14 +28,28 @@
                 <Label text="Modificar Persona"
                        styleClass="title"/>
 
-                <TextField fx:id="idField"
-                           promptText="ID Persona"
-                           prefWidth="250"/>
+                <TableView fx:id="personasTable"
+                           prefHeight="200"
+                           prefWidth="400">
 
-                <Button text="Cargar"
+                    <columns>
+
+                        <TableColumn fx:id="nombreColumn"
+                                     text="Nombre"
+                                     prefWidth="180"/>
+
+                        <TableColumn fx:id="tipoColumn"
+                                     text="Tipo"
+                                     prefWidth="180"/>
+
+                    </columns>
+
+                </TableView>
+
+                <Button text="Cargar persona"
                         onAction="#cargarPersona"
                         styleClass="button btn-coord"
-                        prefWidth="120"/>
+                        prefWidth="160"/>
 
                 <TextField fx:id="nombreField"
                            promptText="Nombre"
@@ -54,10 +68,10 @@
                       alignment="CENTER">
 
                     <TextField fx:id="apodoField"
-                               promptText="Apodo"
+                               promptText="Apodo (solo artista)"
                                prefWidth="250"/>
 
-                    <Label text="Especialidades"/>
+                    <Label text="Especialidades (solo artista)"/>
 
                     <VBox spacing="5"
                           alignment="CENTER_LEFT">
@@ -76,6 +90,7 @@
 
                         <CheckBox fx:id="malabaresCheck"
                                   text="MALABARISMO"/>
+
                     </VBox>
 
                 </VBox>
@@ -93,6 +108,7 @@
                                   text="Senior"/>
 
                         <DatePicker fx:id="fechaSeniorPicker"/>
+
                     </HBox>
 
                 </VBox>
@@ -119,6 +135,7 @@
                             onAction="#volver"
                             styleClass="button btn-invitado"
                             prefWidth="120"/>
+
                 </HBox>
 
             </VBox>
