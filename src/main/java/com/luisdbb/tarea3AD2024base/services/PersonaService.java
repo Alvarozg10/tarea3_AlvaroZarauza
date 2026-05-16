@@ -26,6 +26,35 @@ public class PersonaService {
     public List<Persona> obtenerTodas() {
         return personaRepository.findAll();
     }
+    
+    public Persona login(
+            String username,
+            String password) {
+
+        if (username == null || username.isBlank()) {
+            return null;
+        }
+
+        if (password == null || password.isBlank()) {
+            return null;
+        }
+
+        username = username.toLowerCase();
+
+        Credenciales cred =
+                credencialesRepository
+                        .findByUsername(username);
+
+        if (cred == null) {
+            return null;
+        }
+
+        if (!cred.getPassword().equals(password)) {
+            return null;
+        }
+
+        return cred.getPersona();
+    }
 
     public void registrarPersona(
             String nombre,

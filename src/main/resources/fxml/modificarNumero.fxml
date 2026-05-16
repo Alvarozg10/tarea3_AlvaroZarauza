@@ -13,25 +13,47 @@
 
         <VBox alignment="CENTER">
 
-            <VBox spacing="15" alignment="CENTER"
+            <VBox spacing="15"
+                  alignment="CENTER"
                   styleClass="card"
-                  maxWidth="400">
+                  maxWidth="500">
 
                 <padding>
-                    <Insets top="20" right="20" bottom="20" left="20"/>
+                    <Insets top="20"
+                            right="20"
+                            bottom="20"
+                            left="20"/>
                 </padding>
 
                 <Label text="Modificar Número"
                        styleClass="title"/>
 
-                <TextField fx:id="idField"
-                           promptText="ID del número"
-                           prefWidth="250"/>
+                <TableView fx:id="numerosTable"
+                           prefHeight="200"
+                           prefWidth="450">
 
-                <Button text="Cargar"
+                    <columns>
+
+                        <TableColumn fx:id="nombreColumn"
+                                     text="Nombre"
+                                     prefWidth="180"/>
+
+                        <TableColumn fx:id="duracionColumn"
+                                     text="Duración"
+                                     prefWidth="120"/>
+
+                        <TableColumn fx:id="ordenColumn"
+                                     text="Orden"
+                                     prefWidth="120"/>
+
+                    </columns>
+
+                </TableView>
+
+                <Button text="Cargar número"
                         onAction="#cargarNumero"
                         styleClass="button btn-coord"
-                        prefWidth="120"/>
+                        prefWidth="160"/>
 
                 <TextField fx:id="nombreField"
                            promptText="Nombre"
@@ -52,7 +74,9 @@
                           prefWidth="250"
                           VBox.vgrow="ALWAYS"/>
 
-                <HBox spacing="10" alignment="CENTER">
+                <HBox spacing="10"
+                       alignment="CENTER">
+
                     <Button text="Guardar cambios"
                             onAction="#guardarCambios"
                             styleClass="button btn-coord"
@@ -62,6 +86,7 @@
                             onAction="#volver"
                             styleClass="button btn-invitado"
                             prefWidth="120"/>
+
                 </HBox>
 
             </VBox>

@@ -20,11 +20,11 @@ public class Numero {
     @JoinColumn(name = "espectaculo_id")
     private Espectaculo espectaculo;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "numero_artista",
-        joinColumns = @JoinColumn(name = "numero_id"),
-        inverseJoinColumns = @JoinColumn(name = "artista_id")
+            name = "numero_artista",
+            joinColumns = @JoinColumn(name = "numero_id"),
+            inverseJoinColumns = @JoinColumn(name = "artista_id")
     )
     private List<Artista> artistas;
 

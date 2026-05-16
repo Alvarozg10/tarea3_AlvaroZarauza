@@ -2,6 +2,7 @@ package com.luisdbb.tarea3AD2024base.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,9 +19,6 @@ import java.util.List;
 public class ModificarNumeroController {
 
     @FXML
-    private TextField idField;
-
-    @FXML
     private TextField nombreField;
 
     @FXML
@@ -31,6 +29,18 @@ public class ModificarNumeroController {
 
     @FXML
     private ListView<Artista> artistasList;
+
+    @FXML
+    private TableView<Numero> numerosTable;
+
+    @FXML
+    private TableColumn<Numero, String> nombreColumn;
+
+    @FXML
+    private TableColumn<Numero, Double> duracionColumn;
+
+    @FXML
+    private TableColumn<Numero, Integer> ordenColumn;
 
     @Autowired
     private NumeroService numeroService;
@@ -49,28 +59,50 @@ public class ModificarNumeroController {
     @FXML
     public void initialize() {
 
+        numerosTable.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY);
+
+        nombreColumn.setCellValueFactory(
+                new PropertyValueFactory<>("nombre"));
+
+        duracionColumn.setCellValueFactory(
+                new PropertyValueFactory<>("duracion"));
+
+        ordenColumn.setCellValueFactory(
+                new PropertyValueFactory<>("orden"));
+
+        numerosTable.getItems().addAll(
+                numeroService.obtenerTodos());
+
         artistasList.getSelectionModel()
                 .setSelectionMode(SelectionMode.MULTIPLE);
 
-        List<Persona> personas = personaService.obtenerTodas();
+        List<Persona> personas =
+                personaService.obtenerTodas();
 
         for (Persona p : personas) {
 
             if (p instanceof Artista artista) {
-                artistasList.getItems().add(artista);
+
+                artistasList.getItems()
+                        .add(artista);
             }
         }
 
-        artistasList.setCellFactory(param -> new ListCell<>() {
+        artistasList.setCellFactory(
+                param -> new ListCell<>() {
 
             @Override
-            protected void updateItem(Artista item, boolean empty) {
+            protected void updateItem(
+                    Artista item,
+                    boolean empty) {
 
                 super.updateItem(item, empty);
 
-                setText(empty || item == null
-                        ? null
-                        : item.getNombre());
+                setText(
+                        empty || item == null
+                                ? null
+                                : item.getNombre());
             }
         });
     }
@@ -78,52 +110,48 @@ public class ModificarNumeroController {
     @FXML
     public void cargarNumero() {
 
-        try {
+        numeroActual =
+                numerosTable
+                        .getSelectionModel()
+                        .getSelectedItem();
 
-            Long id = Long.parseLong(idField.getText());
+        if (numeroActual == null) {
 
-            numeroActual = numeroService.buscarPorId(id);
+            mostrarError(
+                    "Debes seleccionar un número");
 
-            if (numeroActual == null) {
+            return;
+        }
 
-                mostrarError("No existe ese número");
-                return;
-            }
+        nombreField.setText(
+                numeroActual.getNombre());
 
-            nombreField.setText(numeroActual.getNombre());
+        duracionField.setText(
+                String.valueOf(
+                        numeroActual.getDuracion()));
 
-            duracionField.setText(
-                    String.valueOf(numeroActual.getDuracion()));
+        ordenField.setText(
+                String.valueOf(
+                        numeroActual.getOrden()));
 
-            ordenField.setText(
-                    String.valueOf(numeroActual.getOrden()));
+        artistasList.getSelectionModel()
+                .clearSelection();
 
-            artistasList.getSelectionModel().clearSelection();
+        for (Artista artistaLista :
+                artistasList.getItems()) {
 
-            for (Artista artistaLista : artistasList.getItems()) {
+            for (Artista artistaNumero :
+                    numeroActual.getArtistas()) {
 
-                for (Artista artistaNumero : numeroActual.getArtistas()) {
+                if (artistaLista.getId()
+                        .equals(
+                                artistaNumero.getId())) {
 
-                    if (artistaLista.getId()
-                            .equals(artistaNumero.getId())) {
-
-                        artistasList.getSelectionModel()
-                                .select(artistaLista);
-                    }
+                    artistasList
+                            .getSelectionModel()
+                            .select(artistaLista);
                 }
             }
-
-            for (Artista a : artistasList.getItems()) {
-
-                if (numeroActual.getArtistas().contains(a)) {
-
-                    artistasList.getSelectionModel().select(a);
-                }
-            }
-
-        } catch (NumberFormatException e) {
-
-            mostrarError("ID inválido");
         }
     }
 
@@ -132,25 +160,32 @@ public class ModificarNumeroController {
 
         if (numeroActual == null) {
 
-            mostrarError("Primero carga un número");
+            mostrarError(
+                    "Primero carga un número");
+
             return;
         }
 
         try {
 
-            String nombre = nombreField.getText();
+            String nombre =
+                    nombreField.getText();
 
             double duracion =
-                    Double.parseDouble(duracionField.getText());
+                    Double.parseDouble(
+                            duracionField.getText());
 
             int orden =
-                    Integer.parseInt(ordenField.getText());
+                    Integer.parseInt(
+                            ordenField.getText());
 
             List<Artista> seleccionados =
-                    artistasList.getSelectionModel()
+                    artistasList
+                            .getSelectionModel()
                             .getSelectedItems();
 
-            List<Long> artistasIds = new ArrayList<>();
+            List<Long> artistasIds =
+                    new ArrayList<>();
 
             for (Artista a : seleccionados) {
 
@@ -165,7 +200,8 @@ public class ModificarNumeroController {
                     artistasIds
             );
 
-            mostrarInfo("Número modificado correctamente");
+            mostrarInfo(
+                    "Número modificado correctamente");
 
         } catch (NumberFormatException e) {
 
@@ -180,15 +216,21 @@ public class ModificarNumeroController {
 
     private void mostrarError(String msg) {
 
-        Alert a = new Alert(Alert.AlertType.ERROR);
+        Alert a =
+                new Alert(Alert.AlertType.ERROR);
+
         a.setContentText(msg);
+
         a.showAndWait();
     }
 
     private void mostrarInfo(String msg) {
 
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        Alert a =
+                new Alert(Alert.AlertType.INFORMATION);
+
         a.setContentText(msg);
+
         a.showAndWait();
     }
 
@@ -198,10 +240,12 @@ public class ModificarNumeroController {
         switch (sesion.getPerfil()) {
 
             case ADMIN ->
-                    stageManager.switchScene(FxmlView.ADMIN);
+                    stageManager.switchScene(
+                            FxmlView.ADMIN);
 
             case COORDINACION ->
-                    stageManager.switchScene(FxmlView.COORDINADOR);
+                    stageManager.switchScene(
+                            FxmlView.COORDINADOR);
         }
     }
 }

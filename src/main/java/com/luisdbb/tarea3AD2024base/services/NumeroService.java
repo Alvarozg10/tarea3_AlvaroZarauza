@@ -159,4 +159,9 @@ public class NumeroService {
 
         return esp.getNumeros().size() >= 3;
     }
+    
+    public List<Numero> obtenerTodos() {
+
+        return numeroRepository.findAll();
+    }
 }

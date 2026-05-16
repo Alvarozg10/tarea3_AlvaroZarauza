@@ -3,6 +3,7 @@ package com.luisdbb.tarea3AD2024base.controller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,9 +20,6 @@ import java.util.List;
 public class ModificarEspectaculoController {
 
     @FXML
-    private TextField idField;
-
-    @FXML
     private TextField nombreField;
 
     @FXML
@@ -29,12 +27,24 @@ public class ModificarEspectaculoController {
 
     @FXML
     private DatePicker fechaFinPicker;
-    
+
     @FXML
     private Label coordinadorLabel;
 
     @FXML
     private ComboBox<Persona> coordinadorCombo;
+
+    @FXML
+    private TableView<Espectaculo> espectaculosTable;
+
+    @FXML
+    private TableColumn<Espectaculo, String> nombreColumn;
+
+    @FXML
+    private TableColumn<Espectaculo, LocalDate> inicioColumn;
+
+    @FXML
+    private TableColumn<Espectaculo, LocalDate> finColumn;
 
     @Autowired
     private EspectaculoService espectaculoService;
@@ -53,6 +63,21 @@ public class ModificarEspectaculoController {
     @FXML
     public void initialize() {
 
+        espectaculosTable.setColumnResizePolicy(
+                TableView.CONSTRAINED_RESIZE_POLICY);
+
+        nombreColumn.setCellValueFactory(
+                new PropertyValueFactory<>("nombre"));
+
+        inicioColumn.setCellValueFactory(
+                new PropertyValueFactory<>("fechaInicio"));
+
+        finColumn.setCellValueFactory(
+                new PropertyValueFactory<>("fechaFin"));
+
+        espectaculosTable.getItems().addAll(
+                espectaculoService.obtenerTodos());
+
         Platform.runLater(() -> {
 
             Perfil perfil = sesion.getPerfil();
@@ -61,35 +86,61 @@ public class ModificarEspectaculoController {
 
                 coordinadorCombo.setVisible(false);
                 coordinadorCombo.setManaged(false);
+
                 coordinadorLabel.setVisible(false);
                 coordinadorLabel.setManaged(false);
 
             } else {
 
-                List<Persona> personas = personaService.obtenerTodas();
+                List<Persona> personas =
+                        personaService.obtenerTodas();
 
                 for (Persona p : personas) {
 
-                    Credenciales c = p.getCredenciales();
+                    Credenciales c =
+                            p.getCredenciales();
 
-                    if (c != null && c.getPerfil() == Perfil.COORDINACION) {
-                        coordinadorCombo.getItems().add(p);
+                    if (c != null
+                            && c.getPerfil()
+                            == Perfil.COORDINACION) {
+
+                        coordinadorCombo
+                                .getItems()
+                                .add(p);
                     }
                 }
 
-                coordinadorCombo.setCellFactory(param -> new ListCell<>() {
+                coordinadorCombo.setCellFactory(
+                        param -> new ListCell<>() {
+
                     @Override
-                    protected void updateItem(Persona item, boolean empty) {
+                    protected void updateItem(
+                            Persona item,
+                            boolean empty) {
+
                         super.updateItem(item, empty);
-                        setText(empty || item == null ? null : item.getNombre());
+
+                        setText(
+                                empty || item == null
+                                        ? null
+                                        : item.getNombre());
                     }
                 });
 
-                coordinadorCombo.setButtonCell(new ListCell<>() {
+                coordinadorCombo.setButtonCell(
+                        new ListCell<>() {
+
                     @Override
-                    protected void updateItem(Persona item, boolean empty) {
+                    protected void updateItem(
+                            Persona item,
+                            boolean empty) {
+
                         super.updateItem(item, empty);
-                        setText(empty || item == null ? null : item.getNombre());
+
+                        setText(
+                                empty || item == null
+                                        ? null
+                                        : item.getNombre());
                     }
                 });
             }
@@ -99,28 +150,35 @@ public class ModificarEspectaculoController {
     @FXML
     public void cargarEspectaculo() {
 
-        try {
+        espectaculoActual =
+                espectaculosTable
+                        .getSelectionModel()
+                        .getSelectedItem();
 
-            Long id = Long.parseLong(idField.getText());
+        if (espectaculoActual == null) {
 
-            espectaculoActual = espectaculoService.buscarPorId(id);
+            mostrarError(
+                    "Debes seleccionar un espectáculo");
 
-            if (espectaculoActual == null) {
-                mostrarError("No existe ese espectáculo");
-                return;
-            }
+            return;
+        }
 
-            nombreField.setText(espectaculoActual.getNombre());
-            fechaInicioPicker.setValue(espectaculoActual.getFechaInicio());
-            fechaFinPicker.setValue(espectaculoActual.getFechaFin());
+        nombreField.setText(
+                espectaculoActual.getNombre());
 
-            if (coordinadorCombo.isVisible()) {
-                coordinadorCombo.getSelectionModel()
-                        .select(espectaculoActual.getCoordinador());
-            }
+        fechaInicioPicker.setValue(
+                espectaculoActual.getFechaInicio());
 
-        } catch (Exception e) {
-            mostrarError("ID inválido");
+        fechaFinPicker.setValue(
+                espectaculoActual.getFechaFin());
+
+        if (coordinadorCombo.isVisible()) {
+
+            coordinadorCombo
+                    .getSelectionModel()
+                    .select(
+                            espectaculoActual
+                                    .getCoordinador());
         }
     }
 
@@ -128,31 +186,45 @@ public class ModificarEspectaculoController {
     public void guardarCambios() {
 
         if (espectaculoActual == null) {
-            mostrarError("Primero debes cargar un espectáculo");
+
+            mostrarError(
+                    "Primero debes cargar un espectáculo");
+
             return;
         }
 
         try {
 
-            String nombre = nombreField.getText();
-            LocalDate inicio = fechaInicioPicker.getValue();
-            LocalDate fin = fechaFinPicker.getValue();
+            String nombre =
+                    nombreField.getText();
 
-            Perfil perfil = sesion.getPerfil();
+            LocalDate inicio =
+                    fechaInicioPicker.getValue();
+
+            LocalDate fin =
+                    fechaFinPicker.getValue();
+
+            Perfil perfil =
+                    sesion.getPerfil();
 
             Long coordinadorId =
-                    espectaculoActual.getCoordinador().getId();
+                    espectaculoActual
+                            .getCoordinador()
+                            .getId();
 
             if (perfil == Perfil.ADMIN) {
 
-                Persona seleccionado = coordinadorCombo.getValue();
+                Persona seleccionado =
+                        coordinadorCombo.getValue();
 
                 if (seleccionado == null) {
+
                     throw new RuntimeException(
                             "Debes seleccionar coordinador");
                 }
 
-                coordinadorId = seleccionado.getId();
+                coordinadorId =
+                        seleccionado.getId();
             }
 
             espectaculoService.modificarEspectaculo(
@@ -163,24 +235,32 @@ public class ModificarEspectaculoController {
                     coordinadorId
             );
 
-            mostrarInfo("Espectáculo modificado correctamente");
+            mostrarInfo(
+                    "Espectáculo modificado correctamente");
 
         } catch (Exception e) {
+
             mostrarError(e.getMessage());
         }
     }
 
     private void mostrarError(String msg) {
 
-        Alert a = new Alert(Alert.AlertType.ERROR);
+        Alert a =
+                new Alert(Alert.AlertType.ERROR);
+
         a.setContentText(msg);
+
         a.showAndWait();
     }
 
     private void mostrarInfo(String msg) {
 
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        Alert a =
+                new Alert(Alert.AlertType.INFORMATION);
+
         a.setContentText(msg);
+
         a.showAndWait();
     }
 
@@ -190,10 +270,12 @@ public class ModificarEspectaculoController {
         switch (sesion.getPerfil()) {
 
             case ADMIN ->
-                    stageManager.switchScene(FxmlView.ADMIN);
+                    stageManager.switchScene(
+                            FxmlView.ADMIN);
 
             case COORDINACION ->
-                    stageManager.switchScene(FxmlView.COORDINADOR);
+                    stageManager.switchScene(
+                            FxmlView.COORDINADOR);
         }
     }
 }

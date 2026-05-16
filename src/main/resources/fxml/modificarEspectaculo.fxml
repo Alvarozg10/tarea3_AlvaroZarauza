@@ -4,30 +4,53 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="20" alignment="CENTER"
+<VBox spacing="20"
+      alignment="CENTER"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.luisdbb.tarea3AD2024base.controller.ModificarEspectaculoController"
       stylesheets="@/styles/Styles.css">
 
     <padding>
-        <Insets top="30" right="30" bottom="30" left="30"/>
+        <Insets top="30"
+                right="30"
+                bottom="30"
+                left="30"/>
     </padding>
 
-    <VBox spacing="15" alignment="CENTER"
+    <VBox spacing="15"
+          alignment="CENTER"
           styleClass="card"
-          maxWidth="400">
+          maxWidth="500">
 
         <Label text="Modificar Espectáculo"
                styleClass="title"/>
 
-        <TextField fx:id="idField"
-                   promptText="ID Espectáculo"
-                   prefWidth="250"/>
+        <TableView fx:id="espectaculosTable"
+                   prefHeight="200"
+                   prefWidth="450">
 
-        <Button text="Cargar"
+            <columns>
+
+                <TableColumn fx:id="nombreColumn"
+                             text="Nombre"
+                             prefWidth="180"/>
+
+                <TableColumn fx:id="inicioColumn"
+                             text="Inicio"
+                             prefWidth="120"/>
+
+                <TableColumn fx:id="finColumn"
+                             text="Fin"
+                             prefWidth="120"/>
+
+            </columns>
+
+        </TableView>
+
+        <Button text="Cargar espectáculo"
                 onAction="#cargarEspectaculo"
                 styleClass="button btn-coord"
-                prefWidth="120"/>
+                prefWidth="180"/>
 
         <TextField fx:id="nombreField"
                    promptText="Nombre del espectáculo"
@@ -42,12 +65,14 @@
                     prefWidth="250"/>
 
         <Label fx:id="coordinadorLabel"
-        text="Seleccionar Coordinador"/>
+               text="Seleccionar Coordinador"/>
 
         <ComboBox fx:id="coordinadorCombo"
                   prefWidth="250"/>
 
-        <HBox spacing="10" alignment="CENTER">
+        <HBox spacing="10"
+               alignment="CENTER">
+
             <Button text="Guardar cambios"
                     onAction="#guardarCambios"
                     styleClass="button btn-coord"
@@ -57,6 +82,7 @@
                     onAction="#volver"
                     styleClass="button btn-invitado"
                     prefWidth="120"/>
+
         </HBox>
 
     </VBox>
