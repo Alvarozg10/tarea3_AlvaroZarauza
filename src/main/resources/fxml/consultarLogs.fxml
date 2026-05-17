@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.db4o.ConsultarLogsController"
+      stylesheets="@/styles/Styles.css">
+
+    <padding>
+        <Insets top="20"
+                right="20"
+                bottom="20"
+                left="20"/>
+    </padding>
+
+    <Label text="Historial de Operaciones"
+           styleClass="title"/>
+
+    <HBox spacing="10"
+           alignment="CENTER">
+
+        <ComboBox fx:id="usuarioCombo"
+                  promptText="Usuario"
+                  prefWidth="180"/>
+
+        <DatePicker fx:id="inicioPicker"/>
+
+        <DatePicker fx:id="finPicker"/>
+
+    </HBox>
+
+    <HBox spacing="15"
+           alignment="CENTER">
+
+        <CheckBox fx:id="nuevoCheck"
+                  text="NUEVO"/>
+
+        <CheckBox fx:id="actualizacionCheck"
+                  text="ACTUALIZACION"/>
+
+        <CheckBox fx:id="borradoCheck"
+                  text="BORRADO"/>
+
+    </HBox>
+
+    <Button text="Buscar"
+            onAction="#buscar"
+            styleClass="button btn-coord"
+            prefWidth="140"/>
+
+    <TableView fx:id="logsTable"
+               prefWidth="900"
+               prefHeight="450">
+
+        <columns>
+
+            <TableColumn fx:id="fechaColumn"
+                         text="Fecha"
+                         prefWidth="180"/>
+
+            <TableColumn fx:id="usuarioColumn"
+                         text="Usuario"
+                         prefWidth="120"/>
+
+            <TableColumn fx:id="tipoColumn"
+                         text="Tipo"
+                         prefWidth="160"/>
+
+            <TableColumn fx:id="resumenColumn"
+                         text="Resumen"
+                         prefWidth="420"/>
+
+        </columns>
+
+    </TableView>
+
+    <Button text="Volver"
+            onAction="#volver"
+            styleClass="button btn-invitado"
+            prefWidth="120"/>
+
+</VBox>

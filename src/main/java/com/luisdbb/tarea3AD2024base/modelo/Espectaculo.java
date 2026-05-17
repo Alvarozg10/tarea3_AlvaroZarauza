@@ -68,4 +68,10 @@ public class Espectaculo {
     public void setNumeros(List<Numero> numeros) {
         this.numeros = numeros;
     }
+    
+    @Override
+    public String toString() {
+
+        return nombre;
+    }
 }

@@ -44,6 +44,27 @@ public class CoordinadorController {
     }
     
     @FXML
+    public void abrirRegistrarIncidencia() {
+
+        stageManager.switchScene(
+                FxmlView.REGISTRAR_INCIDENCIA);
+    }
+    
+    @FXML
+    public void abrirResolverIncidencia() {
+
+        stageManager.switchScene(
+                FxmlView.RESOLVER_INCIDENCIA);
+    }
+    
+    @FXML
+    public void abrirConsultarIncidencias() {
+
+        stageManager.switchScene(
+                FxmlView.CONSULTAR_INCIDENCIAS);
+    }
+    
+    @FXML
     public void cerrarSesion() {
 
         sesion.setUsuario(null); 

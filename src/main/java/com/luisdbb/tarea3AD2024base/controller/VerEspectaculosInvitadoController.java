@@ -59,17 +59,12 @@ public class VerEspectaculosInvitadoController {
         
     }
     
-    	@FXML
-    	public void volver() {
+    @FXML
+    public void volver() {
 
-    	    Perfil perfil = sesion.getPerfil();
-
-    	    if (perfil == null) {
-
-    	        stageManager.switchScene(FxmlView.LOGIN);
-    	        return;
-    	    }
-    	}
+        stageManager.switchScene(
+                FxmlView.LOGIN);
+    }
 }
 
 

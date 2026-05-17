@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20"
+      alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.BorrarNumeroController"
+      stylesheets="@/styles/Styles.css">
+
+    <padding>
+        <Insets top="20"
+                right="20"
+                bottom="20"
+                left="20"/>
+    </padding>
+
+    <Label text="Borrar Número"
+           styleClass="title"/>
+
+    <TableView fx:id="numerosTable"
+               prefWidth="700"
+               prefHeight="400">
+
+        <columns>
+
+            <TableColumn fx:id="idColumn"
+                         text="ID"
+                         prefWidth="100"/>
+
+            <TableColumn fx:id="nombreColumn"
+                         text="Nombre"
+                         prefWidth="250"/>
+
+            <TableColumn fx:id="espectaculoColumn"
+                         text="Espectáculo"
+                         prefWidth="300"/>
+
+        </columns>
+
+    </TableView>
+
+    <HBox spacing="15"
+           alignment="CENTER">
+
+        <Button text="Borrar número"
+                onAction="#borrarNumero"
+                styleClass="button btn-invitado"
+                prefWidth="160"/>
+
+        <Button text="Volver"
+                onAction="#volver"
+                styleClass="button btn-coord"
+                prefWidth="120"/>
+
+    </HBox>
+
+</VBox>

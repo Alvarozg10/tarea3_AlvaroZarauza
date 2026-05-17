@@ -42,6 +42,9 @@ public class CrearNumeroController {
 
     @Autowired
     private StageManager stageManager;
+    
+    @Autowired
+    private EspectaculoService espectaculoService;
 
     @FXML
     public void initialize() {
@@ -71,18 +74,9 @@ public class CrearNumeroController {
             }
         });
 
-        Long id = sesion.getEspectaculoId();
+        espectaculoField.setVisible(false);
 
-        if (id != null) {
-
-            espectaculoField.setVisible(false);
-            espectaculoField.setManaged(false);
-
-        } else {
-
-            espectaculoField.setVisible(true);
-            espectaculoField.setManaged(true);
-        }
+        espectaculoField.setManaged(false);
     }
 
     @FXML
@@ -98,36 +92,28 @@ public class CrearNumeroController {
             int orden =
                     Integer.parseInt(ordenField.getText());
 
-            Long espectaculoId = sesion.getEspectaculoId();
+            Numero numero = new Numero();
 
-            if (espectaculoId == null) {
+            numero.setNombre(nombre);
 
-                if (espectaculoField.getText().isBlank()) {
+            numero.setDuracion(duracion);
 
-                    throw new RuntimeException(
-                            "Debes introducir ID de espectáculo");
-                }
+            numero.setOrden(orden);
 
-                espectaculoId =
-                        Long.parseLong(espectaculoField.getText());
-            }
-
-            List<Long> artistasIds = artistasList
+            List<Artista> artistas = artistasList
                     .getSelectionModel()
                     .getSelectedItems()
                     .stream()
-                    .map(Persona::getId)
+                    .map(p -> (Artista) p)
                     .toList();
 
-            numeroService.crearNumero(
-                    nombre,
-                    duracion,
-                    orden,
-                    espectaculoId,
-                    artistasIds
-            );
+            numero.setArtistas(artistas);
 
-            mostrarInfo("Número creado correctamente");
+            sesion.getNumerosTemporales()
+                    .add(numero);
+
+            mostrarInfo(
+                    "Número añadido temporalmente");
 
             limpiarFormulario();
 
@@ -152,27 +138,38 @@ public class CrearNumeroController {
     @FXML
     public void volver() {
 
-        Long espectaculoId =
-                sesion.getEspectaculoId();
+    	if (sesion.getNumerosTemporales()
+    	        .size() < 3) {
 
-        if (espectaculoId != null) {
+    	    mostrarError(
+    	            "Debes crear al menos 3 números");
 
-            boolean valido =
-                    numeroService
-                    .puedeCerrarEspectaculo(
-                            espectaculoId);
+    	    return;
+    	}
+    	
+    	try {
 
-            if (!valido) {
+    		espectaculoService.guardarEspectaculoCompleto(
 
-                mostrarError(
-                    "Debes crear al menos 3 números"
-                );
+    		        sesion.getEspectaculoTemporal(),
 
-                return;
-            }
+    		        sesion.getNumerosTemporales());
 
-            sesion.setEspectaculoId(null);
-        }
+    	    mostrarInfo(
+    	            "Espectáculo creado correctamente");
+
+    	    sesion.setEspectaculoTemporal(null);
+
+    	    sesion.getNumerosTemporales()
+    	            .clear();
+
+    	} catch (Exception e) {
+
+    	    mostrarError(
+    	            e.getMessage());
+
+    	    return;
+    	}
 
         if (sesion.getPerfil() == Perfil.ADMIN) {
 

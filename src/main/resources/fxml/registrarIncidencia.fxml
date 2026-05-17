@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20"
+      alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.objectdb.RegistrarIncidenciaController"
+      stylesheets="@/styles/Styles.css">
+
+    <padding>
+        <Insets top="20"
+                right="20"
+                bottom="20"
+                left="20"/>
+    </padding>
+
+    <VBox spacing="15"
+          alignment="CENTER"
+          styleClass="card"
+          maxWidth="600">
+
+        <padding>
+            <Insets top="20"
+                    right="20"
+                    bottom="20"
+                    left="20"/>
+        </padding>
+
+        <Label text="Registrar Incidencia"
+               styleClass="title"/>
+
+        <ComboBox fx:id="tipoCombo"
+                  promptText="Tipo de incidencia"
+                  prefWidth="350"/>
+
+        <TextArea fx:id="descripcionArea"
+                  promptText="Descripción de la incidencia"
+                  prefWidth="500"
+                  prefHeight="180"
+                  wrapText="true"/>
+
+        <ComboBox fx:id="espectaculoCombo"
+                  promptText="Espectáculo afectado (opcional)"
+                  prefWidth="350"/>
+
+        <ComboBox fx:id="numeroCombo"
+                  promptText="Número afectado (opcional)"
+                  prefWidth="350"/>
+
+        <HBox spacing="15"
+               alignment="CENTER">
+
+            <Button text="Registrar incidencia"
+                    onAction="#registrarIncidencia"
+                    styleClass="button btn-artista"
+                    prefWidth="180"/>
+
+            <Button text="Volver"
+                    onAction="#volver"
+                    styleClass="button btn-invitado"
+                    prefWidth="120"/>
+
+        </HBox>
+
+    </VBox>
+
+</VBox>

@@ -12,12 +12,17 @@ public enum FxmlView {
     MODIFICAR_ESPECTACULO("/fxml/modificarEspectaculo.fxml"),
     CREAR_NUMERO("/fxml/crearNumero.fxml"),
     MODIFICAR_NUMERO("/fxml/modificarNumero.fxml"),
+    BORRAR_NUMERO("/fxml/borrarNumero.fxml"),
     FICHA_ARTISTA("/fxml/fichaArtista.fxml"),
     VER_ESPECTACULO("/fxml/verEspectaculo.fxml"),
     VER_ESPECTACULOS_INVITADO("/fxml/verEspectaculosInvitado.fxml"),
     COORDINADOR("/fxml/MenuCoordinador.fxml"),
     ARTISTA("/fxml/MenuArtista.fxml"),
-    INVITADO("/fxml/menuInvitado.fxml");
+    INVITADO("/fxml/menuInvitado.fxml"),
+    CONSULTAR_LOGS("/fxml/consultarLogs.fxml"),
+    REGISTRAR_INCIDENCIA("/fxml/registrarIncidencia.fxml"),
+    RESOLVER_INCIDENCIA("/fxml/resolverIncidencia.fxml"),
+    CONSULTAR_INCIDENCIAS("/fxml/consultarIncidencias.fxml");
 
     private final String fxml;
 

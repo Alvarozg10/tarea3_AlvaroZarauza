@@ -136,16 +136,23 @@ public class CrearEspectaculoController {
                 coordinador = (Coordinacion) seleccionado;
             }
 
-            Espectaculo esp = espectaculoService.crearEspectaculo(
-                    nombre,
-                    inicio,
-                    fin,
-                    coordinador.getId()
-            );
+            Espectaculo esp = new Espectaculo();
 
-            sesion.setEspectaculoId(esp.getId());
+            esp.setNombre(nombre);
 
-            mostrarInfo("Espectáculo creado correctamente");
+            esp.setFechaInicio(inicio);
+
+            esp.setFechaFin(fin);
+
+            esp.setCoordinador(coordinador);
+
+            sesion.setEspectaculoTemporal(esp);
+
+            sesion.getNumerosTemporales()
+                    .clear();
+
+            mostrarInfo(
+                    "Ahora debes crear mínimo 3 números");
 
             stageManager.switchScene(FxmlView.CREAR_NUMERO);
 

@@ -59,6 +59,39 @@ public class AdminController {
     }
     
     @FXML
+    public void borrarNumero() {
+    	stageManager.switchScene(FxmlView.BORRAR_NUMERO);
+    }
+    
+    @FXML
+    public void abrirRegistrarIncidencia() {
+
+        stageManager.switchScene(
+                FxmlView.REGISTRAR_INCIDENCIA);
+    }
+    
+    @FXML
+    public void abrirResolverIncidencia() {
+
+        stageManager.switchScene(
+                FxmlView.RESOLVER_INCIDENCIA);
+    }
+    
+    @FXML
+    public void abrirConsultarIncidencias() {
+
+        stageManager.switchScene(
+                FxmlView.CONSULTAR_INCIDENCIAS);
+    }
+    
+    @FXML
+    public void abrirLogs() {
+
+        stageManager.switchScene(
+                FxmlView.CONSULTAR_LOGS);
+    }
+    
+    @FXML
     public void cerrarSesion() {
 
         sesion.setUsuario(null); 

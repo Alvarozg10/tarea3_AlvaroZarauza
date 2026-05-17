@@ -55,18 +55,48 @@
                     styleClass="button btn-admin"
                     prefWidth="200"
                     GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    
+            <Button text="Borrar Numero"
+                    onAction="#borrarNumero"
+                    styleClass="button btn-invitado"
+                    prefWidth="200"
+                    GridPane.rowIndex="3" GridPane.columnIndex="0"/>
 
             <Button text="Ver Espectáculos"
                     onAction="#verEspectaculos"
                     styleClass="button btn-invitado"
                     prefWidth="200"
-                    GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    GridPane.rowIndex="3" GridPane.columnIndex="1"/>
                     
             <Button text="Exportar Espectáculos"
                     onAction="#exportarEspectaculos"
                     styleClass="button btn-invitado"
                     prefWidth="200"
-                    GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                    GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                    
+            <Button text="Consultar Logs"
+                    onAction="#abrirLogs"
+                    styleClass="button btn-invitado"
+                    prefWidth="200"
+                    GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                    
+            <Button text="Registrar Incidencia"
+                    onAction="#abrirRegistrarIncidencia"
+                    styleClass="button btn-invitado"
+                    prefWidth="200"
+                    GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                    
+            <Button text="Resolver Incidencia"
+                    onAction="#abrirResolverIncidencia"
+                    styleClass="button btn-invitado"
+                    prefWidth="200"
+                    GridPane.rowIndex="5" GridPane.columnIndex="1"/>   
+                    
+            <Button text="Consultar Incidencias"
+                    onAction="#abrirConsultarIncidencias"
+                    styleClass="button btn-invitado"
+                    prefWidth="200"
+                    GridPane.rowIndex="6" GridPane.columnIndex="0"/>  
 
         </GridPane>
 

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20"
+      alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.controller.objectdb.ConsultarIncidenciasController"
+      stylesheets="@/styles/Styles.css">
+
+    <padding>
+        <Insets top="20"
+                right="20"
+                bottom="20"
+                left="20"/>
+    </padding>
+
+    <VBox spacing="15"
+          alignment="CENTER"
+          styleClass="card"
+          maxWidth="1100">
+
+        <padding>
+            <Insets top="20"
+                    right="20"
+                    bottom="20"
+                    left="20"/>
+        </padding>
+
+        <Label text="Consultar Incidencias"
+               styleClass="title"/>
+
+        <HBox spacing="10"
+               alignment="CENTER">
+
+            <ComboBox fx:id="tipoCombo"
+                      promptText="Tipo"
+                      prefWidth="180"/>
+
+            <ComboBox fx:id="estadoCombo"
+                      promptText="Estado"
+                      prefWidth="180"/>
+
+            <ComboBox fx:id="espectaculoCombo"
+                      promptText="Espectáculo"
+                      prefWidth="220"/>
+
+            <ComboBox fx:id="numeroCombo"
+                      promptText="Número"
+                      prefWidth="220"/>
+
+        </HBox>
+
+        <HBox spacing="10"
+               alignment="CENTER">
+
+            <DatePicker fx:id="fechaInicioPicker"/>
+
+            <DatePicker fx:id="fechaFinPicker"/>
+
+            <Button text="Buscar"
+                    onAction="#buscar"
+                    styleClass="button btn-coord"
+                    prefWidth="140"/>
+
+            <Button text="Limpiar"
+                    onAction="#limpiarFiltros"
+                    styleClass="button btn-artista"
+                    prefWidth="140"/>
+
+        </HBox>
+
+        <TableView fx:id="incidenciasTable"
+                   prefWidth="1000"
+                   prefHeight="450">
+
+            <columns>
+
+                <TableColumn fx:id="fechaColumn"
+                             text="Fecha"
+                             prefWidth="180"/>
+
+                <TableColumn fx:id="tipoColumn"
+                             text="Tipo"
+                             prefWidth="180"/>
+
+                <TableColumn fx:id="descripcionColumn"
+                             text="Descripción"
+                             prefWidth="420"/>
+
+                <TableColumn fx:id="resueltaColumn"
+                             text="Resuelta"
+                             prefWidth="120"/>
+
+            </columns>
+
+        </TableView>
+
+        <Button text="Volver"
+                onAction="#volver"
+                styleClass="button btn-invitado"
+                prefWidth="120"/>
+
+    </VBox>
+
+</VBox>

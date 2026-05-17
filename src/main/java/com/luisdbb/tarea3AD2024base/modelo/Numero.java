@@ -74,4 +74,10 @@ public class Numero {
     	this.artistas = artistas; 
     	}
     
+    @Override
+    public String toString() {
+
+        return nombre;
+    }
+    
 }
