@@ -21,7 +21,7 @@
 
             <property
                     name="javax.persistence.jdbc.url"
-                    value="objectdb://localhost:6136/incidencias.odb"/>
+                    value="objectdb://localhost:6136/incidenciasADT.odb"/>
 
             <property
                     name="javax.persistence.jdbc.user"
