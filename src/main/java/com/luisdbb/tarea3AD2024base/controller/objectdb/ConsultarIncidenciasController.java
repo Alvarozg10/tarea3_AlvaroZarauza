@@ -19,6 +19,9 @@ import org.springframework.stereotype.Controller;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.Espectaculo;
 import com.luisdbb.tarea3AD2024base.modelo.Numero;
+import com.luisdbb.tarea3AD2024base.modelo.Perfil;
+import com.luisdbb.tarea3AD2024base.modelo.Persona;
+import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.objectdb.Incidencia;
 import com.luisdbb.tarea3AD2024base.objectdb.TipoIncidencia;
 import com.luisdbb.tarea3AD2024base.services.EspectaculoService;
@@ -37,6 +40,9 @@ public class ConsultarIncidenciasController {
 
     @Autowired
     private NumeroService numeroService;
+    
+    @Autowired
+    private Sesion sesion;
 
     @Autowired
     private StageManager stageManager;
@@ -315,10 +321,39 @@ public class ConsultarIncidenciasController {
                 incidenciaService.obtenerTodas());
     }
 
-    @FXML
-    public void volver() {
+    		@FXML
+    		public void volver() {
 
-        stageManager.switchScene(
-                FxmlView.ADMIN);
-    }
+    		    Persona usuario =
+    		            sesion.getUsuario();
+
+    		    if (usuario != null
+    		            && usuario.getCredenciales() != null) {
+
+    		        Perfil perfil =
+    		                usuario.getCredenciales()
+    		                        .getPerfil();
+
+    		        if (perfil == Perfil.COORDINACION) {
+
+    		            stageManager.switchScene(
+    		                    FxmlView.COORDINADOR);
+
+    		        } else if (perfil == Perfil.ARTISTA) {
+
+    		            stageManager.switchScene(
+    		                    FxmlView.ARTISTA);
+
+    		        } else {
+
+    		            stageManager.switchScene(
+    		                    FxmlView.ADMIN);
+    		        }
+
+    		    } else {
+
+    		        stageManager.switchScene(
+    		                FxmlView.ADMIN);
+    		    }
+    		}
 }

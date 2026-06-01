@@ -23,14 +23,6 @@
         <java.version>23</java.version>
     </properties>
 
-    <!-- REPOSITORIO OBJECTDB -->
-    <repositories>
-        <repository>
-            <id>objectdb</id>
-            <url>https://m2.objectdb.com</url>
-        </repository>
-    </repositories>
-
     <dependencies>
 
         <!-- SPRING + JPA -->

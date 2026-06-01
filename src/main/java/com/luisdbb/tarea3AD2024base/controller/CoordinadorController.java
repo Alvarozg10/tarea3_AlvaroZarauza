@@ -34,6 +34,12 @@ public class CoordinadorController {
     }
     
     @FXML
+    public void abrirCrearNumero() {
+
+    	stageManager.switchScene(FxmlView.CREAR_NUMERO_SIN_ESPECTACULO); 	
+    }
+
+    @FXML
     public void modificarNumero() {
         stageManager.switchScene(FxmlView.MODIFICAR_NUMERO);
     }

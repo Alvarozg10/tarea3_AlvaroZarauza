@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.luisdbb.tarea3AD2024base.controller.CrearNumeroSinEspectaculoController"
+            stylesheets="@/styles/Styles.css">
+
+    <content>
+
+        <VBox alignment="CENTER">
+
+            <VBox spacing="15"
+                  alignment="CENTER"
+                  styleClass="card"
+                  maxWidth="450">
+
+                <padding>
+                    <Insets top="20"
+                            right="20"
+                            bottom="20"
+                            left="20"/>
+                </padding>
+
+                <Label text="Crear Número"
+                       styleClass="title"/>
+
+                <TextField fx:id="nombreField"
+                           promptText="Nombre"
+                           prefWidth="250"/>
+
+                <TextField fx:id="duracionField"
+                           promptText="Duración (1.0 / 1.5)"
+                           prefWidth="250"/>
+
+                <TextField fx:id="ordenField"
+                           promptText="Orden"
+                           prefWidth="250"/>
+
+                <Label text="Seleccionar espectáculo"/>
+
+                <ComboBox fx:id="espectaculoCombo"
+                          prefWidth="250"/>
+
+                <Label text="Seleccionar artistas"/>
+
+                <ListView fx:id="artistasList"
+                          prefHeight="200"
+                          prefWidth="250"
+                          VBox.vgrow="ALWAYS"/>
+
+                <HBox spacing="10"
+                       alignment="CENTER">
+
+                    <Button text="Crear número"
+                            onAction="#crearNumero"
+                            styleClass="button btn-coord"
+                            prefWidth="150"/>
+
+                    <Button text="Volver"
+                            onAction="#volver"
+                            styleClass="button btn-invitado"
+                            prefWidth="120"/>
+
+                </HBox>
+
+            </VBox>
+
+        </VBox>
+
+    </content>
+
+</ScrollPane>

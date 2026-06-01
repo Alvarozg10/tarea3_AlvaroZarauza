@@ -11,6 +11,7 @@ public enum FxmlView {
     CREAR_ESPECTACULO("/fxml/crearEspectaculo.fxml"),
     MODIFICAR_ESPECTACULO("/fxml/modificarEspectaculo.fxml"),
     CREAR_NUMERO("/fxml/crearNumero.fxml"),
+    CREAR_NUMERO_SIN_ESPECTACULO("/fxml/crearNumeroSinEspectaculo.fxml"),
     MODIFICAR_NUMERO("/fxml/modificarNumero.fxml"),
     BORRAR_NUMERO("/fxml/borrarNumero.fxml"),
     FICHA_ARTISTA("/fxml/fichaArtista.fxml"),

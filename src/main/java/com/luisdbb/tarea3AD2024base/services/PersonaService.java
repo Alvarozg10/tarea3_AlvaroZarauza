@@ -20,21 +20,23 @@ public class PersonaService {
 
     @Autowired
     private CredencialesRepository credencialesRepository;
-    
+
     @Autowired
     private LogService logService;
-    
+
     @Autowired
     private Sesion sesion;
-    
+
     public Persona buscarPorId(Long id) {
+
         return personaRepository.findById(id).orElse(null);
     }
 
     public List<Persona> obtenerTodas() {
+
         return personaRepository.findAll();
     }
-    
+
     public Persona login(
             String username,
             String password) {
@@ -61,7 +63,11 @@ public class PersonaService {
             return null;
         }
 
-        return cred.getPersona();
+        Persona persona = cred.getPersona();
+
+        persona.setCredenciales(cred);
+
+        return persona;
     }
 
     public void registrarPersona(
@@ -119,15 +125,18 @@ public class PersonaService {
         if (tipo.equals("COORDINADOR")) {
 
             Coordinacion coord = new Coordinacion();
+
             coord.setNombre(nombre);
             coord.setEmail(email);
             coord.setNacionalidad(nacionalidad);
             coord.setSenior(senior);
 
             if (senior) {
+
                 if (fechaSenior == null) {
                     throw new RuntimeException("Debe indicar la fecha de senior");
                 }
+
                 coord.setFechaSenior(fechaSenior);
             }
 
@@ -136,6 +145,7 @@ public class PersonaService {
         } else {
 
             Artista artista = new Artista();
+
             artista.setNombre(nombre);
             artista.setEmail(email);
             artista.setNacionalidad(nacionalidad);
@@ -151,6 +161,7 @@ public class PersonaService {
         }
 
         Credenciales cred = new Credenciales();
+
         cred.setUsername(username);
         cred.setPassword(password);
         cred.setPersona(persona);
@@ -161,13 +172,16 @@ public class PersonaService {
             cred.setPerfil(Perfil.ARTISTA);
         }
 
+        persona.setCredenciales(cred);
+
         credencialesRepository.save(cred);
-        
+
         logService.guardarLog(
 
-                sesion.getUsuario()
-                        .getCredenciales()
-                        .getUsername(),
+                sesion.getUsuario() != null
+                && sesion.getUsuario().getCredenciales() != null
+                ? sesion.getUsuario().getCredenciales().getUsername()
+                : "admin",
 
                 TipoOperacion.NUEVO,
 
@@ -203,6 +217,7 @@ public class PersonaService {
         }
 
         Persona existente = personaRepository.findByEmail(email);
+
         if (existente != null && !existente.getId().equals(id)) {
             throw new RuntimeException("El email ya existe");
         }
@@ -227,11 +242,15 @@ public class PersonaService {
             coord.setSenior(senior);
 
             if (senior) {
+
                 if (fechaSenior == null) {
                     throw new RuntimeException("Debe indicar la fecha de senior");
                 }
+
                 coord.setFechaSenior(fechaSenior);
+
             } else {
+
                 coord.setFechaSenior(null);
             }
         }
@@ -246,9 +265,12 @@ public class PersonaService {
 
             username = username.toLowerCase();
 
-            Credenciales existenteUser = credencialesRepository.findByUsername(username);
+            Credenciales existenteUser =
+                    credencialesRepository.findByUsername(username);
 
-            if (existenteUser != null && !existenteUser.getPersona().getId().equals(id)) {
+            if (existenteUser != null
+                    && !existenteUser.getPersona().getId().equals(id)) {
+
                 throw new RuntimeException("El username ya existe");
             }
 
@@ -265,12 +287,13 @@ public class PersonaService {
         }
 
         personaRepository.save(persona);
-        
+
         logService.guardarLog(
 
-                sesion.getUsuario()
-                        .getCredenciales()
-                        .getUsername(),
+                sesion.getUsuario() != null
+                && sesion.getUsuario().getCredenciales() != null
+                ? sesion.getUsuario().getCredenciales().getUsername()
+                : "admin",
 
                 TipoOperacion.ACTUALIZACION,
 
@@ -278,3 +301,4 @@ public class PersonaService {
                         + persona.getId());
     }
 }
+

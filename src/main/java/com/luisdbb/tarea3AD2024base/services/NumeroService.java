@@ -109,9 +109,10 @@ public class NumeroService {
 
         logService.guardarLog(
 
-                sesion.getUsuario()
-                        .getCredenciales()
-                        .getUsername(),
+                sesion.getUsuario() != null
+                && sesion.getUsuario().getCredenciales() != null
+                ? sesion.getUsuario().getCredenciales().getUsername()
+                : "admin",
 
                 TipoOperacion.NUEVO,
 
@@ -197,16 +198,17 @@ public class NumeroService {
 
         logService.guardarLog(
 
-                sesion.getUsuario()
-                        .getCredenciales()
-                        .getUsername(),
+                sesion.getUsuario() != null
+                && sesion.getUsuario().getCredenciales() != null
+                ? sesion.getUsuario().getCredenciales().getUsername()
+                : "admin",
 
                 TipoOperacion.ACTUALIZACION,
 
                 "Se ha actualizado el Numero con id "
                         + numero.getId());
     }
-    
+
     public void borrarNumero(Long id) {
 
         Numero numero =
@@ -239,9 +241,10 @@ public class NumeroService {
 
         logService.guardarLog(
 
-                sesion.getUsuario()
-                        .getCredenciales()
-                        .getUsername(),
+                sesion.getUsuario() != null
+                && sesion.getUsuario().getCredenciales() != null
+                ? sesion.getUsuario().getCredenciales().getUsername()
+                : "admin",
 
                 TipoOperacion.BORRADO,
 

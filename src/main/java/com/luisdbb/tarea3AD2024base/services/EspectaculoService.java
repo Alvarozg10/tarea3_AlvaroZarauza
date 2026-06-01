@@ -88,9 +88,10 @@ public class EspectaculoService {
 
         logService.guardarLog(
 
-                sesion.getUsuario()
-                        .getCredenciales()
-                        .getUsername(),
+                sesion.getUsuario() != null
+                && sesion.getUsuario().getCredenciales() != null
+                ? sesion.getUsuario().getCredenciales().getUsername()
+                : "admin",
 
                 TipoOperacion.NUEVO,
 
@@ -177,9 +178,10 @@ public class EspectaculoService {
 
         logService.guardarLog(
 
-                sesion.getUsuario()
-                        .getCredenciales()
-                        .getUsername(),
+                sesion.getUsuario() != null
+                && sesion.getUsuario().getCredenciales() != null
+                ? sesion.getUsuario().getCredenciales().getUsername()
+                : "admin",
 
                 TipoOperacion.ACTUALIZACION,
 
@@ -244,7 +246,7 @@ public class EspectaculoService {
 
         return espectaculoRepository.findAll();
     }
-    
+
     @Transactional
     public void guardarEspectaculoCompleto(
 
@@ -271,4 +273,22 @@ public class EspectaculoService {
                     numero);
         }
     }
+    
+    		public List<Espectaculo> obtenerPorCoordinador(
+    		        Long idCoordinador) {
+
+    		    Persona persona =
+    		            personaRepository
+    		                    .findById(idCoordinador)
+    		                    .orElse(null);
+
+    		    if (!(persona instanceof Coordinacion coord)) {
+
+    		        return List.of();
+    		    }
+
+    		    return espectaculoRepository
+    		            .findByCoordinador(coord);
+    		}
+
 }
