@@ -4,7 +4,6 @@ public enum FxmlView {
 
     LOGIN("/fxml/login.fxml"),
     RECUPERAR_PASSWORD("/fxml/recuperarPassword.fxml"),
-    EXPORTAR_ESPECTACULOS("/fxml/exportarEspectaculos.fxml"),
     ADMIN("/fxml/menuAdmin.fxml"),
     REGISTRAR_PERSONA("/fxml/registrarPersona.fxml"),
     MODIFICAR_PERSONA("/fxml/modificarPersona.fxml"),

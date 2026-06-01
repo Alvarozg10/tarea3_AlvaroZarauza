@@ -60,11 +60,6 @@ public class AdminController {
     }
     
     @FXML
-    public void exportarEspectaculos() {
-        stageManager.switchScene(FxmlView.EXPORTAR_ESPECTACULOS);
-    }
-    
-    @FXML
     public void borrarNumero() {
     	stageManager.switchScene(FxmlView.BORRAR_NUMERO);
     }

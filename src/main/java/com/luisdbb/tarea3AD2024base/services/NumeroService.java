@@ -303,4 +303,23 @@ public class NumeroService {
 
         return numeroRepository.findAll();
     }
+    
+    		public List<Numero> obtenerPorCoordinador(
+    		        Long idCoordinador) {
+
+    		    Persona persona =
+    		            personaRepository
+    		                    .findById(idCoordinador)
+    		                    .orElse(null);
+
+    		    if (!(persona instanceof Coordinacion coord)) {
+
+    		        return List.of();
+    		    }
+
+    		    return numeroRepository
+    		            .findByEspectaculo_Coordinador(
+    		                    coord);
+    		}
+
 }

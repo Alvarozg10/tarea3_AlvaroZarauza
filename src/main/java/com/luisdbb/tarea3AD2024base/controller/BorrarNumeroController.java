@@ -7,11 +7,15 @@ import org.springframework.stereotype.Component;
 
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.Numero;
+import com.luisdbb.tarea3AD2024base.modelo.Perfil;
+import com.luisdbb.tarea3AD2024base.modelo.Persona;
+import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.services.NumeroService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
-import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
@@ -24,7 +28,7 @@ public class BorrarNumeroController {
     private TableView<Numero> numerosTable;
 
     @FXML
-    private TableColumn<Numero, Number> idColumn;
+    private TableColumn<Numero, Long> idColumn;
 
     @FXML
     private TableColumn<Numero, String> nombreColumn;
@@ -36,34 +40,53 @@ public class BorrarNumeroController {
     private NumeroService numeroService;
 
     @Autowired
+    private Sesion sesion;
+
+    @Autowired
     private StageManager stageManager;
 
     @FXML
     public void initialize() {
 
-        idColumn.setCellValueFactory(data ->
-                new SimpleLongProperty(
+        Persona usuario =
+                sesion.getUsuario();
+
+        List<Numero> numeros;
+
+        if (usuario != null
+                && usuario.getCredenciales() != null
+                && usuario.getCredenciales().getPerfil()
+                == Perfil.COORDINACION) {
+
+            numeros =
+                    numeroService
+                            .obtenerPorCoordinador(
+                                    usuario.getId());
+
+        } else {
+
+            numeros =
+                    numeroService
+                            .obtenerTodos();
+        }
+
+        idColumn.setCellValueFactory(
+                data -> new SimpleObjectProperty<>(
                         data.getValue().getId()));
 
-        nombreColumn.setCellValueFactory(data ->
-                new SimpleStringProperty(
+        nombreColumn.setCellValueFactory(
+                data -> new SimpleStringProperty(
                         data.getValue().getNombre()));
 
-        espectaculoColumn.setCellValueFactory(data ->
-                new SimpleStringProperty(
+        espectaculoColumn.setCellValueFactory(
+                data -> new SimpleStringProperty(
                         data.getValue()
                                 .getEspectaculo()
                                 .getNombre()));
 
-        cargarNumeros();
-    }
-
-    private void cargarNumeros() {
-
-        List<Numero> numeros =
-                numeroService.obtenerTodos();
-
-        numerosTable.getItems().setAll(numeros);
+        numerosTable.setItems(
+                FXCollections.observableArrayList(
+                        numeros));
     }
 
     @FXML
@@ -76,8 +99,18 @@ public class BorrarNumeroController {
 
         if (numero == null) {
 
-            mostrarError(
-                    "Selecciona un número");
+            Alert alert =
+                    new Alert(
+                            Alert.AlertType.ERROR);
+
+            alert.setTitle("Error");
+
+            alert.setHeaderText(null);
+
+            alert.setContentText(
+                    "Debes seleccionar un número");
+
+            alert.showAndWait();
 
             return;
         }
@@ -87,50 +120,73 @@ public class BorrarNumeroController {
             numeroService.borrarNumero(
                     numero.getId());
 
-            cargarNumeros();
+            numerosTable.getItems()
+                    .remove(numero);
 
-            mostrarInfo(
+            Alert alert =
+                    new Alert(
+                            Alert.AlertType.INFORMATION);
+
+            alert.setTitle(
+                    "Número eliminado");
+
+            alert.setHeaderText(null);
+
+            alert.setContentText(
                     "Número eliminado correctamente");
+
+            alert.showAndWait();
 
         } catch (Exception e) {
 
-            mostrarError(
+            Alert alert =
+                    new Alert(
+                            Alert.AlertType.ERROR);
+
+            alert.setTitle("Error");
+
+            alert.setHeaderText(null);
+
+            alert.setContentText(
                     e.getMessage());
+
+            alert.showAndWait();
         }
     }
 
     @FXML
     public void volver() {
 
-        stageManager.switchScene(
-                FxmlView.ADMIN);
-    }
+        Persona usuario =
+                sesion.getUsuario();
 
-    private void mostrarError(String mensaje) {
+        if (usuario != null
+                && usuario.getCredenciales() != null) {
 
-        Alert alert =
-                new Alert(Alert.AlertType.ERROR);
+            Perfil perfil =
+                    usuario.getCredenciales()
+                            .getPerfil();
 
-        alert.setTitle("Error");
+            if (perfil == Perfil.COORDINACION) {
 
-        alert.setHeaderText(null);
+                stageManager.switchScene(
+                        FxmlView.COORDINADOR);
 
-        alert.setContentText(mensaje);
+            } else if (perfil == Perfil.ARTISTA) {
 
-        alert.showAndWait();
-    }
+                stageManager.switchScene(
+                        FxmlView.ARTISTA);
 
-    private void mostrarInfo(String mensaje) {
+            } else {
 
-        Alert alert =
-                new Alert(Alert.AlertType.INFORMATION);
+                stageManager.switchScene(
+                        FxmlView.ADMIN);
+            }
 
-        alert.setTitle("Información");
+        } else {
 
-        alert.setHeaderText(null);
-
-        alert.setContentText(mensaje);
-
-        alert.showAndWait();
+            stageManager.switchScene(
+                    FxmlView.ADMIN);
+        }
     }
 }

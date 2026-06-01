@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.luisdbb.tarea3AD2024base.modelo.Numero;
+import com.luisdbb.tarea3AD2024base.modelo.Coordinacion;
 import com.luisdbb.tarea3AD2024base.modelo.Espectaculo;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface NumeroRepository extends JpaRepository<Numero, Long> {
     long countByEspectaculo(Espectaculo espectaculo);
 
     List<Numero> findByEspectaculo(Espectaculo espectaculo);
+    List<Numero> findByEspectaculo_Coordinador(Coordinacion coordinador);
 }

@@ -45,6 +45,11 @@ public class CoordinadorController {
     }
     
     @FXML
+    public void borrarNumero() {
+    	stageManager.switchScene(FxmlView.BORRAR_NUMERO);
+    }
+    
+    @FXML
     public void verEspectaculos() {
         stageManager.switchScene(FxmlView.VER_ESPECTACULO);
     }
