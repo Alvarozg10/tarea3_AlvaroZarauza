@@ -12,11 +12,12 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
 @Service
 public class LogService {
-
-    private static final String RUTA_DB =
-            "ficheros/log.db4o";
+	
+	@Value("${db4o.file}") private String rutaDb;
 
     public void guardarLog(
             String usuario,
@@ -30,7 +31,7 @@ public class LogService {
         }
 
         ObjectContainer db =
-                Db4o.openFile(RUTA_DB);
+                Db4o.openFile(rutaDb);
 
         try {
 
@@ -60,7 +61,7 @@ public class LogService {
     public List<LogOperacion> obtenerTodos() {
 
         ObjectContainer db =
-                Db4o.openFile(RUTA_DB);
+                Db4o.openFile(rutaDb);
 
         try {
 
@@ -80,7 +81,7 @@ public class LogService {
             LocalDateTime fechaFin) {
 
         ObjectContainer db =
-                Db4o.openFile(RUTA_DB);
+                Db4o.openFile(rutaDb);
 
         try {
 

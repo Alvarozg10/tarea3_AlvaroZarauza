@@ -24,10 +24,13 @@ import com.luisdbb.tarea3AD2024base.modelo.Persona;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.objectdb.Incidencia;
 import com.luisdbb.tarea3AD2024base.objectdb.TipoIncidencia;
+import com.luisdbb.tarea3AD2024base.repositorios.PersonaRepository;
+import com.luisdbb.tarea3AD2024base.repositorios.objectdb.ResolucionIncidenciaRepository;
 import com.luisdbb.tarea3AD2024base.services.EspectaculoService;
 import com.luisdbb.tarea3AD2024base.services.NumeroService;
 import com.luisdbb.tarea3AD2024base.services.objectdb.IncidenciaService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
+import javafx.beans.property.SimpleStringProperty;
 
 @Controller
 public class ConsultarIncidenciasController {
@@ -79,143 +82,276 @@ public class ConsultarIncidenciasController {
 
     @FXML
     private TableColumn<Incidencia, Boolean> resueltaColumn;
+    
+    @FXML 
+    private TableColumn<Incidencia, String> usuarioReportaColumn; 
+    
+    @FXML 
+    private TableColumn<Incidencia, String> usuarioResuelveColumn; 
+    
+    @FXML 
+    private TableColumn<Incidencia, String> accionesColumn;
+    
+    @Autowired 
+    private PersonaRepository personaRepository; 
+    
+    @Autowired 
+    private ResolucionIncidenciaRepository resolucionIncidenciaRepository;
 
-    @FXML
-    public void initialize() {
+    		@FXML
+    		public void initialize() {
 
-        tipoCombo.setItems(
+    		    tipoCombo.setItems(
 
-                FXCollections.observableArrayList(
-                        TipoIncidencia.values()));
-        
-        tipoCombo.setPromptText(
-                "TODOS");
+    		            FXCollections.observableArrayList(
+    		                    TipoIncidencia.values()));
 
-        estadoCombo.setItems(
+    		    tipoCombo.setPromptText(
+    		            "TODOS");
 
-                FXCollections.observableArrayList(
+    		    estadoCombo.setItems(
 
-                        "TODAS",
+    		            FXCollections.observableArrayList(
 
-                        "RESUELTAS",
+    		                    "TODAS",
 
-                        "NO RESUELTAS"));
-        
-        estadoCombo.setValue(
-                "TODAS");
+    		                    "RESUELTAS",
 
-        espectaculoCombo.getItems().add(null);
+    		                    "NO RESUELTAS"));
 
-        espectaculoCombo.getItems().addAll(
+    		    estadoCombo.setValue(
+    		            "TODAS");
 
-                espectaculoService.obtenerTodos());
+    		    espectaculoCombo.getItems().add(null);
 
-        espectaculoCombo.setPromptText(
-                "Todos");
+    		    espectaculoCombo.getItems().addAll(
 
-        numeroCombo.getItems().add(null);
+    		            espectaculoService.obtenerTodos());
 
-        numeroCombo.getItems().addAll(
+    		    espectaculoCombo.setPromptText(
+    		            "Todos");
 
-                numeroService.obtenerTodos());
+    		    numeroCombo.getItems().add(null);
 
-        numeroCombo.setPromptText(
-                "Todos");
+    		    numeroCombo.getItems().addAll(
 
-        fechaColumn.setCellValueFactory(
+    		            numeroService.obtenerTodos());
 
-                data ->
+    		    numeroCombo.setPromptText(
+    		            "Todos");
 
-                        new javafx.beans.property.SimpleObjectProperty<>(
+    		    fechaColumn.setCellValueFactory(
 
-                                data.getValue().getFechaHora()));
+    		            data ->
 
-        fechaColumn.setCellFactory(column ->
+    		                    new javafx.beans.property.SimpleObjectProperty<>(
 
-                new TableCell<>() {
+    		                            data.getValue().getFechaHora()));
 
-                    @Override
-                    protected void updateItem(
-                            LocalDateTime fecha,
-                            boolean empty) {
+    		    fechaColumn.setCellFactory(column ->
 
-                        super.updateItem(
-                                fecha,
-                                empty);
+    		            new TableCell<>() {
 
-                        if (empty || fecha == null) {
+    		                @Override
+    		                protected void updateItem(
+    		                        LocalDateTime fecha,
+    		                        boolean empty) {
 
-                            setText(null);
+    		                    super.updateItem(
+    		                            fecha,
+    		                            empty);
 
-                        } else {
+    		                    if (empty || fecha == null) {
 
-                            setText(
+    		                        setText(null);
 
-                                    fecha.format(
+    		                    } else {
 
-                                            DateTimeFormatter.ofPattern(
-                                                    "dd/MM/yyyy HH:mm")));
-                        }
-                    }
-                });
+    		                        setText(
 
-        tipoColumn.setCellValueFactory(
+    		                                fecha.format(
 
-                data ->
+    		                                        DateTimeFormatter.ofPattern(
+    		                                                "dd/MM/yyyy HH:mm")));
+    		                    }
+    		                }
+    		            });
 
-                        new javafx.beans.property.SimpleObjectProperty<>(
+    		    tipoColumn.setCellValueFactory(
 
-                                data.getValue().getTipo()));
+    		            data ->
 
-        descripcionColumn.setCellValueFactory(
+    		                    new javafx.beans.property.SimpleObjectProperty<>(
 
-                data ->
+    		                            data.getValue().getTipo()));
 
-                        new javafx.beans.property.SimpleStringProperty(
+    		    descripcionColumn.setCellValueFactory(
 
-                                data.getValue().getDescripcion()));
+    		            data ->
 
-        resueltaColumn.setCellValueFactory(
+    		                    new javafx.beans.property.SimpleStringProperty(
 
-                data ->
+    		                            data.getValue().getDescripcion()));
 
-                        new javafx.beans.property.SimpleObjectProperty<>(
+    		    resueltaColumn.setCellValueFactory(
 
-                                data.getValue().isResuelta()));
-        
-        resueltaColumn.setCellFactory(column ->
+    		            data ->
 
-        new TableCell<>() {
+    		                    new javafx.beans.property.SimpleObjectProperty<>(
 
-            @Override
-            protected void updateItem(
-                    Boolean resuelta,
-                    boolean empty) {
+    		                            data.getValue().isResuelta()));
 
-                super.updateItem(
-                        resuelta,
-                        empty);
+    		    resueltaColumn.setCellFactory(column ->
 
-                if (empty || resuelta == null) {
+    		    new TableCell<>() {
 
-                    setText(null);
+    		        @Override
+    		        protected void updateItem(
+    		                Boolean resuelta,
+    		                boolean empty) {
 
-                } else {
+    		            super.updateItem(
+    		                    resuelta,
+    		                    empty);
 
-                    setText(
-                            resuelta ? "Sí" : "No");
-                }
-            }
-        });
+    		            if (empty || resuelta == null) {
 
-        incidenciasTable.getItems().setAll(
+    		                setText(null);
 
-                incidenciaService.obtenerTodas());
-        
-        incidenciasTable.setColumnResizePolicy(
+    		            } else {
 
-                TableView.CONSTRAINED_RESIZE_POLICY);
-    }
+    		                setText(
+    		                        resuelta ? "Sí" : "No");
+    		            }
+    		        }
+    		    });
+
+    		    usuarioReportaColumn.setCellValueFactory(data -> {
+
+    		        Long idPersona =
+    		                data.getValue()
+    		                        .getIdPersonaReporta();
+
+    		        if (idPersona == null) {
+
+    		            return new SimpleStringProperty(
+    		                    "Sin usuario");
+    		        }
+
+    		        if (idPersona == 0) {
+
+    		        	return new SimpleStringProperty(
+    		        		     "admin");
+    		        		}
+
+    		        Persona persona =
+    		                personaRepository
+    		                        .findById(idPersona)
+    		                        .orElse(null);
+
+    		        String nombre =
+
+    		                persona != null
+    		                && persona.getCredenciales() != null
+
+    		                ? persona.getCredenciales()
+    		                        .getUsername()
+
+    		                : "Desconocido";
+
+    		        return new SimpleStringProperty(
+    		                nombre);
+    		    });
+
+    		    usuarioResuelveColumn.setCellValueFactory(data -> {
+
+    		        if (!data.getValue().isResuelta()) {
+
+    		            return new SimpleStringProperty(
+    		                    "-");
+    		        }
+
+    		        var resoluciones =
+
+    		                resolucionIncidenciaRepository
+    		                        .findByIncidenciaId(
+    		                                data.getValue().getId());
+
+    		        if (resoluciones.isEmpty()) {
+
+    		            return new SimpleStringProperty(
+    		                    "-");
+    		        }
+
+    		        var resolucion =
+    		                resoluciones.get(0);
+
+    		        Long idPersona =
+    		                resolucion.getIdPersonaResuelve();
+
+    		        if (idPersona == null) {
+
+    		            return new SimpleStringProperty(
+    		                    "-");
+    		        }
+    		        
+    		        if (idPersona == 0) { 
+    		        	return new SimpleStringProperty( 
+    		        			"admin"); }
+
+    		        Persona persona =
+    		                personaRepository
+    		                        .findById(idPersona)
+    		                        .orElse(null);
+
+    		        String nombre =
+
+    		                persona != null
+    		                && persona.getCredenciales() != null
+
+    		                ? persona.getCredenciales()
+    		                        .getUsername()
+
+    		                : "Desconocido";
+
+    		        return new SimpleStringProperty(
+    		                nombre);
+    		    });
+
+    		    accionesColumn.setCellValueFactory(data -> {
+
+    		        if (!data.getValue().isResuelta()) {
+
+    		            return new SimpleStringProperty(
+    		                    "-");
+    		        }
+
+    		        var resoluciones =
+
+    		                resolucionIncidenciaRepository
+    		                        .findByIncidenciaId(
+    		                                data.getValue().getId());
+
+    		        if (resoluciones.isEmpty()) {
+
+    		            return new SimpleStringProperty(
+    		                    "-");
+    		        }
+
+    		        return new SimpleStringProperty(
+
+    		                resoluciones.get(0)
+    		                        .getAccionesRealizadas());
+    		    });
+
+    		    incidenciasTable.getItems().setAll(
+
+    		            incidenciaService.obtenerTodas());
+
+    		    incidenciasTable.setColumnResizePolicy(
+
+    		            TableView.CONSTRAINED_RESIZE_POLICY);
+    		}
 
     @FXML
     public void buscar() {

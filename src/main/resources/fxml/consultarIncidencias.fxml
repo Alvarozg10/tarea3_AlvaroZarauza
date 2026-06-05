@@ -85,6 +85,10 @@
                 <TableColumn fx:id="tipoColumn"
                              text="Tipo"
                              prefWidth="180"/>
+                             
+                <TableColumn fx:id="usuarioReportaColumn"
+                             text="Usuario reporta"
+                             prefWidth="150"/>             
 
                 <TableColumn fx:id="descripcionColumn"
                              text="Descripción"
@@ -93,6 +97,14 @@
                 <TableColumn fx:id="resueltaColumn"
                              text="Resuelta"
                              prefWidth="120"/>
+                              
+                <TableColumn fx:id="usuarioResuelveColumn"
+                             text="Usuario resuelve"
+                             prefWidth="150"/>
+                             
+                <TableColumn fx:id="accionesColumn"
+                             text="Acciones realizadas"
+                             prefWidth="250"/>                                  
 
             </columns>
 

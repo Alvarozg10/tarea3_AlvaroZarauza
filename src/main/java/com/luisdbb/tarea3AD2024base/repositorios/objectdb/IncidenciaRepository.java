@@ -109,7 +109,7 @@ public class IncidenciaRepository {
             em.close();
         }
     }
-    
+
     public List<Incidencia> buscarIncidencias(
 
             com.luisdbb.tarea3AD2024base.objectdb.TipoIncidencia tipo,
