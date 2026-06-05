@@ -86,18 +86,6 @@ public class EspectaculoService {
         Espectaculo guardado =
                 espectaculoRepository.save(esp);
 
-        logService.guardarLog(
-
-                sesion.getUsuario() != null
-                && sesion.getUsuario().getCredenciales() != null
-                ? sesion.getUsuario().getCredenciales().getUsername()
-                : "admin",
-
-                TipoOperacion.NUEVO,
-
-                "Se ha creado el Espectaculo con id "
-                        + guardado.getId());
-
         return guardado;
     }
 
@@ -247,32 +235,48 @@ public class EspectaculoService {
         return espectaculoRepository.findAll();
     }
 
-    @Transactional
-    public void guardarEspectaculoCompleto(
+    		@Transactional
+    		public void guardarEspectaculoCompleto(
 
-            Espectaculo espectaculo,
+    		        Espectaculo espectaculo,
 
-            List<Numero> numeros) {
+    		        List<Numero> numeros) {
 
-        if (numeros == null
-                || numeros.size() < 3) {
+    		    if (numeros == null
+    		            || numeros.size() < 3) {
 
-            throw new RuntimeException(
-                    "El espectáculo debe tener al menos 3 números");
-        }
+    		        throw new RuntimeException(
+    		                "El espectáculo debe tener al menos 3 números");
+    		    }
 
-        espectaculoRepository.save(
-                espectaculo);
+    		    espectaculoRepository.save(
+    		            espectaculo);
 
-        for (Numero numero : numeros) {
+    		    logService.guardarLog(
 
-            numero.setEspectaculo(
-                    espectaculo);
+    		            sesion.getUsuario() != null
+    		            && sesion.getUsuario().getCredenciales() != null
 
-            numeroRepository.save(
-                    numero);
-        }
-    }
+    		            ? sesion.getUsuario()
+    		                    .getCredenciales()
+    		                    .getUsername()
+
+    		            : "admin",
+
+    		            TipoOperacion.NUEVO,
+
+    		            "Se ha creado el Espectaculo con id "
+    		                    + espectaculo.getId());
+
+    		    for (Numero numero : numeros) {
+
+    		        numero.setEspectaculo(
+    		                espectaculo);
+
+    		        numeroRepository.save(
+    		                numero);
+    		    }
+    		}
     
     		public List<Espectaculo> obtenerPorCoordinador(
     		        Long idCoordinador) {
