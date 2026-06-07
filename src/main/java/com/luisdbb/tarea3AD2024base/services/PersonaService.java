@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.luisdbb.tarea3AD2024base.modelo.*;
 import com.luisdbb.tarea3AD2024base.modelo.db4o.TipoOperacion;
+import com.luisdbb.tarea3AD2024base.mongodb.DossierArtisticoService;
 import com.luisdbb.tarea3AD2024base.repositorios.*;
 import com.luisdbb.tarea3AD2024base.services.db4o.LogService;
 
@@ -26,6 +27,9 @@ public class PersonaService {
 
     @Autowired
     private Sesion sesion;
+    
+    @Autowired 
+    private DossierArtisticoService dossierArtisticoService;
 
     public Persona buscarPorId(Long id) {
 
@@ -158,6 +162,9 @@ public class PersonaService {
             artista.setEspecialidades(especialidades);
 
             persona = personaRepository.save(artista);
+            
+            dossierArtisticoService.crearDossier(artista);
+
         }
 
         Credenciales cred = new Credenciales();
@@ -288,6 +295,12 @@ public class PersonaService {
 
         personaRepository.save(persona);
 
+        if (persona instanceof Artista artista) {
+
+        	dossierArtisticoService.actualizarDossier(artista);
+        	
+        		}
+
         logService.guardarLog(
 
                 sesion.getUsuario() != null
@@ -301,4 +314,3 @@ public class PersonaService {
                         + persona.getId());
     }
 }
-

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.*;
 import com.luisdbb.tarea3AD2024base.services.EspectaculoService;
-import com.luisdbb.tarea3AD2024base.services.xml.XmlInformeService;
+import com.luisdbb.tarea3AD2024base.services.existdb.XmlInformeService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import java.time.LocalDate;

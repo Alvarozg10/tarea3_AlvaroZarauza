@@ -7,6 +7,7 @@ import com.luisdbb.tarea3AD2024base.modelo.*;
 import com.luisdbb.tarea3AD2024base.modelo.db4o.TipoOperacion;
 import com.luisdbb.tarea3AD2024base.repositorios.*;
 import com.luisdbb.tarea3AD2024base.services.db4o.LogService;
+import com.luisdbb.tarea3AD2024base.mongodb.DossierArtisticoService;
 
 import jakarta.transaction.Transactional;
 
@@ -30,6 +31,10 @@ public class NumeroService {
     @Autowired
     private Sesion sesion;
 
+    @Autowired
+    private DossierArtisticoService
+            dossierArtisticoService;
+
     public void crearNumero(
             String nombre,
             double duracion,
@@ -38,6 +43,7 @@ public class NumeroService {
             List<Long> artistasIds) {
 
         if (nombre == null || nombre.isBlank()) {
+
             throw new RuntimeException(
                     "El nombre es obligatorio");
         }
@@ -45,11 +51,13 @@ public class NumeroService {
         double decimal = duracion % 1;
 
         if (!(decimal == 0.0 || decimal == 0.5)) {
+
             throw new RuntimeException(
                     "Duración inválida (solo .0 o .5)");
         }
 
         if (orden < 1) {
+
             throw new RuntimeException(
                     "El orden debe ser mayor o igual a 1");
         }
@@ -60,6 +68,7 @@ public class NumeroService {
                         .orElse(null);
 
         if (esp == null) {
+
             throw new RuntimeException(
                     "El espectáculo no existe");
         }
@@ -83,7 +92,9 @@ public class NumeroService {
         List<Artista> artistas =
                 artistasIds.stream()
                         .map(id ->
+
                                 (Artista)
+
                                         personaRepository
                                                 .findById(id)
                                                 .orElse(null))
@@ -92,6 +103,7 @@ public class NumeroService {
         for (Artista a : artistas) {
 
             if (a == null) {
+
                 throw new RuntimeException(
                         "Artista no válido");
             }
@@ -107,11 +119,22 @@ public class NumeroService {
 
         numeroRepository.save(numero);
 
+        for (Artista artista : artistas) {
+
+            dossierArtisticoService
+                    .actualizarTrayectoria(
+                            artista);
+        }
+
         logService.guardarLog(
 
                 sesion.getUsuario() != null
                 && sesion.getUsuario().getCredenciales() != null
-                ? sesion.getUsuario().getCredenciales().getUsername()
+
+                ? sesion.getUsuario()
+                        .getCredenciales()
+                        .getUsername()
+
                 : "admin",
 
                 TipoOperacion.NUEVO,
@@ -133,11 +156,13 @@ public class NumeroService {
                         .orElse(null);
 
         if (numero == null) {
+
             throw new RuntimeException(
                     "El número no existe");
         }
 
         if (nombre == null || nombre.isBlank()) {
+
             throw new RuntimeException(
                     "El nombre es obligatorio");
         }
@@ -145,11 +170,13 @@ public class NumeroService {
         double decimal = duracion % 1;
 
         if (!(decimal == 0.0 || decimal == 0.5)) {
+
             throw new RuntimeException(
                     "Duración inválida (solo .0 o .5)");
         }
 
         if (orden < 1) {
+
             throw new RuntimeException(
                     "Orden inválido");
         }
@@ -175,7 +202,9 @@ public class NumeroService {
         List<Artista> artistas =
                 artistasIds.stream()
                         .map(idArt ->
+
                                 (Artista)
+
                                         personaRepository
                                                 .findById(idArt)
                                                 .orElse(null))
@@ -184,6 +213,7 @@ public class NumeroService {
         for (Artista a : artistas) {
 
             if (a == null) {
+
                 throw new RuntimeException(
                         "Artista no válido");
             }
@@ -196,11 +226,22 @@ public class NumeroService {
 
         numeroRepository.save(numero);
 
+        for (Artista artista : artistas) {
+
+            dossierArtisticoService
+                    .actualizarTrayectoria(
+                            artista);
+        }
+
         logService.guardarLog(
 
                 sesion.getUsuario() != null
                 && sesion.getUsuario().getCredenciales() != null
-                ? sesion.getUsuario().getCredenciales().getUsername()
+
+                ? sesion.getUsuario()
+                        .getCredenciales()
+                        .getUsername()
+
                 : "admin",
 
                 TipoOperacion.ACTUALIZACION,
@@ -243,7 +284,11 @@ public class NumeroService {
 
                 sesion.getUsuario() != null
                 && sesion.getUsuario().getCredenciales() != null
-                ? sesion.getUsuario().getCredenciales().getUsername()
+
+                ? sesion.getUsuario()
+                        .getCredenciales()
+                        .getUsername()
+
                 : "admin",
 
                 TipoOperacion.BORRADO,
@@ -261,7 +306,9 @@ public class NumeroService {
                         .orElse(null);
 
         if (num != null) {
-            num.getArtistas().size();
+
+            num.getArtistas()
+                    .size();
         }
 
         return num;
@@ -277,7 +324,9 @@ public class NumeroService {
                         .orElse(null);
 
         if (esp != null) {
-            esp.getNumeros().size();
+
+            esp.getNumeros()
+                    .size();
         }
 
         return esp;
@@ -293,33 +342,34 @@ public class NumeroService {
                         .orElse(null);
 
         if (esp == null) {
+
             return false;
         }
 
-        return esp.getNumeros().size() >= 3;
+        return esp.getNumeros()
+                .size() >= 3;
     }
 
     public List<Numero> obtenerTodos() {
 
         return numeroRepository.findAll();
     }
-    
-    		public List<Numero> obtenerPorCoordinador(
-    		        Long idCoordinador) {
 
-    		    Persona persona =
-    		            personaRepository
-    		                    .findById(idCoordinador)
-    		                    .orElse(null);
+    public List<Numero> obtenerPorCoordinador(
+            Long idCoordinador) {
 
-    		    if (!(persona instanceof Coordinacion coord)) {
+        Persona persona =
+                personaRepository
+                        .findById(idCoordinador)
+                        .orElse(null);
 
-    		        return List.of();
-    		    }
+        if (!(persona instanceof Coordinacion coord)) {
 
-    		    return numeroRepository
-    		            .findByEspectaculo_Coordinador(
-    		                    coord);
-    		}
+            return List.of();
+        }
 
+        return numeroRepository
+                .findByEspectaculo_Coordinador(
+                        coord);
+    }
 }

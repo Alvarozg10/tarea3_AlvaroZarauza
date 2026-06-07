@@ -6,12 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.luisdbb.tarea3AD2024base.modelo.Artista;
 import com.luisdbb.tarea3AD2024base.modelo.Coordinacion;
 import com.luisdbb.tarea3AD2024base.modelo.Espectaculo;
 import com.luisdbb.tarea3AD2024base.modelo.Numero;
 import com.luisdbb.tarea3AD2024base.modelo.Persona;
 import com.luisdbb.tarea3AD2024base.modelo.Sesion;
 import com.luisdbb.tarea3AD2024base.modelo.db4o.TipoOperacion;
+import com.luisdbb.tarea3AD2024base.mongodb.DossierArtisticoService;
 import com.luisdbb.tarea3AD2024base.repositorios.EspectaculoRepository;
 import com.luisdbb.tarea3AD2024base.repositorios.NumeroRepository;
 import com.luisdbb.tarea3AD2024base.repositorios.PersonaRepository;
@@ -36,6 +38,9 @@ public class EspectaculoService {
 
     @Autowired
     private Sesion sesion;
+    
+    @Autowired 
+    private DossierArtisticoService dossierArtisticoService;
 
     public Espectaculo crearEspectaculo(
             String nombre,
@@ -275,6 +280,10 @@ public class EspectaculoService {
 
     		        numeroRepository.save(
     		                numero);
+    		        
+    		        for (Artista artista : numero.getArtistas()) { 
+    		        	dossierArtisticoService.actualizarTrayectoria(artista); 
+    		        	}
     		    }
     		}
     

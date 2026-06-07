@@ -93,6 +93,7 @@
 		    <version>2.2</version>
 		</dependency>
 		
+		<!-- EXISTDB -->
 		<dependency> 
 			<groupId>org.exist-db</groupId> 
 			<artifactId>exist-core</artifactId> 
@@ -104,6 +105,12 @@
 			</exclusion> 
 			
 			</exclusions> 
+		</dependency>
+		
+		<!-- MONGODB -->
+		<dependency> 
+			<groupId>org.springframework.boot</groupId> 
+			<artifactId>spring-boot-starter-data-mongodb</artifactId> 
 		</dependency>
 
     </dependencies>

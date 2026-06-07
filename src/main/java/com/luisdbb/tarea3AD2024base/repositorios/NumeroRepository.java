@@ -17,4 +17,5 @@ public interface NumeroRepository extends JpaRepository<Numero, Long> {
 
     List<Numero> findByEspectaculo(Espectaculo espectaculo);
     List<Numero> findByEspectaculo_Coordinador(Coordinacion coordinador);
+    List<Numero> findByArtistas_Id( Long idArtista);
 }

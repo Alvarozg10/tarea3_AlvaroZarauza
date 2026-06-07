@@ -22,7 +22,8 @@ public enum FxmlView {
     CONSULTAR_LOGS("/fxml/consultarLogs.fxml"),
     REGISTRAR_INCIDENCIA("/fxml/registrarIncidencia.fxml"),
     RESOLVER_INCIDENCIA("/fxml/resolverIncidencia.fxml"),
-    CONSULTAR_INCIDENCIAS("/fxml/consultarIncidencias.fxml");
+    CONSULTAR_INCIDENCIAS("/fxml/consultarIncidencias.fxml"),
+    GESTIONAR_DOSSIER( "/fxml/GestionarDossier.fxml");
 
     private final String fxml;
 

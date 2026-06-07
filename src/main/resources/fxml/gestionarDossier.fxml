@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15"
+      alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.luisdbb.tarea3AD2024base.mongodb.GestionarDossierController"
+      stylesheets="@/styles/Styles.css">
+
+    <padding>
+        <Insets top="20"
+                right="20"
+                bottom="20"
+                left="20"/>
+    </padding>
+
+    <Label text="Gestionar Dossier Artístico"
+           styleClass="title"/>
+
+    <ComboBox fx:id="artistaCombo"
+              prefWidth="400"/>
+
+	<TableView fx:id="tablaEvaluaciones"
+	           prefHeight="200"
+	           prefWidth="700">
+	
+	    <columns>
+	
+	        <TableColumn fx:id="colFechaEval"
+	                     text="Fecha"/>
+	
+	        <TableColumn fx:id="colNivelEval"
+	                     text="Nivel"/>
+	
+	        <TableColumn fx:id="colComentarioEval"
+	                     text="Comentario"/>
+	
+	        <TableColumn fx:id="colRolEval"
+	                     text="Rol"/>
+	
+	    </columns>
+	
+	</TableView>
+	
+	<TableView fx:id="tablaObservaciones"
+	           prefHeight="200"
+	           prefWidth="700">
+
+    <columns>
+
+        <TableColumn fx:id="colFechaObs"
+                     text="Fecha"/>
+
+        <TableColumn fx:id="colAutorObs"
+                     text="Autor"/>
+
+        <TableColumn fx:id="colTextoObs"
+                     text="Texto"/>
+
+    </columns>
+
+</TableView>
+
+    <Separator/>
+
+    <Label text="Añadir evaluación"/>
+	    
+	<ComboBox fx:id="nivelCombo"
+	          promptText="Nivel"/>
+
+    <TextArea fx:id="comentarioEvaluacionArea"
+              promptText="Comentario evaluación"
+              prefHeight="80"/>
+
+    <Button text="Añadir evaluación"
+            onAction="#agregarEvaluacion"
+            styleClass="button btn-admin"/>
+
+    <Separator/>
+
+    <Label text="Añadir observación"/>
+
+    <TextArea fx:id="observacionArea"
+              promptText="Observación"
+              prefHeight="80"/>
+
+    <Button text="Añadir observación"
+            onAction="#agregarObservacion"
+            styleClass="button btn-coord"/>
+
+    <Button text="Volver"
+            onAction="#volver"
+            styleClass="button btn-invitado"/>
+
+</VBox>

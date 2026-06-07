@@ -92,6 +92,12 @@ public class AdminController {
                 FxmlView.CONSULTAR_LOGS);
     }
     
+    @FXML public void abrirGestionDossier() { 
+    	
+    	stageManager.switchScene( 
+    			FxmlView.GESTIONAR_DOSSIER); 
+    }
+    
     @FXML
     public void cerrarSesion() {
 

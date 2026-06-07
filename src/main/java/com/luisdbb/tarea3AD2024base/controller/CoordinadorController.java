@@ -75,6 +75,12 @@ public class CoordinadorController {
                 FxmlView.CONSULTAR_INCIDENCIAS);
     }
     
+    @FXML public void abrirGestionDossier() { 
+    	
+    	stageManager.switchScene( 
+    			FxmlView.GESTIONAR_DOSSIER); 
+    }
+    
     @FXML
     public void cerrarSesion() {
 

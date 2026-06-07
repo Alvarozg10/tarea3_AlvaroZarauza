@@ -73,6 +73,12 @@
                     styleClass="button btn-invitado"
                     prefWidth="200"
                     GridPane.rowIndex="4" GridPane.columnIndex="0"/>  
+                    
+            <Button text="Gestionar Dossiers"
+                    onAction="#abrirGestionDossier"
+                    styleClass="button btn-invitado"
+                    prefWidth="200"
+                    GridPane.rowIndex="4" GridPane.columnIndex="1"/> 
 
         </GridPane>
 

@@ -90,8 +90,14 @@
                     onAction="#abrirConsultarIncidencias"
                     styleClass="button btn-invitado"
                     prefWidth="200"
-                    GridPane.rowIndex="5" GridPane.columnIndex="1"/>  
-
+                    GridPane.rowIndex="5" GridPane.columnIndex="1"/> 
+                    
+            <Button text="Gestionar Dossiers"
+                    onAction="#abrirGestionDossier"
+                    styleClass="button btn-invitado"
+                    prefWidth="200"
+                    GridPane.rowIndex="6" GridPane.columnIndex="0"/> 
+                 
         </GridPane>
 
         <Button text="Cerrar sesión"
