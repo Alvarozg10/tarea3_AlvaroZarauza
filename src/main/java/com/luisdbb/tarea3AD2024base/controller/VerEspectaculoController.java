@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.luisdbb.tarea3AD2024base.config.StageManager;
 import com.luisdbb.tarea3AD2024base.modelo.*;
 import com.luisdbb.tarea3AD2024base.services.EspectaculoService;
+import com.luisdbb.tarea3AD2024base.services.xml.XmlInformeService;
 import com.luisdbb.tarea3AD2024base.view.FxmlView;
 
 import java.time.LocalDate;
@@ -43,6 +44,9 @@ public class VerEspectaculoController {
 
     @Autowired
     private Sesion sesion;
+    
+    @Autowired 
+    private XmlInformeService xmlInformeService;
 
     @FXML
     public void initialize() {
@@ -89,6 +93,63 @@ public class VerEspectaculoController {
         tablaNumeros.setPlaceholder(new Label("No hay números"));
         tablaArtistas.setPlaceholder(new Label("No hay artistas"));
     }
+
+    		@FXML
+    		public void exportarXML() {
+
+    		    try {
+
+    		    	Espectaculo seleccionado =
+
+    		    	        tablaEspectaculos
+    		    	                .getSelectionModel()
+    		    	                .getSelectedItem();
+
+    		    	if (seleccionado == null) {
+
+    		    	    throw new RuntimeException(
+    		    	            "Selecciona un espectáculo");
+    		    	}
+
+    		    	xmlInformeService
+    		    	        .generarInformeEspectaculo(
+    		    	                seleccionado.getId());
+
+    		        Alert alert =
+    		                new Alert(
+    		                        Alert.AlertType.INFORMATION);
+
+    		        alert.setTitle(
+    		                "XML");
+
+    		        alert.setHeaderText(
+    		                null);
+
+    		        alert.setContentText(
+    		                "XML exportado correctamente");
+
+    		        alert.showAndWait();
+
+    		    } catch (Exception e) {
+
+    		        Alert alert =
+    		                new Alert(
+    		                        Alert.AlertType.ERROR);
+
+    		        alert.setTitle(
+    		                "Error");
+
+    		        alert.setHeaderText(
+    		                null);
+
+    		        alert.setContentText(
+    		                e.getMessage());
+
+    		        alert.showAndWait();
+
+    		        e.printStackTrace();
+    		    }
+    		}
     
     	@FXML
     	public void volver() {

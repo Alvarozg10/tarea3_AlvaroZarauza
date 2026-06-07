@@ -42,6 +42,11 @@
                 <TableColumn fx:id="colArtApodo" text="Apodo"/>
             </columns>
         </TableView>
+        
+        <Button text="Exportar XML" 
+        		onAction="#exportarXML" 
+        		styleClass="button btn-admin" 
+        		prefWidth="160"/>
 
         <Button text="Volver"
                 onAction="#volver"
